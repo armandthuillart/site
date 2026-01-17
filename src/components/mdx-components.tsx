@@ -1,4 +1,4 @@
-import { DynamicLink, type DynamicLinkProps } from "fumadocs-core/dynamic-link";
+import { Link } from "@tanstack/react-router";
 import type { MDXComponents } from "mdx/types";
 import type { ComponentProps } from "react";
 import { CollapsibleVideos } from "@/components/collapsible-videos";
@@ -9,17 +9,26 @@ import { cn } from "@/lib/utils";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
 	return {
-		a: ({ href, ...props }: DynamicLinkProps) => {
+		a: ({ href, ...props }: ComponentProps<"a">) => {
 			const isExternal = href?.toString().startsWith("http");
-			const finalTarget = isExternal ? "_blank" : undefined;
-			return (
-				<DynamicLink
-					className="inline cursor-pointer align-baseline underline decoration-1 decoration-muted-foreground underline-offset-3 hover:text-foreground/80"
-					href={href}
-					target={finalTarget}
-					{...props}
-				/>
-			);
+			const isHashLink = href?.toString().startsWith("#");
+
+			const className =
+				"inline cursor-pointer scroll-mt-5 align-baseline underline decoration-1 decoration-muted-foreground underline-offset-3 hover:text-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+			if (isExternal || isHashLink) {
+				return (
+					<a
+						className={className}
+						href={href}
+						rel={isExternal ? "noopener noreferrer" : undefined}
+						target={isExternal ? "_blank" : undefined}
+						{...props}
+					/>
+				);
+			}
+
+			return <Link className={className} to={href as "/$"} {...props} />;
 		},
 		blockquote: ({ className, ...props }: ComponentProps<"blockquote">) => (
 			<blockquote

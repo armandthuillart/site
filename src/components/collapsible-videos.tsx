@@ -9,7 +9,7 @@ type CollapsibleVideosProps = {
 export function CollapsibleVideos({ title, videos }: CollapsibleVideosProps) {
 	return (
 		<details className="my-4">
-			<summary className="my-4 mb-2 cursor-pointer text-muted-foreground text-sm">
+			<summary className="my-4 mb-2 cursor-pointer text-muted-foreground text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
 				{title}
 			</summary>
 

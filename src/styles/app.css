@@ -5,36 +5,32 @@
 @custom-variant dark (&:is(.dark, .dark *));
 
 @theme inline {
-	--font-sans: "STIX Two Text Variable", sans-serif;
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--color-muted: var(--muted);
 	--color-muted-foreground: var(--muted-foreground);
-	--color-tertiary: var(--tertiary);
-	--color-tertiary-foreground: var(--tertiary-foreground);
 	--color-border: var(--border);
+	--color-ring: var(--ring);
+
 	--text-lg: 1.0625rem;
-	--text-lg--line-height: 1.59375rem;
+	--text-lg--line-height: 1.5;
+
+	--font-sans: "STIX Two Text Variable", sans-serif;
 }
 
 :root {
 	--background: oklch(100% 0 0);
 	--foreground: oklch(0% 0 0 / 90%);
-	--muted: oklch(98.5% 0 0);
 	--muted-foreground: oklch(0% 0 0 / 50%);
-	--tertiary: oklch(67% 0.183 249);
-	--tertiary-foreground: oklch(100% 0 0);
 	--border: oklch(92.5% 0 0);
+	--ring: oklch(67% 0.183 249);
 }
 
 .dark {
-	--background: oklch(17.8% 0 0);
+	--background: oklch(23.5% 0 0);
 	--foreground: oklch(100% 0 0);
-	--muted: oklch(23.5% 0 0);
 	--muted-foreground: oklch(100% 0 0 / 70%);
-	--tertiary: oklch(62.7% 0.17 249);
-	--tertiary-foreground: oklch(100% 0 0);
-	--border: oklch(29.3% 0 0);
+	--border: oklch(38.7% 0 0);
+	--ring: oklch(62.7% 0.17 249);
 }
 
 .footnotes {
