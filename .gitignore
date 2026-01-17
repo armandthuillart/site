@@ -32,3 +32,4 @@ bun.lock
 
 # Fumadocs
 .source
+.env*.local
