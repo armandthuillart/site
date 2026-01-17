@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { getMDXComponents } from "@/components/mdx-components";
 import { source } from "@/lib/source";
 
+// biome-ignore assist/source/useSortedKeys: loader has to be first
 export const Route = createFileRoute("/$")({
 	component: Page,
 	loader: async ({ params }) => {
@@ -14,6 +15,13 @@ export const Route = createFileRoute("/$")({
 		await clientLoader.preload(data.path);
 		return data;
 	},
+	head: ({ loaderData }) => ({
+		meta: [
+			{
+				title: loaderData?.title,
+			},
+		],
+	}),
 });
 
 const serverLoader = createServerFn({
@@ -27,6 +35,7 @@ const serverLoader = createServerFn({
 		return {
 			pageTree: await source.serializePageTree(source.getPageTree()),
 			path: page.path,
+			title: page.data.title,
 		};
 	});
 
