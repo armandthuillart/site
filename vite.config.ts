@@ -11,7 +11,16 @@ export default defineConfig({
 		mdx(await import("./source.config")),
 		tailwindcss(),
 		tsconfigPaths(),
-		tanstackStart(),
+		tanstackStart({
+			prerender: {
+				crawlLinks: true,
+				enabled: true,
+			},
+			sitemap: {
+				enabled: true,
+				host: "https://armandthuillart.com",
+			},
+		}),
 		nitro(),
 		react(),
 	],
