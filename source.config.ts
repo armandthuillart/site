@@ -1,5 +1,7 @@
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
 import type { Element, Root, Text } from "hast";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 
 function isElement(node: Element | Root | { type: string }): node is Element {
 	return node.type === "element";
@@ -60,7 +62,12 @@ export const docs = defineDocs({
 
 export default defineConfig({
 	mdxOptions: {
-		rehypePlugins: [customizeFootnoteIds],
+		rehypePlugins: (currentPlugins) => [
+			...currentPlugins,
+			rehypeKatex,
+			customizeFootnoteIds,
+		],
+		remarkPlugins: [remarkMath],
 		remarkRehypeOptions: {
 			clobberPrefix: "",
 			footnoteBackContent(

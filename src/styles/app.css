@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "katex/dist/katex.min.css";
 
 @import "@fontsource-variable/stix-two-text";
 
@@ -35,4 +36,8 @@
 
 .footnotes {
 	@apply mt-8 border-t border-border pt-4 text-muted-foreground;
+}
+
+.katex {
+	@apply [font-size:inherit];
 }
