@@ -41,7 +41,7 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 
 	return (
 		<Dialog.Portal>
-			<Dialog.Backdrop className="fixed inset-0 h-dvh bg-radial from-black/90 to-black/95 backdrop-blur-xs supports-[-webkit-touch-callout:none]:absolute" />
+			<Dialog.Backdrop className="fixed inset-0 z-40 h-dvh bg-radial from-black/90 to-black/95 backdrop-blur-[2px]" />
 
 			<div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:px-24">
 				<Dialog.Popup
