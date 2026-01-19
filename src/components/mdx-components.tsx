@@ -9,14 +9,14 @@ import { cn } from "@/lib/utils";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
 	return {
-		a: ({ href, ...props }: ComponentProps<"a">) => {
+		a: ({ children, href, ...props }: ComponentProps<"a">) => {
 			const isExternal = href?.toString().startsWith("http");
 			const isHashLink = href?.toString().startsWith("#");
 
 			const className =
-				"inline cursor-pointer scroll-mt-5 align-baseline underline decoration-1 decoration-muted-foreground underline-offset-3 hover:text-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+				"cursor-pointer scroll-mt-5 align-baseline underline decoration-1 decoration-primary underline-offset-3 text-primary hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-			if (isExternal || isHashLink) {
+			if (isExternal) {
 				return (
 					<a
 						className={className}
@@ -24,11 +24,45 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 						rel={isExternal ? "noopener noreferrer" : undefined}
 						target={isExternal ? "_blank" : undefined}
 						{...props}
-					/>
+					>
+						{children}
+
+						{isExternal && (
+							<svg
+								aria-hidden="true"
+								className="inline size-4 align-middle"
+								fill="currentColor"
+								height="24"
+								viewBox="0 0 256 256"
+								width="24"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
+							</svg>
+						)}
+					</a>
 				);
 			}
 
-			return <Link className={className} to={href as "/$"} {...props} />;
+			if (isHashLink) {
+				return (
+					<a
+						className={className}
+						href={href}
+						rel={isExternal ? "noopener noreferrer" : undefined}
+						target={isExternal ? "_blank" : undefined}
+						{...props}
+					>
+						{children}
+					</a>
+				);
+			}
+
+			return (
+				<Link className={className} to={href as "/$"} {...props}>
+					{children}
+				</Link>
+			);
 		},
 		blockquote: ({ className, ...props }: ComponentProps<"blockquote">) => (
 			<blockquote

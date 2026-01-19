@@ -8,6 +8,7 @@
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+	--color-primary: var(--primary);
 	--color-muted-foreground: var(--muted-foreground);
 	--color-border: var(--border);
 	--color-ring: var(--ring);
@@ -21,6 +22,7 @@
 :root {
 	--background: oklch(100% 0 0);
 	--foreground: oklch(0% 0 0 / 90%);
+	--primary: oklch(52.9% 0.178 256);
 	--muted-foreground: oklch(0% 0 0 / 50%);
 	--border: oklch(92.5% 0 0);
 	--ring: oklch(67% 0.183 249);
@@ -29,6 +31,7 @@
 .dark {
 	--background: oklch(23.5% 0 0);
 	--foreground: oklch(100% 0 0);
+	--primary: oklch(79.3% 0.104 241);
 	--muted-foreground: oklch(100% 0 0 / 70%);
 	--border: oklch(38.7% 0 0);
 	--ring: oklch(62.7% 0.17 249);
