@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import type { MDXComponents } from "mdx/types";
 import type { ComponentProps } from "react";
 import { CollapsibleVideos } from "@/components/collapsible-videos";
 import { ImageGallery } from "@/components/image-gallery";
@@ -7,14 +6,14 @@ import { TopArtists } from "@/components/top-artists";
 import { TopTracks } from "@/components/top-tracks";
 import { cn } from "@/lib/utils";
 
-export function getMDXComponents(components?: MDXComponents): MDXComponents {
+export function getMDXComponents() {
 	return {
 		a: ({ children, href, ...props }: ComponentProps<"a">) => {
 			const isExternal = href?.toString().startsWith("http");
 			const isHashLink = href?.toString().startsWith("#");
 
 			const className =
-				"cursor-pointer scroll-mt-5 align-baseline underline decoration-1 decoration-primary underline-offset-3 text-primary hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+				"cursor-pointer scroll-mt-5 align-baseline text-primary underline decoration-1 underline-offset-[2.5px] hover:decoration-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 			if (isExternal) {
 				return (
@@ -59,7 +58,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 			}
 
 			return (
-				<Link className={className} to={href as "/$"} {...props}>
+				<Link className={className} to={href} {...props}>
 					{children}
 				</Link>
 			);
@@ -104,6 +103,5 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 		ul: (props: ComponentProps<"ul">) => (
 			<ul className="space-y-1 pl-4 [&>li]:list-[square]" {...props} />
 		),
-		...components,
 	};
 }

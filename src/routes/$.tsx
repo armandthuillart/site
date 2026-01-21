@@ -16,11 +16,7 @@ export const Route = createFileRoute("/$")({
 		return data;
 	},
 	head: ({ loaderData }) => ({
-		meta: [
-			{
-				title: loaderData?.title,
-			},
-		],
+		meta: [{ title: loaderData?.title }],
 	}),
 });
 
@@ -33,7 +29,6 @@ const serverLoader = createServerFn({
 		if (!page) throw notFound();
 
 		return {
-			pageTree: await source.serializePageTree(source.getPageTree()),
 			path: page.path,
 			title: page.data.title,
 		};
