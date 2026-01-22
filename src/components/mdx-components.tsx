@@ -9,57 +9,44 @@ import { cn } from "@/lib/utils";
 export function getMDXComponents() {
 	return {
 		a: ({ children, href, ...props }: ComponentProps<"a">) => {
-			const isExternal = href?.toString().startsWith("http");
-			const isHashLink = href?.toString().startsWith("#");
+			const hrefString = href?.toString() ?? "";
+			const isExternal = hrefString.startsWith("http");
+			const isHashLink = hrefString.startsWith("#");
 
 			const className =
 				"cursor-pointer scroll-mt-5 align-baseline text-primary underline decoration-1 underline-offset-[2.5px] hover:decoration-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-			if (isExternal) {
-				return (
-					<a
-						className={className}
-						href={href}
-						rel={isExternal ? "noopener noreferrer" : undefined}
-						target={isExternal ? "_blank" : undefined}
-						{...props}
-					>
-						{children}
-
-						{isExternal && (
-							<svg
-								aria-hidden="true"
-								className="inline size-4 align-middle"
-								fill="currentColor"
-								height="24"
-								viewBox="0 0 256 256"
-								width="24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
-							</svg>
-						)}
-					</a>
-				);
-			}
-
 			if (isHashLink) {
 				return (
-					<a
-						className={className}
-						href={href}
-						rel={isExternal ? "noopener noreferrer" : undefined}
-						target={isExternal ? "_blank" : undefined}
-						{...props}
-					>
+					<Link className={className} to={hrefString} {...props}>
 						{children}
-					</a>
+					</Link>
 				);
 			}
 
 			return (
-				<Link className={className} to={href} {...props}>
+				<Link
+					className={className}
+					rel={isExternal ? "noopener noreferrer" : undefined}
+					target={isExternal ? "_blank" : undefined}
+					to={hrefString}
+					{...props}
+				>
 					{children}
+
+					{isExternal && (
+						<svg
+							aria-hidden="true"
+							className="inline size-4 align-middle"
+							fill="currentColor"
+							height="24"
+							viewBox="0 0 256 256"
+							width="24"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
+						</svg>
+					)}
 				</Link>
 			);
 		},
