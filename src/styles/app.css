@@ -44,3 +44,7 @@
 .katex {
 	@apply [font-size:inherit];
 }
+
+.code {
+	@apply rounded-sm bg-border px-1.5 py-1 font-mono font-semibold text-sm/3.5;
+}

@@ -1,13 +1,13 @@
 {
 	"dependencies": {
 		"@base-ui/react": "^1.1.0",
-		"@tanstack/react-router": "1.156.0",
-		"@tanstack/react-start": "1.156.0",
+		"@tanstack/react-router": "1.157.9",
+		"@tanstack/react-start": "1.157.9",
 		"@unpic/react": "^1.0.2",
 		"clsx": "^2.1.1",
 		"fumadocs-core": "^16.4.8",
 		"fumadocs-mdx": "^14.2.6",
-		"nitro": "npm:nitro-nightly@3.0.1-20260123-195236-c6b834cd",
+		"nitro": "npm:nitro-nightly@3.0.1-20260124-165031-9c6abf17",
 		"react": "^19.2.3",
 		"react-dom": "^19.2.3",
 		"rehype-katex": "^7.0.1",
