@@ -1,9 +1,9 @@
 ---
-title: Stack | Armand Thuillart
+title: My Stack | Armand Thuillart
 description: Designer and developer.
 ---
 
-# Stack
+# My Stack
 
 <p className="text-muted-foreground">December 2025 - Armand Thuillart</p>
 
@@ -11,13 +11,21 @@ Here’s where I’m currently most productive:
 
 ## 1. Frontend (TanStack and React)
 
-I’ve tried [Nuxt](https://nuxt.com/) (disliked [Vue 3](https://vuejs.org/)), [Remix](https://remix.run) (was tired to wait for v3), [SvelteKit](https://kit.svelte.dev/) (felt limited early), and [Next.js](https://nextjs.org/) because of community (and [Vercel](https://vercel.com/home)), but disliked the push of [RSC](https://react.dev/reference/rsc/server-components) (which is still [experimental](https://react.dev/blog/2025/12/03/critical-security-vulnerability-in-react-server-components)). So I switched to [TanStack Start](https://tanstack.com/start/), and can’t be happier.
+I’ve started with [Next.js](https://nextjs.org/) because of its popularity, automatic integration with [Vercel](https://vercel.com/home), and solid developer experience.
+
+As time passed, I also played a bit with [Nuxt.js](https://nuxt.com/) for fun but turned out I wasn’t a big fan of [Vue.js](https://vuejs.org/). 
+
+I then landed on [Remix](https://remix.run) and pretty much liked it to be honest. However, what’s ahead for the latter is [uncertain](https://remix.run/blog/wake-up-remix).
+
+Until one day, I realized that I didn’t need all the RSC and SSR features Next.js provides. My apps are either static with some dynamic parts, or heavily client-side rendered.
+
+Here comes [TanStack Start](https://tanstack.com/start/latest), it keeps the best parts of Remix and Next.js, while giving me full control over the architecture.
 
 ## 2. Styling (Tailwind CSS and shadcn/ui)
 
 Building flexible, accessible components is difficult. You either use (and extend) a component library, or build your own. This is why I now use [shadcn/ui](https://ui.shadcn.com/).
 
-It provides well-designed and extensible components, built on top of [accessible, unstyled primitives](https://base-ui.com/). This includes basics like buttons and inputs, but also icons, charts, and even custom themes.
+It provides well-designed and extensible components, built on top of accessible, unstyled primitives like [Base UI](https://base-ui.com/). This includes basics like buttons and inputs, but also icons, charts, and even custom themes.
 
 Components are styled with [Tailwind CSS](https://tailwindcss.com/), the most AI-friendly CSS library. Why? This makes generating and editing code with AI tools much easier.
 
@@ -27,16 +35,18 @@ Assuming you only write Tailwind code, your bundle will never be larger than the
 
 ## 3. Backend (Convex)
 
-Convex is my go-to backend. Convex makes working with databases easy, fast and fun. I can view and modify my data via their dashboard and integrate complex features like crons, workflow, and workpool with just a few lines of code using their [components](https://convex.dev/components).
+Convex is the best, you type something and it just works. They have production-ready [components](https://convex.dev/components) like crons, workflow, and many other addons that are exhausting features to develop or maintain.
 
-The best part? Convex works perfectly with TypeScript.
+The best part? Convex is entirely typed, which is heaven to for a [TypeScript](https://www.typescriptlang.org/) lover like me.
 
-## 4. AI (Warp and Cursor)
+## 4. AI (Cursor, OpenCode, and Warp)
 
-[Cursor](https://cursor.com/home) is my go-to code editor. It helps me edit, refactor, and debug code.
+[Cursor](https://cursor.com/home) is my everyday code editor. I can ask questions, plan features, debug code, and get crazy-good code completions.
 
-It’s especially helpful for more tedious refactors, or restructuring/reformatting code. Agent has up-to-date knowledge of TanStack, React, Convex, and other web tools, so it gives me great code suggestions. 
+Thanks to [MCP](https://modelcontextprotocol.io) ([Context7](https://context7.com/)). Cursor Agent has up-to-date knowledge of Convex, React, TanStack so it’s almost accurate all time.
 
-[Warp](https://warp.dev) is my go-to terminal. It helps me version control, pull requests, and deploy to prod. 
+[OpenCode](https://opencode.ai) is great, pair it with [GitHub Copilot](https://github.com/features/copilot) subscription, helps me vibecoding features without breaking anything.
+
+[Warp](https://warp.dev) is my everyday terminal. This is great to do a lot of things system-wide, like managing packages, running scripts, or even using AI to help me with commands.
 
 AI tools aren’t perfect yet, but they’re a huge time saver.
