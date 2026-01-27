@@ -21,6 +21,10 @@ export const Route = createRootRoute({
 				href: "/favicon.ico",
 				rel: "icon",
 			},
+			{
+				href: "https://armandthuillart.com",
+				rel: "canonical",
+			},
 		],
 		meta: [
 			{
@@ -69,6 +73,18 @@ export const Route = createRootRoute({
 				content: "https://armandthuillart.com/opengraph-image.png",
 				name: "twitter:image",
 			},
+			{
+				content: "@armandthuillart",
+				name: "twitter:creator",
+			},
+			{
+				content: "@armandthuillart",
+				name: "twitter:site",
+			},
+			{
+				content: "#ffffff",
+				name: "theme-color",
+			},
 		],
 	}),
 });
@@ -84,10 +100,32 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
+	const personSchema = {
+		"@context": "https://schema.org",
+		"@type": "Person",
+		email: "armand.thuillart@proton.me",
+		image: "https://armandthuillart.com/opengraph-image.png",
+		jobTitle: "Designer and Developer",
+		name: "Armand Thuillart",
+		sameAs: [
+			"https://github.com/thuillart",
+			"https://www.youtube.com/@armand.thuillart",
+		],
+		url: "https://armandthuillart.com",
+		worksFor: {
+			"@type": "Organization",
+			name: "Neap",
+		},
+	};
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
+				<script
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+					type="application/ld+json"
+				/>
 			</head>
 			<body className="relative bg-background font-sans text-foreground antialiased">
 				<TanstackProvider>{children}</TanstackProvider>

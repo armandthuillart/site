@@ -16,7 +16,20 @@ export const Route = createFileRoute("/$")({
 		return data;
 	},
 	head: ({ loaderData }) => ({
-		meta: [{ title: loaderData?.title }],
+		links: [
+			{
+				href: `https://armandthuillart.com${loaderData?.url}`,
+				rel: "canonical",
+			},
+		],
+		meta: [
+			{ title: loaderData?.title },
+			{ content: loaderData?.description, name: "description" },
+			{ content: loaderData?.title, property: "og:title" },
+			{ content: loaderData?.description, property: "og:description" },
+			{ content: loaderData?.title, name: "twitter:title" },
+			{ content: loaderData?.description, name: "twitter:description" },
+		],
 	}),
 });
 
@@ -29,8 +42,10 @@ const serverLoader = createServerFn({
 		if (!page) throw notFound();
 
 		return {
+			description: page.data.description,
 			path: page.path,
 			title: page.data.title,
+			url: page.url,
 		};
 	});
 
@@ -41,15 +56,35 @@ const clientLoader = browserCollections.docs.createClientLoader({
 });
 
 function Page() {
-	const data = useFumadocsLoader(Route.useLoaderData());
+	const loaderData = Route.useLoaderData();
+	const data = useFumadocsLoader(loaderData);
+
+	const articleSchema = {
+		"@context": "https://schema.org",
+		"@type": "Article",
+		author: {
+			"@type": "Person",
+			name: "Armand Thuillart",
+			url: "https://armandthuillart.com",
+		},
+		description: loaderData.description,
+		headline: loaderData.title,
+		url: `https://armandthuillart.com${loaderData.url}`,
+	};
 
 	return (
-		<div className="px-8">
-			<div className="mx-auto max-w-xl">
-				<div className="py-16 lg:pt-32">
-					<Suspense>{clientLoader.useContent(data.path)}</Suspense>
-				</div>
-			</div>
-		</div>
+		<>
+			<script
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+				type="application/ld+json"
+			/>
+			<main className="px-8">
+				<article className="mx-auto max-w-xl">
+					<div className="py-16 lg:pt-32">
+						<Suspense>{clientLoader.useContent(data.path)}</Suspense>
+					</div>
+				</article>
+			</main>
+		</>
 	);
 }

@@ -40,6 +40,9 @@
 						"functions": ["cn", "cva"]
 					}
 				}
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
 			}
 		}
 	},
