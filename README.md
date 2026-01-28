@@ -18,7 +18,7 @@ Open http://localhost:3000 with your browser to see the result.
 
 You can start editing the page by modifying `content/docs/index.tsx`. The page auto-updates as you edit the file.
 
-This project uses [fumadocs](https://www.fumadocs.dev/), a documentation framework, to power and render its `MDX` pages.
+This project uses [Fumadocs](https://www.fumadocs.dev/), a documentation framework, to power and render its `MDX` pages.
 
 ## Open Source
 
