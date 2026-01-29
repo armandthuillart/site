@@ -12,11 +12,9 @@
 	--color-muted-foreground: var(--muted-foreground);
 	--color-border: var(--border);
 	--color-ring: var(--ring);
-
+	--font-sans: "STIX Two Text Variable", sans-serif;
 	--text-lg: 1.0625rem;
 	--text-lg--line-height: 1.5;
-
-	--font-sans: "STIX Two Text Variable", sans-serif;
 }
 
 :root {
