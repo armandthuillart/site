@@ -5,48 +5,48 @@ description: Designer and developer.
 
 # My Stack
 
-<p className="text-muted-foreground">December 2025 - Armand Thuillart</p>
+<p className="text-muted-foreground">January 2026 - Armand Thuillart</p>
 
 Here’s where I’m currently most productive:
 
 ## 1. Frontend (TanStack and React)
 
-I’ve started with [Next.js](https://nextjs.org/) because of its popularity, automatic integration with [Vercel](https://vercel.com/home), and solid developer experience.
+I started with [Next.js](https://nextjs.org/). It’s popular and works well with [Vercel](https://vercel.com/home) (*obviously*). I tried [Nuxt.js](https://nuxt.com/) but building on top of [Vue.js](https://vuejs.org/) wasn’t really my thing. 
 
-As time passed, I also played a bit with [Nuxt.js](https://nuxt.com/) for fun but turned out I wasn’t a big fan of [Vue.js](https://vuejs.org/). 
+I then discovered [Remix](https://remix.run) and stuck with it for a while. It’s simple, scales well, and has a great mental model. Sadly, what’s ahead is [uncertain](https://remix.run/blog/wake-up-remix).
 
-I then landed on [Remix](https://remix.run) and pretty much liked it to be honest. However, what’s ahead for the latter is [uncertain](https://remix.run/blog/wake-up-remix).
+But I was building client-side first apps. So Next.js, even though I loved it, wasn’t the best fit for me as I wasn’t using all the features it provides ([RSC](https://nextjs.org/docs/app/guides/prefetching#partial-prerendering-ppr), [SSR](https://nextjs.org/docs/app/getting-started/linking-and-navigating#server-rendering), [PPR](https://nextjs.org/docs/app/guides/prefetching#partial-prerendering-ppr)).
 
-Until one day, I realized that I didn’t need all the RSC and SSR features Next.js provides. My apps are either static with some dynamic parts, or heavily client-side rendered.
+So as of today, depending on the use case, I use:
 
-Here comes [TanStack Start](https://tanstack.com/start/latest), it keeps the best parts of Remix and Next.js, while giving me full control over the architecture.
+1. Software: [TanStack Start](https://tanstack.com/start/latest) + [React](https://react.dev/)
+2. Hardware: [Bun](https://bun.com/) + [React](https://react.dev/) + [Docker](https://www.docker.com/)
+3. Marketing: [Astro](https://astro.build/)
 
 ## 2. Styling (Tailwind CSS and shadcn/ui)
 
-Building flexible, accessible components is difficult. You either use (and extend) a component library, or build your own. This is why I now use [shadcn/ui](https://ui.shadcn.com/).
+Building flexible, accessible components is hard. You either use (and extend) a component library, or build your own. This is why I use [shadcn/ui](https://ui.shadcn.com/).
 
-It provides well-designed and extensible components, built on top of accessible, unstyled primitives like [Base UI](https://base-ui.com/). This includes basics like buttons and inputs, but also icons, charts, and even custom themes.
+It provides well-designed and extensible components, built on top of accessible, unstyled primitives like [Base UI](https://base-ui.com/). This includes basics like buttons and inputs, but also icons, charts, and custom themes.
 
 Components are styled with [Tailwind CSS](https://tailwindcss.com/), the most AI-friendly CSS library. Why? This makes generating and editing code with AI tools much easier.
 
-Tailwind uses a compiler to generate only the classes used. So while the utility CSS framework contains many possible class names, only the classes used will be included in the single, compiled CSS file.
+Tailwind uses a compiler to generate only the classes you use. While the framework contains many possible class names, only the ones you use get included in the compiled CSS file.
 
-Assuming you only write Tailwind code, your bundle will never be larger than the total set of used Tailwind classes. It’s extremely unlikely you would use them all. This means you have a fixed upper bound on the size of the generated CSS file, which is then minified, compressed, and cached for the best performance.
+If you only write Tailwind code, your bundle will never be larger than the total set of used Tailwind classes. You’re extremely unlikely to use them all. This means you have a fixed upper bound on the CSS file size, which is then minified, compressed, and cached for the best performance.
 
 ## 3. Backend (Convex)
 
-Convex is the best, you type something and it just works. They have production-ready [components](https://convex.dev/components) like crons, workflow, and many other addons that are exhausting features to develop or maintain.
+I love how you type something and it just works. They have production-ready [components](https://convex.dev/components) like crons, workflows, and many others that are a pain to develop and maintain.
 
-The best part? Convex is entirely typed, which is heaven to for a [TypeScript](https://www.typescriptlang.org/) lover like me.
+The best part? Queries are reactive, automatically cacheable, and everything is typed. This is heaven for a [TypeScript](https://www.typescriptlang.org/) maniac like myself.
 
 ## 4. AI (Cursor, OpenCode, and Warp)
 
-[Cursor](https://cursor.com/home) is my everyday code editor. I can ask questions, plan features, debug code, and get crazy-good code completions.
+[Cursor](https://cursor.com/home) is my everyday code editor. I mostly use its autocomplete feature, which is always on point. [MCP](https://modelcontextprotocol.io) ([Context7](https://context7.com/)) keeps agents up-to-date with latest docs of any open-source project.
 
-Thanks to [MCP](https://modelcontextprotocol.io) ([Context7](https://context7.com/)). Cursor Agent has up-to-date knowledge of Convex, React, TanStack so it’s almost accurate all time.
+I recently started using [OpenCode](https://opencode.ai) for large refactors. I had a [Copilot](https://github.com/features/copilot) subscription I wasn’t using since I left VSCode for Cursor.
 
-[OpenCode](https://opencode.ai) is great, pair it with [GitHub Copilot](https://github.com/features/copilot) subscription, helps me vibecoding features without breaking anything.
+For my terminal, I use [Warp](https://warp.dev). It’s great for system-wide tasks like managing packages, manipulating files, and more.
 
-[Warp](https://warp.dev) is my everyday terminal. This is great to do a lot of things system-wide, like managing packages, running scripts, or even using AI to help me with commands.
-
-AI tools aren’t perfect yet, but they’re a huge time saver.
+AI tools aren’t perfect yet, but they save me a ton of time.
