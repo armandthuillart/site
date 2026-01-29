@@ -16,7 +16,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 import { Suspense, useState } from "react";
 import { getMDXComponents } from "@/components/mdx-components";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { source } from "@/lib/source";
 import { cn } from "@/lib/utils";
 
@@ -78,14 +78,25 @@ function RouteComponent() {
 			>
 				{pathname !== "/" && (
 					<nav className="flex justify-between">
-						<Button
-							disabled={!canGoBack}
-							onClick={() => history.back()}
-							size="icon"
-							variant="secondary"
-						>
-							<ArrowBendUpLeftIcon weight="bold" />
-						</Button>
+						{canGoBack ? (
+							<Button
+								onClick={() => history.back()}
+								size="icon"
+								variant="secondary"
+							>
+								<ArrowBendUpLeftIcon weight="bold" />
+							</Button>
+						) : (
+							<Link
+								className={buttonVariants({
+									size: "icon",
+									variant: "secondary",
+								})}
+								to={"/" as string}
+							>
+								<ArrowBendUpLeftIcon weight="bold" />
+							</Link>
+						)}
 
 						<Button onClick={handleCopyLink} size="icon" variant="secondary">
 							{copied ? (
