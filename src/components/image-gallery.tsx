@@ -8,23 +8,21 @@ export type GalleryImage = {
 	alt: string;
 };
 
-type ImageGalleryProps = {
-	images: GalleryImage[];
-};
+type ImageGalleryProps = { images: GalleryImage[] };
 
 export function ImageGallery({ images }: ImageGalleryProps) {
-	const [openIndex, setOpenIndex] = useState<number | null>(null);
+	const [index, setIndex] = useState<number | null>(null);
 
 	return (
 		<Dialog.Root>
 			<div className="relative my-8 block w-full md:left-1/2 md:my-16 md:w-screen md:max-w-6xl md:-translate-x-1/2">
-				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+				<div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
 					{images.map((image, index) => (
 						<Dialog.Trigger
 							aria-label={`Open image: ${image.alt}`}
-							className="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+							className="cursor-pointer overflow-hidden rounded-md outline-paper-1000 hover:opacity-90"
 							key={image.url}
-							onClick={() => setOpenIndex(index)}
+							onClick={() => setIndex(index)}
 							type="button"
 						>
 							<Image
@@ -39,9 +37,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
 				</div>
 			</div>
 
-			{openIndex !== null && (
-				<ImageViewer images={images} initialIndex={openIndex} />
-			)}
+			{index !== null && <ImageViewer images={images} index={index} />}
 		</Dialog.Root>
 	);
 }

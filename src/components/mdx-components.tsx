@@ -14,7 +14,7 @@ export function getMDXComponents() {
 			const isHashLink = hrefString.startsWith("#");
 
 			const className =
-				"cursor-pointer scroll-mt-5 align-baseline text-primary underline decoration-1 underline-offset-[2.5px] hover:decoration-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+				"cursor-pointer scroll-mt-5 align-baseline underline decoration-1 underline-offset-[2.5px] focus-visible:outline-none focus-visible:decoration-paper-1000 focus-visible:decoration-2";
 
 			if (isHashLink) {
 				return (
@@ -53,7 +53,7 @@ export function getMDXComponents() {
 		blockquote: ({ className, ...props }: ComponentProps<"blockquote">) => (
 			<blockquote
 				className={cn(
-					"mt-5 not-last:mb-5 border-muted-foreground border-l-3 pl-3.5 text-lg [&>p]:m-0",
+					"mt-5 not-last:mb-5 border-paper-700/10 border-l-3 pl-3.5 text-lg dark:border-paper-100/10 [&>p]:m-0",
 					className,
 				)}
 				{...props}
@@ -74,7 +74,7 @@ export function getMDXComponents() {
 		),
 		ImageGallery,
 		li: (props: ComponentProps<"li">) => (
-			<li className="text-lg marker:text-muted-foreground" {...props} />
+			<li className="text-lg marker:text-paper-700/60 dark:marker:text-paper-100/60" {...props} />
 		),
 		ol: (props: ComponentProps<"ol">) => (
 			<ol className="space-y-1 pl-4 *:*:mt-0 [&>li]:list-decimal" {...props} />

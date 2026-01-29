@@ -1,48 +1,24 @@
 @import "tailwindcss";
 @import "katex/dist/katex.min.css";
-
 @import "@fontsource-variable/stix-two-text";
 
-@custom-variant dark (&:is(.dark, .dark *));
-
-@theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
-	--color-primary: var(--primary);
-	--color-muted-foreground: var(--muted-foreground);
-	--color-border: var(--border);
-	--color-ring: var(--ring);
+@theme {
+	--color-paper-50:  #F2F1ED;
+	--color-paper-100: #EDECEC;
+	--color-paper-200: #E6E5E0;
+	--color-paper-700: #26241E;
+	--color-paper-900: #1B1912;
+	--color-paper-950: #13120A;
+	--color-paper-1000: #F54E00;
 	--font-sans: "STIX Two Text Variable", sans-serif;
 	--text-lg: 1.0625rem;
 	--text-lg--line-height: 1.5;
 }
 
-:root {
-	--background: oklch(100% 0 0);
-	--foreground: oklch(0% 0 0 / 90%);
-	--primary: oklch(52.9% 0.178 256);
-	--muted-foreground: oklch(0% 0 0 / 50%);
-	--border: oklch(92.5% 0 0);
-	--ring: oklch(67% 0.183 249);
-}
-
-.dark {
-	--background: oklch(23.5% 0 0);
-	--foreground: oklch(100% 0 0);
-	--primary: oklch(79.3% 0.104 241);
-	--muted-foreground: oklch(100% 0 0 / 70%);
-	--border: oklch(38.7% 0 0);
-	--ring: oklch(62.7% 0.17 249);
-}
-
 .footnotes {
-	@apply mt-8 border-t border-border pt-4 text-muted-foreground;
+	@apply mt-8 border-t border-paper-700/10 pt-4 text-paper-700/60 dark:text-paper-100/60 dark:border-paper-100/10;
 }
 
 .katex {
 	@apply [font-size:inherit];
-}
-
-.code {
-	@apply rounded-sm bg-border px-1.5 py-1 font-mono font-semibold text-sm/3.5;
 }

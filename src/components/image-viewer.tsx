@@ -5,11 +5,11 @@ import type { GalleryImage } from "@/components/image-gallery";
 
 type ImageViewerProps = {
 	images: GalleryImage[];
-	initialIndex: number;
+	index: number;
 };
 
-export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
-	const [currentIndex, setCurrentIndex] = useState(initialIndex);
+export function ImageViewer({ images, index }: ImageViewerProps) {
+	const [currentIndex, setCurrentIndex] = useState(index);
 	const currentImage = images[currentIndex];
 
 	function goToPrevious() {
@@ -21,21 +21,23 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 	}
 
 	useEffect(() => {
-		setCurrentIndex(initialIndex);
-	}, [initialIndex]);
+		setCurrentIndex(index);
+	}, [index]);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "ArrowLeft") {
 				setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+				event.stopPropagation();
 			} else if (event.key === "ArrowRight") {
 				setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+				event.stopPropagation();
 			}
 		};
 
-		document.addEventListener("keydown", handleKeyDown);
+		document.addEventListener("keydown", handleKeyDown, true);
 		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
+			document.removeEventListener("keydown", handleKeyDown, true);
 		};
 	}, [images.length]);
 
@@ -43,16 +45,19 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 		<Dialog.Portal>
 			<Dialog.Backdrop className="fixed inset-0 z-40 h-dvh bg-radial from-black/90 to-black/95 backdrop-blur-[2px]" />
 
-			<div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:px-24">
-				<Dialog.Popup
-					className="relative aspect-3/2 max-h-200 w-full max-w-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-					initialFocus={false}
-				>
-					<Dialog.Title className="sr-only">Image viewer</Dialog.Title>
-					<Dialog.Description className="sr-only">
-						Navigate through images with arrow keys
-					</Dialog.Description>
+			<Dialog.Popup className="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none focus-visible:outline-none md:px-24">
+				<Dialog.Title className="sr-only">Image viewer</Dialog.Title>
+				<Dialog.Description className="sr-only">
+					Navigate through images with arrow keys
+				</Dialog.Description>
 
+				<Dialog.Close
+					aria-hidden
+					className="absolute inset-0 z-0"
+					tabIndex={-1}
+				/>
+
+				<div className="relative z-10 aspect-3/2 max-h-200 w-full max-w-300">
 					<div className="relative size-full overflow-hidden drop-shadow-2xl">
 						<Image
 							alt={currentImage.alt}
@@ -67,11 +72,11 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 							</p>
 						</div>
 					</div>
-				</Dialog.Popup>
+				</div>
 
 				<Dialog.Close
 					aria-label="Close modal"
-					className="absolute top-4 right-4 z-50 text-white hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:top-8 md:right-8"
+					className="absolute top-4 right-4 z-50 rounded-full text-white hover:opacity-80 focus-visible:outline-2 focus-visible:outline-paper-1000 focus-visible:outline-offset-2 md:top-8 md:right-8"
 				>
 					<svg
 						aria-hidden="true"
@@ -92,7 +97,7 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 					<>
 						<button
 							aria-label="Previous image"
-							className="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 p-2 text-white hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:top-1/2 md:right-auto md:left-4"
+							className="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white hover:opacity-80 focus-visible:outline-2 focus-visible:outline-paper-1000 focus-visible:outline-offset-2 md:top-1/2 md:right-auto md:left-4"
 							onClick={goToPrevious}
 							type="button"
 						>
@@ -115,7 +120,7 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 
 						<button
 							aria-label="Next image"
-							className="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 p-2 text-white hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:top-1/2 md:right-4 md:left-auto"
+							className="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white hover:opacity-80 focus-visible:outline-2 focus-visible:outline-paper-1000 focus-visible:outline-offset-2 md:top-1/2 md:right-4 md:left-auto"
 							onClick={goToNext}
 							type="button"
 						>
@@ -137,7 +142,7 @@ export function ImageViewer({ images, initialIndex }: ImageViewerProps) {
 						</button>
 					</>
 				)}
-			</div>
+			</Dialog.Popup>
 		</Dialog.Portal>
 	);
 }

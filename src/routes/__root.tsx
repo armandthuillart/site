@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-router";
 import { TanstackProvider } from "fumadocs-core/framework/tanstack";
 import type { ReactNode } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
 import appCss from "@/styles/app.css?url";
 
 export const Route = createRootRoute({
@@ -25,6 +24,16 @@ export const Route = createRootRoute({
 		meta: [
 			{
 				charSet: "utf-8",
+			},
+			{
+				content: "#13120A",
+				media: "(prefers-color-scheme: dark)",
+				name: "theme-color",
+			},
+			{
+				content: "#F2F1ED",
+				media: "(prefers-color-scheme: light)",
+				name: "theme-color",
 			},
 			{
 				content: "width=device-width, initial-scale=1",
@@ -75,21 +84,23 @@ export const Route = createRootRoute({
 
 function RootComponent() {
 	return (
-		<ThemeProvider>
-			<RootDocument>
-				<Outlet />
-			</RootDocument>
-		</ThemeProvider>
+		<RootDocument>
+			<Outlet />
+		</RootDocument>
 	);
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html
+			className="scheme-light-dark antialiased"
+			lang="en"
+			suppressHydrationWarning
+		>
 			<head>
 				<HeadContent />
 			</head>
-			<body className="relative bg-background font-sans text-foreground antialiased">
+			<body className="bg-paper-50 text-paper-700 dark:bg-paper-950 dark:text-paper-100">
 				<TanstackProvider>{children}</TanstackProvider>
 				<Scripts />
 			</body>
