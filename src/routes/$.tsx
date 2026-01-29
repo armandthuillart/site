@@ -115,7 +115,7 @@ function RouteComponent() {
 
 			<div
 				aria-hidden="true"
-				className="pointer-events-none absolute inset-0 bg-center mix-blend-overlay dark:opacity-5"
+				className="pointer-events-none fixed inset-0 bg-center opacity-30 mix-blend-overlay dark:opacity-5"
 				style={{ backgroundImage: "url(/paper-grain.svg)" }}
 			/>
 		</div>
