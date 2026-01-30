@@ -3,21 +3,31 @@ import { Image } from "@unpic/react";
 import { useEffect, useState } from "react";
 import type { GalleryImage } from "@/components/image-gallery";
 
-type ImageViewerProps = {
+interface ImageViewerProps {
 	images: GalleryImage[];
 	index: number;
-};
+}
 
 export function ImageViewer({ images, index }: ImageViewerProps) {
 	const [currentIndex, setCurrentIndex] = useState(index);
 	const currentImage = images[currentIndex];
 
 	function goToPrevious() {
-		setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+		setCurrentIndex((prev) => {
+			if (prev > 0) {
+				return prev - 1;
+			}
+			return images.length - 1;
+		});
 	}
 
 	function goToNext() {
-		setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+		setCurrentIndex((prev) => {
+			if (prev < images.length - 1) {
+				return prev + 1;
+			}
+			return 0;
+		});
 	}
 
 	useEffect(() => {
@@ -27,10 +37,20 @@ export function ImageViewer({ images, index }: ImageViewerProps) {
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "ArrowLeft") {
-				setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+				setCurrentIndex((prev) => {
+					if (prev > 0) {
+						return prev - 1;
+					}
+					return images.length - 1;
+				});
 				event.stopPropagation();
 			} else if (event.key === "ArrowRight") {
-				setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+				setCurrentIndex((prev) => {
+					if (prev < images.length - 1) {
+						return prev + 1;
+					}
+					return 0;
+				});
 				event.stopPropagation();
 			}
 		};
@@ -52,7 +72,7 @@ export function ImageViewer({ images, index }: ImageViewerProps) {
 				</Dialog.Description>
 
 				<Dialog.Close
-					aria-hidden
+					aria-hidden={true}
 					className="absolute inset-0 z-0"
 					tabIndex={-1}
 				/>

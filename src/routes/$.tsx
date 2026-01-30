@@ -20,13 +20,15 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { source } from "@/lib/source";
 import { cn } from "@/lib/utils";
 
+const COPY_LINK_DELAY = 2000;
+
 // biome-ignore assist/source/useSortedKeys: loader has to be first
 export const Route = createFileRoute("/$")({
 	component: RouteComponent,
 	loader: async ({ params }) => {
 		const slugs = params._splat?.split("/") ?? [];
-		const data = await serverLoader({ data: slugs });
-		await clientLoader.preload(data.path);
+		const data = await Promise.resolve(serverLoader({ data: slugs }));
+		clientLoader.preload(data.path);
 		return data;
 	},
 	head: ({ loaderData }) => ({
@@ -38,9 +40,11 @@ const serverLoader = createServerFn({
 	method: "GET",
 })
 	.inputValidator((slugs: string[]) => slugs)
-	.handler(async ({ data: slugs }) => {
+	.handler(({ data: slugs }) => {
 		const page = source.getPage(slugs);
-		if (!page) throw notFound();
+		if (!page) {
+			throw notFound();
+		}
 
 		return {
 			path: page.path,
@@ -65,7 +69,7 @@ function RouteComponent() {
 	function handleCopyLink() {
 		navigator.clipboard.writeText(window.location.href).then(() => {
 			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
+			setTimeout(() => setCopied(false), COPY_LINK_DELAY);
 		});
 	}
 
@@ -78,7 +82,7 @@ function RouteComponent() {
 			>
 				{pathname !== "/" && (
 					<nav className="flex justify-between">
-						{canGoBack ? (
+						{canGoBack && (
 							<Button
 								onClick={() => history.back()}
 								size="icon"
@@ -86,7 +90,9 @@ function RouteComponent() {
 							>
 								<ArrowBendUpLeftIcon weight="bold" />
 							</Button>
-						) : (
+						)}
+
+						{!canGoBack && (
 							<Link
 								className={buttonVariants({
 									size: "icon",
@@ -99,11 +105,8 @@ function RouteComponent() {
 						)}
 
 						<Button onClick={handleCopyLink} size="icon" variant="secondary">
-							{copied ? (
-								<CheckIcon weight="bold" />
-							) : (
-								<LinkIcon weight="bold" />
-							)}
+							{Boolean(copied) && <CheckIcon weight="bold" />}
+							{Boolean(!copied) && <LinkIcon weight="bold" />}
 						</Button>
 					</nav>
 				)}
@@ -115,7 +118,7 @@ function RouteComponent() {
 
 			<div
 				aria-hidden="true"
-				className="pointer-events-none fixed inset-0 bg-center opacity-30 mix-blend-overlay dark:opacity-5"
+				className="pointer-events-none fixed inset-0 bg-center bg-repeat opacity-30 mix-blend-overlay dark:opacity-5"
 				style={{ backgroundImage: "url(/paper-grain.svg)" }}
 			/>
 		</div>

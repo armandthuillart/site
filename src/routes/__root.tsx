@@ -95,7 +95,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 		<html
 			className="scheme-light-dark antialiased"
 			lang="en"
-			suppressHydrationWarning
+			suppressHydrationWarning={true}
 		>
 			<head>
 				<HeadContent />

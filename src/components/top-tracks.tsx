@@ -1,10 +1,10 @@
 import { Image } from "@unpic/react";
 
-type TopTrack = {
+interface TopTrack {
 	name: string;
 	href: string;
 	image: string;
-};
+}
 
 const topTracks: TopTrack[] = [
 	{

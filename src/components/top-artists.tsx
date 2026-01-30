@@ -1,6 +1,6 @@
 import { Image } from "@unpic/react";
 
-type TopArtist = {
+interface TopArtist {
 	href: string;
 	image: string;
 	name: string;

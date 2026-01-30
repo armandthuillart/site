@@ -27,10 +27,12 @@ export function getMDXComponents() {
 			return (
 				<Link
 					className={className}
-					rel={isExternal ? "noopener noreferrer" : undefined}
-					target={isExternal ? "_blank" : undefined}
 					to={hrefString}
 					{...props}
+					{...(isExternal && {
+						rel: "noopener noreferrer",
+						target: "_blank",
+					})}
 				>
 					{children}
 
@@ -74,7 +76,10 @@ export function getMDXComponents() {
 		),
 		ImageGallery,
 		li: (props: ComponentProps<"li">) => (
-			<li className="text-lg marker:text-paper-700/60 dark:marker:text-paper-100/60" {...props} />
+			<li
+				className="text-lg marker:text-paper-700/60 dark:marker:text-paper-100/60"
+				{...props}
+			/>
 		),
 		ol: (props: ComponentProps<"ol">) => (
 			<ol className="space-y-1 pl-4 *:*:mt-0 [&>li]:list-decimal" {...props} />

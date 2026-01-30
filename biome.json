@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
 	"assist": {
 		"actions": {
 			"source": {
@@ -15,35 +15,204 @@
 			"tailwindDirectives": true
 		}
 	},
-	"files": {
-		"ignoreUnknown": false
-	},
 	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab",
-		"lineWidth": 80
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "double"
-		}
+		"enabled": true
 	},
 	"linter": {
+		"domains": {
+			"project": "all",
+			"react": "all"
+		},
 		"enabled": true,
 		"rules": {
+			"a11y": {
+				"noNoninteractiveElementInteractions": "on"
+			},
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "off",
+				"noExcessiveLinesPerFunction": "off",
+
+				"noExcessiveNestedTestSuites": "on",
+				"noForEach": "on",
+				"noImplicitCoercions": "on",
+				"noImportantStyles": "off",
+				"noUselessStringConcat": "on",
+				"noVoid": "on",
+				"useSimplifiedLogicExpression": "on",
+				"useWhile": "on"
+			},
+			"correctness": {
+				"noGlobalDirnameFilename": "on",
+				"noNestedComponentDefinitions": "on",
+				"noNodejsModules": "off",
+				"noProcessGlobal": "off",
+				"noReactPropAssignments": "on",
+				"noRestrictedElements": "on",
+				"noUndeclaredDependencies": "on",
+				"noUndeclaredVariables": "on",
+				"useImportExtensions": "off",
+				"useJsonImportAttributes": "on",
+				"useSingleJsDocAsterisk": "on",
+				"useUniqueElementIds": "on"
+			},
 			"nursery": {
+				"noAmbiguousAnchorText": "on",
+				"noContinue": "on",
+				"noDeprecatedImports": "on",
+				"noDivRegex": "on",
+				"noDuplicatedSpreadProps": "on",
+				"noDuplicateEnumValues": "on",
+				"noEmptySource": "on",
+				"noEqualsToNull": "on",
+				"noExcessiveClassesPerFile": "on",
+				"noExcessiveLinesPerFile": "off",
+				"noFloatingClasses": "on",
+				"noFloatingPromises": "on",
+				"noForIn": "on",
+				"noImportCycles": "on",
+				"noIncrementDecrement": "on",
+				"noJsxLiterals": "off",
+				"noJsxPropsBind": "off",
+				"noLeakedRender": "on",
+				"noMisusedPromises": "on",
+				"noMultiAssign": "on",
+				"noMultiStr": "on",
+				"noParametersOnlyUsedInRecursion": "on",
+				"noProto": "on",
+				"noReactForwardRef": "on",
+				"noReturnAssign": "on",
+				"noScriptUrl": "on",
+				"noShadow": "on",
+				"noSyncScripts": "on",
+				"noTernary": "on",
+				"noUndeclaredEnvVars": "on",
+				"noUnknownAttribute": "on",
+				"noUnnecessaryConditions": "on",
+				"noUnresolvedImports": "off",
+				"noUnusedExpressions": "on",
+				"noUselessCatchBinding": "on",
+				"noUselessUndefined": "on",
+				"useArraySortCompare": "on",
+				"useAwaitThenable": "on",
+				"useConsistentArrowReturn": "on",
+				"useConsistentEnumValueType": "on",
+				"useDestructuring": "on",
+				"useErrorCause": "on",
+				"useExhaustiveSwitchCases": "on",
+				"useExplicitType": "off",
+				"useFind": "on",
+				"useInlineScriptId": "on",
+				"useMaxParams": "on",
+				"useRegexpExec": "on",
 				"useSortedClasses": {
-					"fix": "safe",
-					"level": "warn",
+					"level": "on",
 					"options": {
 						"attributes": ["classList"],
 						"functions": ["cn", "cva"]
 					}
-				}
+				},
+				"useSpread": "on"
+			},
+			"performance": {
+				"noAwaitInLoops": "on",
+				"noBarrelFile": "on",
+				"noDelete": "on",
+				"noNamespaceImport": "on",
+				"noReExportAll": "on",
+				"useTopLevelRegex": "on"
+			},
+			"security": {
+				"noSecrets": "off"
+			},
+			"style": {
+				"noCommonJs": "on",
+				"noDefaultExport": "on",
+				"noDoneCallback": "on",
+				"noEnum": "on",
+				"noExportedImports": "on",
+				"noImplicitBoolean": "on",
+				"noInferrableTypes": "on",
+				"noMagicNumbers": "on",
+				"noNamespace": "on",
+				"noNegationElse": "on",
+				"noNestedTernary": "on",
+				"noParameterAssign": "on",
+				"noParameterProperties": "on",
+				"noProcessEnv": "off",
+				"noRestrictedGlobals": "on",
+				"noRestrictedImports": "on",
+				"noRestrictedTypes": "on",
+				"noShoutyConstants": "on",
+				"noSubstr": "on",
+				"noUnusedTemplateLiteral": "on",
+				"noUselessElse": "on",
+				"noYodaExpression": "on",
+				"useAsConstAssertion": "on",
+				"useAtIndex": "on",
+				"useBlockStatements": "on",
+				"useCollapsedElseIf": "on",
+				"useCollapsedIf": "on",
+				"useComponentExportOnlyModules": "off",
+				"useConsistentArrayType": "on",
+				"useConsistentBuiltinInstantiation": "on",
+				"useConsistentCurlyBraces": "on",
+				"useConsistentMemberAccessibility": "on",
+				"useConsistentObjectDefinitions": "on",
+				"useConsistentTypeDefinitions": "on",
+				"useDefaultParameterLast": "on",
+				"useDefaultSwitchClause": "on",
+				"useEnumInitializers": "on",
+				"useExplicitLengthCheck": "on",
+				"useExportsLast": "off",
+				"useFilenamingConvention": "off",
+				"useForOf": "on",
+				"useFragmentSyntax": "on",
+				"useGroupedAccessorPairs": "on",
+				"useNamingConvention": "off",
+				"useNodeAssertStrict": "on",
+				"useNumberNamespace": "on",
+				"useNumericSeparators": "on",
+				"useObjectSpread": "on",
+				"useReactFunctionComponents": "on",
+				"useReadonlyClassProperties": "on",
+				"useSelfClosingElements": "on",
+				"useShorthandAssign": "on",
+				"useSingleVarDeclarator": "on",
+				"useSymbolDescription": "on",
+				"useThrowNewError": "on",
+				"useThrowOnlyError": "on",
+				"useTrimStartEnd": "on",
+				"useUnifiedTypeSignatures": "on"
+			},
+			"suspicious": {
+				"noAlert": "on",
+				"noBitwiseOperators": "on",
+				"noConsole": "on",
+				"noConstantBinaryExpressions": "on",
+				"noEmptyBlockStatements": "on",
+				"noEvolvingTypes": "on",
+				"noMisplacedAssertion": "on",
+				"noUnassignedVariables": "on",
+				"useAwait": "on",
+				"useErrorMessage": "on",
+				"useGuardForIn": "on",
+				"useNumberToFixedDigitsArgument": "on",
+				"useStaticResponseMethods": "on",
+				"useStrictMode": "on"
 			}
 		}
 	},
 	"overrides": [
+		{
+			"includes": ["vite.config.ts"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noDefaultExport": "off"
+					}
+				}
+			}
+		},
 		{
 			"assist": {
 				"enabled": false
@@ -51,13 +220,7 @@
 			"formatter": {
 				"enabled": false
 			},
-			"includes": [
-				".source/**",
-				"**/routeTree.gen.ts",
-				"convex/_generated/**",
-				"convex/tsconfig.json",
-				"convex/auth.schema.ts"
-			],
+			"includes": [".source/**", "**/routeTree.gen.ts"],
 			"linter": {
 				"enabled": false
 			}
