@@ -4,7 +4,7 @@ interface TopArtist {
 	href: string;
 	image: string;
 	name: string;
-};
+}
 
 const topArtists: TopArtist[] = [
 	{

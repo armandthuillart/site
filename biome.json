@@ -3,6 +3,7 @@
 	"assist": {
 		"actions": {
 			"source": {
+				"recommended": true,
 				"useSortedAttributes": "on",
 				"useSortedKeys": "on",
 				"useSortedProperties": "on"
@@ -11,9 +12,10 @@
 		"enabled": true
 	},
 	"css": {
-		"parser": {
-			"tailwindDirectives": true
-		}
+		"parser": { "tailwindDirectives": true }
+	},
+	"files": {
+		"includes": ["**/*.{ts,tsx}", "**/*.{json,jsonc}", "!**/*.gen.ts"]
 	},
 	"formatter": {
 		"enabled": true
@@ -25,204 +27,69 @@
 		},
 		"enabled": true,
 		"rules": {
-			"a11y": {
-				"noNoninteractiveElementInteractions": "on"
-			},
-			"complexity": {
-				"noExcessiveCognitiveComplexity": "off",
-				"noExcessiveLinesPerFunction": "off",
-
-				"noExcessiveNestedTestSuites": "on",
-				"noForEach": "on",
-				"noImplicitCoercions": "on",
-				"noImportantStyles": "off",
-				"noUselessStringConcat": "on",
-				"noVoid": "on",
-				"useSimplifiedLogicExpression": "on",
-				"useWhile": "on"
-			},
-			"correctness": {
-				"noGlobalDirnameFilename": "on",
-				"noNestedComponentDefinitions": "on",
-				"noNodejsModules": "off",
-				"noProcessGlobal": "off",
-				"noReactPropAssignments": "on",
-				"noRestrictedElements": "on",
-				"noUndeclaredDependencies": "on",
-				"noUndeclaredVariables": "on",
-				"useImportExtensions": "off",
-				"useJsonImportAttributes": "on",
-				"useSingleJsDocAsterisk": "on",
-				"useUniqueElementIds": "on"
-			},
-			"nursery": {
-				"noAmbiguousAnchorText": "on",
-				"noContinue": "on",
-				"noDeprecatedImports": "on",
-				"noDivRegex": "on",
-				"noDuplicatedSpreadProps": "on",
-				"noDuplicateEnumValues": "on",
-				"noEmptySource": "on",
-				"noEqualsToNull": "on",
-				"noExcessiveClassesPerFile": "on",
-				"noExcessiveLinesPerFile": "off",
-				"noFloatingClasses": "on",
-				"noFloatingPromises": "on",
-				"noForIn": "on",
-				"noImportCycles": "on",
-				"noIncrementDecrement": "on",
-				"noJsxLiterals": "off",
-				"noJsxPropsBind": "off",
-				"noLeakedRender": "on",
-				"noMisusedPromises": "on",
-				"noMultiAssign": "on",
-				"noMultiStr": "on",
-				"noParametersOnlyUsedInRecursion": "on",
-				"noProto": "on",
-				"noReactForwardRef": "on",
-				"noReturnAssign": "on",
-				"noScriptUrl": "on",
-				"noShadow": "on",
-				"noSyncScripts": "on",
-				"noTernary": "on",
-				"noUndeclaredEnvVars": "on",
-				"noUnknownAttribute": "on",
-				"noUnnecessaryConditions": "on",
-				"noUnresolvedImports": "off",
-				"noUnusedExpressions": "on",
-				"noUselessCatchBinding": "on",
-				"noUselessUndefined": "on",
-				"useArraySortCompare": "on",
-				"useAwaitThenable": "on",
-				"useConsistentArrowReturn": "on",
-				"useConsistentEnumValueType": "on",
-				"useDestructuring": "on",
-				"useErrorCause": "on",
-				"useExhaustiveSwitchCases": "on",
-				"useExplicitType": "off",
-				"useFind": "on",
-				"useInlineScriptId": "on",
-				"useMaxParams": "on",
-				"useRegexpExec": "on",
-				"useSortedClasses": {
-					"level": "on",
-					"options": {
-						"attributes": ["classList"],
-						"functions": ["cn", "cva"]
-					}
-				},
-				"useSpread": "on"
-			},
-			"performance": {
-				"noAwaitInLoops": "on",
-				"noBarrelFile": "on",
-				"noDelete": "on",
-				"noNamespaceImport": "on",
-				"noReExportAll": "on",
-				"useTopLevelRegex": "on"
-			},
-			"security": {
-				"noSecrets": "off"
-			},
-			"style": {
-				"noCommonJs": "on",
-				"noDefaultExport": "on",
-				"noDoneCallback": "on",
-				"noEnum": "on",
-				"noExportedImports": "on",
-				"noImplicitBoolean": "on",
-				"noInferrableTypes": "on",
-				"noMagicNumbers": "on",
-				"noNamespace": "on",
-				"noNegationElse": "on",
-				"noNestedTernary": "on",
-				"noParameterAssign": "on",
-				"noParameterProperties": "on",
-				"noProcessEnv": "off",
-				"noRestrictedGlobals": "on",
-				"noRestrictedImports": "on",
-				"noRestrictedTypes": "on",
-				"noShoutyConstants": "on",
-				"noSubstr": "on",
-				"noUnusedTemplateLiteral": "on",
-				"noUselessElse": "on",
-				"noYodaExpression": "on",
-				"useAsConstAssertion": "on",
-				"useAtIndex": "on",
-				"useBlockStatements": "on",
-				"useCollapsedElseIf": "on",
-				"useCollapsedIf": "on",
-				"useComponentExportOnlyModules": "off",
-				"useConsistentArrayType": "on",
-				"useConsistentBuiltinInstantiation": "on",
-				"useConsistentCurlyBraces": "on",
-				"useConsistentMemberAccessibility": "on",
-				"useConsistentObjectDefinitions": "on",
-				"useConsistentTypeDefinitions": "on",
-				"useDefaultParameterLast": "on",
-				"useDefaultSwitchClause": "on",
-				"useEnumInitializers": "on",
-				"useExplicitLengthCheck": "on",
-				"useExportsLast": "off",
-				"useFilenamingConvention": "off",
-				"useForOf": "on",
-				"useFragmentSyntax": "on",
-				"useGroupedAccessorPairs": "on",
-				"useNamingConvention": "off",
-				"useNodeAssertStrict": "on",
-				"useNumberNamespace": "on",
-				"useNumericSeparators": "on",
-				"useObjectSpread": "on",
-				"useReactFunctionComponents": "on",
-				"useReadonlyClassProperties": "on",
-				"useSelfClosingElements": "on",
-				"useShorthandAssign": "on",
-				"useSingleVarDeclarator": "on",
-				"useSymbolDescription": "on",
-				"useThrowNewError": "on",
-				"useThrowOnlyError": "on",
-				"useTrimStartEnd": "on",
-				"useUnifiedTypeSignatures": "on"
-			},
-			"suspicious": {
-				"noAlert": "on",
-				"noBitwiseOperators": "on",
-				"noConsole": "on",
-				"noConstantBinaryExpressions": "on",
-				"noEmptyBlockStatements": "on",
-				"noEvolvingTypes": "on",
-				"noMisplacedAssertion": "on",
-				"noUnassignedVariables": "on",
-				"useAwait": "on",
-				"useErrorMessage": "on",
-				"useGuardForIn": "on",
-				"useNumberToFixedDigitsArgument": "on",
-				"useStaticResponseMethods": "on",
-				"useStrictMode": "on"
-			}
+			"a11y": "on",
+			"complexity": "on",
+			"correctness": "on",
+			"nursery": "on",
+			"performance": "on",
+			"security": "on",
+			"style": "on",
+			"suspicious": "on"
 		}
 	},
 	"overrides": [
 		{
-			"includes": ["vite.config.ts"],
+			"includes": ["**/*.ts", "**/*.tsx"],
+			"linter": {
+				"rules": {
+					"complexity": {
+						"noExcessiveLinesPerFunction": {
+							"level": "on",
+							"options": { "maxLines": 100 }
+						}
+					},
+					"nursery": {
+						"noJsxLiterals": "off",
+						"noJsxPropsBind": "off",
+						"noUnresolvedImports": "off",
+						"useAwaitThenable": "off",
+						"useExplicitType": "off",
+						"useQwikValidLexicalScope": "off",
+						"useSortedClasses": {
+							"fix": "safe",
+							"level": "on",
+							"options": {
+								"attributes": ["classList"],
+								"functions": ["cn", "cva", "tw"]
+							}
+						}
+					},
+					"performance": {
+						"useSolidForComponent": "off"
+					},
+					"security": {
+						"noSecrets": "off"
+					},
+					"style": {
+						"noHeadElement": "off",
+						"useComponentExportOnlyModules": "off",
+						"useFilenamingConvention": "off",
+						"useNamingConvention": "off"
+					},
+					"suspicious": {
+						"noReactSpecificProps": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["*.config.ts"],
 			"linter": {
 				"rules": {
 					"style": {
 						"noDefaultExport": "off"
 					}
 				}
-			}
-		},
-		{
-			"assist": {
-				"enabled": false
-			},
-			"formatter": {
-				"enabled": false
-			},
-			"includes": [".source/**", "**/routeTree.gen.ts"],
-			"linter": {
-				"enabled": false
 			}
 		}
 	],

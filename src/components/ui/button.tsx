@@ -1,6 +1,11 @@
 import { Button as ButtonPrimitive } from "@base-ui/react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils.ts";
+
+type ButtonProps = ButtonPrimitive.Props & {
+	variant?: VariantProps<typeof buttonVariants>["variant"];
+	size?: VariantProps<typeof buttonVariants>["size"];
+};
 
 export const buttonVariants = cva(
 	"flex cursor-pointer items-center justify-center rounded-full outline-paper-1000 disabled:pointer-events-none disabled:opacity-50",
@@ -16,11 +21,6 @@ export const buttonVariants = cva(
 		},
 	},
 );
-
-type ButtonProps = ButtonPrimitive.Props & {
-	variant?: VariantProps<typeof buttonVariants>["variant"];
-	size?: VariantProps<typeof buttonVariants>["size"];
-};
 
 export function Button({ className, size, variant, ...props }: ButtonProps) {
 	return (

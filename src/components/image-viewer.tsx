@@ -1,7 +1,7 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { Image } from "@unpic/react";
 import { useEffect, useState } from "react";
-import type { GalleryImage } from "@/components/image-gallery";
+import type { GalleryImage } from "@/components/image-gallery.tsx";
 
 interface ImageViewerProps {
 	images: GalleryImage[];

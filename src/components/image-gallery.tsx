@@ -1,15 +1,15 @@
 import { Dialog } from "@base-ui/react";
 import { Image } from "@unpic/react";
 import { useState } from "react";
-import { ImageViewer } from "@/components/image-viewer";
+import { ImageViewer } from "@/components/image-viewer.tsx";
+
+interface ImageGalleryProps {
+	images: GalleryImage[];
+}
 
 export interface GalleryImage {
 	url: string;
 	alt: string;
-}
-
-interface ImageGalleryProps {
-	images: GalleryImage[];
 }
 
 export function ImageGallery({ images }: ImageGalleryProps) {

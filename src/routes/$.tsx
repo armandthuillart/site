@@ -15,26 +15,12 @@ import {
 import { createServerFn } from "@tanstack/react-start";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 import { Suspense, useState } from "react";
-import { getMDXComponents } from "@/components/mdx-components";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { source } from "@/lib/source";
-import { cn } from "@/lib/utils";
+import { getMDXComponents } from "@/components/mdx-components.tsx";
+import { Button, buttonVariants } from "@/components/ui/button.tsx";
+import { source } from "@/lib/source.ts";
+import { cn } from "@/lib/utils.ts";
 
 const COPY_LINK_DELAY = 2000;
-
-// biome-ignore assist/source/useSortedKeys: loader has to be first
-export const Route = createFileRoute("/$")({
-	component: RouteComponent,
-	loader: async ({ params }) => {
-		const slugs = params._splat?.split("/") ?? [];
-		const data = await Promise.resolve(serverLoader({ data: slugs }));
-		clientLoader.preload(data.path);
-		return data;
-	},
-	head: ({ loaderData }) => ({
-		meta: [{ title: loaderData?.title }],
-	}),
-});
 
 const serverLoader = createServerFn({
 	method: "GET",
@@ -124,3 +110,17 @@ function RouteComponent() {
 		</div>
 	);
 }
+
+// biome-ignore assist/source/useSortedKeys: loader has to be first
+export const Route = createFileRoute("/$")({
+	component: RouteComponent,
+	loader: async ({ params }) => {
+		const slugs = params._splat?.split("/") ?? [];
+		const data = await Promise.resolve(serverLoader({ data: slugs }));
+		clientLoader.preload(data.path);
+		return data;
+	},
+	head: ({ loaderData }) => ({
+		meta: [{ title: loaderData?.title }],
+	}),
+});

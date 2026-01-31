@@ -48,7 +48,9 @@ function customizeFootnoteIds() {
 			}
 			if (hasChildren(node)) {
 				for (const child of node.children) {
-					if (isElement(child)) walk(child);
+					if (isElement(child)) {
+						walk(child);
+					}
 				}
 			}
 		};

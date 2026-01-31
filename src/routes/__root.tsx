@@ -8,6 +8,32 @@ import { TanstackProvider } from "fumadocs-core/framework/tanstack";
 import type { ReactNode } from "react";
 import appCss from "@/styles/app.css?url";
 
+function RootComponent() {
+	return (
+		<RootDocument>
+			<Outlet />
+		</RootDocument>
+	);
+}
+
+function RootDocument({ children }: { children: ReactNode }) {
+	return (
+		<html
+			className="scheme-light-dark antialiased"
+			lang="en"
+			suppressHydrationWarning={true}
+		>
+			<head>
+				<HeadContent />
+			</head>
+			<body className="bg-paper-50 text-paper-700 dark:bg-paper-950 dark:text-paper-100">
+				<TanstackProvider>{children}</TanstackProvider>
+				<Scripts />
+			</body>
+		</html>
+	);
+}
+
 export const Route = createRootRoute({
 	component: RootComponent,
 	head: () => ({
@@ -81,29 +107,3 @@ export const Route = createRootRoute({
 		],
 	}),
 });
-
-function RootComponent() {
-	return (
-		<RootDocument>
-			<Outlet />
-		</RootDocument>
-	);
-}
-
-function RootDocument({ children }: { children: ReactNode }) {
-	return (
-		<html
-			className="scheme-light-dark antialiased"
-			lang="en"
-			suppressHydrationWarning={true}
-		>
-			<head>
-				<HeadContent />
-			</head>
-			<body className="bg-paper-50 text-paper-700 dark:bg-paper-950 dark:text-paper-100">
-				<TanstackProvider>{children}</TanstackProvider>
-				<Scripts />
-			</body>
-		</html>
-	);
-}

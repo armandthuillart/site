@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import type { ComponentProps } from "react";
-import { CollapsibleVideos } from "@/components/collapsible-videos";
-import { ImageGallery } from "@/components/image-gallery";
-import { TopArtists } from "@/components/top-artists";
-import { TopTracks } from "@/components/top-tracks";
-import { cn } from "@/lib/utils";
+import { CollapsibleVideos } from "@/components/collapsible-videos.tsx";
+import { ImageGallery } from "@/components/image-gallery.tsx";
+import { TopArtists } from "@/components/top-artists.tsx";
+import { TopTracks } from "@/components/top-tracks.tsx";
+import { cn } from "@/lib/utils.ts";
 
 export function getMDXComponents() {
 	return {

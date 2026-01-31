@@ -2,14 +2,14 @@
 	"dependencies": {
 		"@base-ui/react": "^1.1.0",
 		"@phosphor-icons/react": "^2.1.10",
-		"@tanstack/react-router": "1.157.16",
-		"@tanstack/react-start": "1.157.16",
+		"@tanstack/react-router": "1.157.18",
+		"@tanstack/react-start": "1.157.18",
 		"@unpic/react": "^1.0.2",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"fumadocs-core": "^16.4.11",
 		"fumadocs-mdx": "^14.2.6",
-		"nitro": "^3.0.1-alpha.2",
+		"nitro": "npm:nitro-nightly@3.0.1-20260131-190432-654aa755",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
 		"rehype-katex": "^7.0.1",
@@ -19,6 +19,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.13",
 		"@fontsource-variable/stix-two-text": "^5.2.8",
+		"@tailwindcss-obfuscator/vite": "^1.0.4",
 		"@tailwindcss/vite": "^4.1.18",
 		"@types/mdx": "^2.0.13",
 		"@types/node": "^25.1.0",
@@ -37,6 +38,7 @@
 		"build": "vite build",
 		"dev": "vite dev",
 		"lint": "biome check . --write",
+		"preview": "vite preview",
 		"start": "node .output/server/index.mjs"
 	},
 	"sideEffects": false,
