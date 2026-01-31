@@ -23,7 +23,7 @@
       "devDependencies": {
         "@biomejs/biome": "^2.3.13",
         "@fontsource-variable/stix-two-text": "^5.2.8",
-        "@tailwindcss-obfuscator/vite": "^1.0.4",
+        "@tailwindcss-obfuscator/vite": "1.0.11",
         "@tailwindcss/vite": "^4.1.18",
         "@types/mdx": "^2.0.13",
         "@types/node": "^25.1.0",
@@ -359,7 +359,7 @@
 
     "@tailwindcss-obfuscator/core": ["@tailwindcss-obfuscator/core@1.0.3", "", {}, "sha512-j6a6YRZ+7vKQblWIToPYS3sCJkd1I/nS81MH0QHozpcyToxWHGwSNBmBPl91+Y/wWwFypc5Kd0hXRayfJOo28g=="],
 
-    "@tailwindcss-obfuscator/vite": ["@tailwindcss-obfuscator/vite@1.0.4", "", { "dependencies": { "@tailwindcss-obfuscator/core": "^1.0.0" }, "peerDependencies": { "@tailwindcss/node": "^4.1.18", "vite": "^7.3.1" }, "optionalPeers": ["@tailwindcss/node"] }, "sha512-AtCN5I3V7eMzMIsy9rXxFVizmtl8wsNW9KaeexZo7Zajiu1mXnifu1K5YRGbqRubg5bYFRY0zD4/1epqn0hmQw=="],
+    "@tailwindcss-obfuscator/vite": ["@tailwindcss-obfuscator/vite@1.0.11", "", { "dependencies": { "@tailwindcss-obfuscator/core": "^1.0.0" }, "peerDependencies": { "@tailwindcss/node": "^4.1.18", "vite": "^7.3.1" }, "optionalPeers": ["@tailwindcss/node"] }, "sha512-vijtJsECAm4wuwvaDqkPAD7+POexq0MPWCAoMAB8CIayRYoo3KRQEy7iAQhHgYi2lAsbBDjNEwLT9ATDvLlHBg=="],
 
     "@tailwindcss/node": ["@tailwindcss/node@4.1.18", "", { "dependencies": { "@jridgewell/remapping": "^2.3.4", "enhanced-resolve": "^5.18.3", "jiti": "^2.6.1", "lightningcss": "1.30.2", "magic-string": "^0.30.21", "source-map-js": "^1.2.1", "tailwindcss": "4.1.18" } }, "sha512-DoR7U1P7iYhw16qJ49fgXUlry1t4CpXeErJHnQ44JgTSKMaZUdf17cfn5mHchfJ4KRBZRFA/Coo+MUF5+gOaCQ=="],
 

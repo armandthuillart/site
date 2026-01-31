@@ -66,36 +66,38 @@ function RouteComponent() {
 					"flex flex-col gap-24": pathname !== "/",
 				})}
 			>
-				{pathname !== "/" && (
-					<nav className="flex justify-between">
-						{canGoBack && (
-							<Button
-								onClick={() => history.back()}
-								size="icon"
-								variant="secondary"
-							>
-								<ArrowBendUpLeftIcon weight="bold" />
-							</Button>
-						)}
-
-						{!canGoBack && (
-							<Link
-								className={buttonVariants({
-									size: "icon",
-									variant: "secondary",
-								})}
-								to={"/" as string}
-							>
-								<ArrowBendUpLeftIcon weight="bold" />
-							</Link>
-						)}
-
-						<Button onClick={handleCopyLink} size="icon" variant="secondary">
-							{Boolean(copied) && <CheckIcon weight="bold" />}
-							{Boolean(!copied) && <LinkIcon weight="bold" />}
+				<nav
+					className={cn("flex justify-between", {
+						hidden: pathname === "/",
+					})}
+				>
+					{canGoBack && (
+						<Button
+							onClick={() => history.back()}
+							size="icon"
+							variant="secondary"
+						>
+							<ArrowBendUpLeftIcon weight="bold" />
 						</Button>
-					</nav>
-				)}
+					)}
+
+					{!canGoBack && (
+						<Link
+							className={buttonVariants({
+								size: "icon",
+								variant: "secondary",
+							})}
+							to={"/" as string}
+						>
+							<ArrowBendUpLeftIcon weight="bold" />
+						</Link>
+					)}
+
+					<Button onClick={handleCopyLink} size="icon" variant="secondary">
+						{Boolean(copied) && <CheckIcon weight="bold" />}
+						{Boolean(!copied) && <LinkIcon weight="bold" />}
+					</Button>
+				</nav>
 
 				<div>
 					<Suspense>{clientLoader.useContent(path)}</Suspense>
