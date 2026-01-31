@@ -1,5 +1,4 @@
 import tailwindcss from "@tailwindcss/vite";
-import { tailwindcssObfuscator } from "@tailwindcss-obfuscator/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
@@ -19,11 +18,8 @@ export default defineConfig({
 		tailwindcss({
 			optimize: { minify: true },
 		}),
-		tailwindcssObfuscator({
-			cssEntry: "./src/styles/app.css",
-		}),
 		tanstackStart({
-			prerender: { enabled: true },
+			prerender: { crawlLinks: true, enabled: true },
 			sitemap: { enabled: true, host: "https://neap.app" },
 		}),
 		tsconfigPaths({

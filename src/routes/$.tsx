@@ -61,13 +61,9 @@ function RouteComponent() {
 
 	return (
 		<div className="isolate overflow-clip px-8">
-			<div
-				className={cn("mx-auto max-w-xl py-20", {
-					"flex flex-col gap-24": pathname !== "/",
-				})}
-			>
+			<div className="mx-auto max-w-xl py-20">
 				<nav
-					className={cn("flex justify-between", {
+					className={cn("mb-24 flex justify-between", {
 						hidden: pathname === "/",
 					})}
 				>
@@ -87,7 +83,7 @@ function RouteComponent() {
 								size: "icon",
 								variant: "secondary",
 							})}
-							to={"/" as string}
+							to=".."
 						>
 							<ArrowBendUpLeftIcon weight="bold" />
 						</Link>
@@ -103,12 +99,6 @@ function RouteComponent() {
 					<Suspense>{clientLoader.useContent(path)}</Suspense>
 				</div>
 			</div>
-
-			<div
-				aria-hidden="true"
-				className="pointer-events-none fixed inset-0 bg-center bg-repeat opacity-30 mix-blend-overlay dark:opacity-5"
-				style={{ backgroundImage: "url(/paper-grain.svg)" }}
-			/>
 		</div>
 	);
 }
