@@ -8,7 +8,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	plugins: [
-		mdx(await import("./source.config.ts"), {
+		mdx(await import("./source.config"), {
 			index: { target: "vite" },
 		}),
 		nitro({
@@ -19,8 +19,14 @@ export default defineConfig({
 			optimize: { minify: true },
 		}),
 		tanstackStart({
-			prerender: { crawlLinks: true, enabled: true },
-			sitemap: { enabled: true, host: "https://neap.app" },
+			prerender: {
+				crawlLinks: true,
+				enabled: true,
+			},
+			sitemap: {
+				enabled: true,
+				host: "https://armandthuillart.com",
+			},
 		}),
 		tsconfigPaths({
 			configNames: ["tsconfig.json"],

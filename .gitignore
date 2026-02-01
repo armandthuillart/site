@@ -1,18 +1,8 @@
 # Dependencies
 node_modules
 
-# Lock files
-package-lock.json
-
-# Yarn
-yarn.lock
-
 # Tanstack Start
 .tanstack
-.output
-
-# Cache
-.cache
 
 # Miscellaneous
 .DS_Store
@@ -22,6 +12,8 @@ yarn.lock
 
 # Vercel
 .vercel
+
+# Nitro
 .nitro
 
 # TypeScript
@@ -32,4 +24,3 @@ bun.lock
 
 # Fumadocs
 .source
-.env*.local

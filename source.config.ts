@@ -25,36 +25,93 @@ function hasChildren(
 	return "children" in node;
 }
 
+function rewriteFootnoteId(id: string): string {
+	if (id.startsWith("fnref")) {
+		return id.replace("fnref", "footnote-ref");
+	}
+	if (id.startsWith("fn")) {
+		return id.replace("fn", "footnote");
+	}
+	return id;
+}
+
+function rewriteFootnoteHref(href: string): string {
+	if (href.startsWith("#fnref")) {
+		return href.replace("#fnref", "#footnote-ref");
+	}
+	if (href.startsWith("#fn")) {
+		return href.replace("#fn", "#footnote");
+	}
+	return href;
+}
+
+function createFootnoteBackSvg(): Element {
+	return {
+		children: [
+			{
+				children: [],
+				properties: {
+					d: "M7.49023 12L3.74023 15.75M3.74023 15.75L7.49023 19.5M3.74023 15.75H20.2402V4.49902",
+				},
+				tagName: "path",
+				type: "element",
+			},
+		],
+		properties: {
+			ariaHidden: "true",
+			className: ["size-4 inline-block -translate-y-0.5 hover:opacity-80"],
+			fill: "none",
+			height: 24,
+			stroke: "currentColor",
+			strokeLinecap: "round",
+			strokeLinejoin: "round",
+			strokeWidth: 1.5,
+			viewBox: "0 0 24 24",
+			width: 24,
+			xmlns: "http://www.w3.org/2000/svg",
+		},
+		tagName: "svg",
+		type: "element",
+	};
+}
+
+function createFootnoteBackSup(rereferenceIndex: number): Element {
+	return {
+		children: [{ type: "text", value: String(rereferenceIndex) }],
+		properties: {},
+		tagName: "sup",
+		type: "element",
+	};
+}
+
+function processElement(node: Element): void {
+	if (hasId(node)) {
+		node.properties.id = rewriteFootnoteId(String(node.properties.id));
+	}
+	if (isAnchor(node) && hasHref(node)) {
+		node.properties.href = rewriteFootnoteHref(String(node.properties.href));
+	}
+}
+
+function walkFootnoteTree(tree: Root): void {
+	const walk = (node: Element | Root) => {
+		if (isElement(node)) {
+			processElement(node);
+		}
+		if (hasChildren(node)) {
+			for (const child of node.children) {
+				if (isElement(child)) {
+					walk(child);
+				}
+			}
+		}
+	};
+	walk(tree);
+}
+
 function customizeFootnoteIds() {
 	return (tree: Root) => {
-		const walk = (node: Element | Root) => {
-			if (isElement(node)) {
-				if (hasId(node)) {
-					const nodeId = String(node.properties.id);
-					if (nodeId.startsWith("fnref")) {
-						node.properties.id = nodeId.replace("fnref", "footnote-ref");
-					} else if (nodeId.startsWith("fn")) {
-						node.properties.id = nodeId.replace("fn", "footnote");
-					}
-				}
-				if (isAnchor(node) && hasHref(node)) {
-					const nodeHref = String(node.properties.href);
-					if (nodeHref.startsWith("#fnref")) {
-						node.properties.href = nodeHref.replace("#fnref", "#footnote-ref");
-					} else if (nodeHref.startsWith("#fn")) {
-						node.properties.href = nodeHref.replace("#fn", "#footnote");
-					}
-				}
-			}
-			if (hasChildren(node)) {
-				for (const child of node.children) {
-					if (isElement(child)) {
-						walk(child);
-					}
-				}
-			}
-		};
-		walk(tree);
+		walkFootnoteTree(tree);
 	};
 }
 
@@ -76,52 +133,10 @@ export default defineConfig({
 				_: number,
 				rereferenceIndex: number,
 			): Array<Element | Text> {
-				const result: Array<Element | Text> = [
-					{
-						children: [
-							{
-								children: [],
-								properties: {
-									d: "M7.49023 12L3.74023 15.75M3.74023 15.75L7.49023 19.5M3.74023 15.75H20.2402V4.49902",
-								},
-								tagName: "path",
-								type: "element",
-							},
-						],
-						properties: {
-							ariaHidden: "true",
-							className: [
-								"size-4 inline-block -translate-y-0.5 hover:opacity-80",
-							],
-							fill: "none",
-							height: 24,
-							stroke: "currentColor",
-							strokeLinecap: "round",
-							strokeLinejoin: "round",
-							strokeWidth: 1.5,
-							viewBox: "0 0 24 24",
-							width: 24,
-							xmlns: "http://www.w3.org/2000/svg",
-						},
-						tagName: "svg",
-						type: "element",
-					},
-				];
-
+				const result: Array<Element | Text> = [createFootnoteBackSvg()];
 				if (rereferenceIndex > 1) {
-					result.push({
-						children: [
-							{
-								type: "text",
-								value: String(rereferenceIndex),
-							},
-						],
-						properties: {},
-						tagName: "sup",
-						type: "element",
-					});
+					result.push(createFootnoteBackSup(rereferenceIndex));
 				}
-
 				return result;
 			},
 			footnoteLabelProperties: {

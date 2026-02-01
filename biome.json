@@ -12,19 +12,20 @@
 		"enabled": true
 	},
 	"css": {
-		"parser": { "tailwindDirectives": true }
+		"formatter": {
+			"enabled": true
+		},
+		"parser": {
+			"tailwindDirectives": true
+		}
 	},
 	"files": {
-		"includes": ["**/*.{ts,tsx}", "**/*.{json,jsonc}", "!**/*.gen.ts"]
+		"includes": ["**/*.{css,json,ts,tsx}"]
 	},
 	"formatter": {
 		"enabled": true
 	},
 	"linter": {
-		"domains": {
-			"project": "all",
-			"react": "all"
-		},
 		"enabled": true,
 		"rules": {
 			"a11y": "on",
@@ -39,14 +40,22 @@
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.ts", "**/*.tsx"],
+			"includes": ["**/*.config.ts"],
 			"linter": {
 				"rules": {
-					"complexity": {
-						"noExcessiveLinesPerFunction": {
-							"level": "on",
-							"options": { "maxLines": 100 }
-						}
+					"style": {
+						"noDefaultExport": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.{css,json,ts,tsx}"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noProcessGlobal": "off",
+						"useImportExtensions": "off"
 					},
 					"nursery": {
 						"noJsxLiterals": "off",
@@ -59,8 +68,8 @@
 							"fix": "safe",
 							"level": "on",
 							"options": {
-								"attributes": ["classList"],
-								"functions": ["cn", "cva", "tw"]
+								"attributes": ["className"],
+								"functions": ["clsx", "cn", "cva", "twMerge"]
 							}
 						}
 					},
@@ -72,22 +81,12 @@
 					},
 					"style": {
 						"noHeadElement": "off",
+						"noProcessEnv": "off",
 						"useComponentExportOnlyModules": "off",
-						"useFilenamingConvention": "off",
 						"useNamingConvention": "off"
 					},
 					"suspicious": {
 						"noReactSpecificProps": "off"
-					}
-				}
-			}
-		},
-		{
-			"includes": ["*.config.ts"],
-			"linter": {
-				"rules": {
-					"style": {
-						"noDefaultExport": "off"
 					}
 				}
 			}

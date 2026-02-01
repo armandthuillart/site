@@ -1,26 +1,11 @@
 import browserCollections from "fumadocs-mdx:collections/browser";
-import {
-	ArrowBendUpLeftIcon,
-	CheckIcon,
-	LinkIcon,
-} from "@phosphor-icons/react";
-import {
-	createFileRoute,
-	Link,
-	notFound,
-	useCanGoBack,
-	useLocation,
-	useRouter,
-} from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
-import { Suspense, useState } from "react";
-import { getMDXComponents } from "@/components/mdx-components.tsx";
-import { Button, buttonVariants } from "@/components/ui/button.tsx";
-import { source } from "@/lib/source.ts";
-import { cn } from "@/lib/utils.ts";
-
-const COPY_LINK_DELAY = 2000;
+import { Suspense } from "react";
+import { Header } from "@/components/header";
+import { getMDXComponents } from "@/components/mdx-components";
+import { source } from "@/lib/source";
 
 const serverLoader = createServerFn({
 	method: "GET",
@@ -45,61 +30,17 @@ const clientLoader = browserCollections.docs.createClientLoader({
 });
 
 function RouteComponent() {
-	const canGoBack = useCanGoBack();
 	const { path } = useFumadocsLoader(Route.useLoaderData());
-	const { pathname } = useLocation();
-	const { history } = useRouter();
-
-	const [copied, setCopied] = useState(false);
-
-	function handleCopyLink() {
-		navigator.clipboard.writeText(window.location.href).then(() => {
-			setCopied(true);
-			setTimeout(() => setCopied(false), COPY_LINK_DELAY);
-		});
-	}
 
 	return (
-		<div className="isolate overflow-clip px-8">
-			<div className="mx-auto max-w-xl py-20">
-				<nav
-					className={cn("mb-24 flex justify-between", {
-						hidden: pathname === "/",
-					})}
-				>
-					{canGoBack && (
-						<Button
-							onClick={() => history.back()}
-							size="icon"
-							variant="secondary"
-						>
-							<ArrowBendUpLeftIcon weight="bold" />
-						</Button>
-					)}
-
-					{!canGoBack && (
-						<Link
-							className={buttonVariants({
-								size: "icon",
-								variant: "secondary",
-							})}
-							to=".."
-						>
-							<ArrowBendUpLeftIcon weight="bold" />
-						</Link>
-					)}
-
-					<Button onClick={handleCopyLink} size="icon" variant="secondary">
-						{Boolean(copied) && <CheckIcon weight="bold" />}
-						{Boolean(!copied) && <LinkIcon weight="bold" />}
-					</Button>
-				</nav>
-
-				<div>
+		<>
+			<Header />
+			<main className="isolate overflow-clip">
+				<article className="mx-auto max-w-164 px-6 py-20 lg:px-10">
 					<Suspense>{clientLoader.useContent(path)}</Suspense>
-				</div>
-			</div>
-		</div>
+				</article>
+			</main>
+		</>
 	);
 }
 

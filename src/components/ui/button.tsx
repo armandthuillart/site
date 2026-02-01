@@ -1,6 +1,6 @@
 import { Button as ButtonPrimitive } from "@base-ui/react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils";
 
 type ButtonProps = ButtonPrimitive.Props & {
 	variant?: VariantProps<typeof buttonVariants>["variant"];
@@ -8,7 +8,7 @@ type ButtonProps = ButtonPrimitive.Props & {
 };
 
 export const buttonVariants = cva(
-	"flex cursor-pointer items-center justify-center rounded-full outline-paper-1000 disabled:pointer-events-none disabled:opacity-50",
+	"flex cursor-pointer items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-1000 disabled:pointer-events-none disabled:opacity-50",
 	{
 		variants: {
 			size: {

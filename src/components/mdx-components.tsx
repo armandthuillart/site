@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import type { ComponentProps } from "react";
-import { CollapsibleVideos } from "@/components/collapsible-videos.tsx";
-import { ImageGallery } from "@/components/image-gallery.tsx";
-import { TopArtists } from "@/components/top-artists.tsx";
-import { TopTracks } from "@/components/top-tracks.tsx";
-import { cn } from "@/lib/utils.ts";
+import { CollapsibleVideos } from "@/components/collapsible-videos";
+import { ImageGallery } from "@/components/image-gallery";
+import { TopArtists } from "@/components/top-artists";
+import { TopTracks } from "@/components/top-tracks";
+import { cn } from "@/lib/utils";
 
 export function getMDXComponents() {
 	return {
@@ -14,7 +14,7 @@ export function getMDXComponents() {
 			const isHashLink = hrefString.startsWith("#");
 
 			const className =
-				"cursor-pointer scroll-mt-5 align-baseline underline decoration-1 underline-offset-[2.5px] focus-visible:outline-none focus-visible:decoration-paper-1000 focus-visible:decoration-2";
+				"scroll-mt-5 align-baseline underline decoration-1 underline-offset-[2.5px] focus-visible:outline-none focus-visible:decoration-paper-1000 focus-visible:decoration-2 cursor-pointer";
 
 			if (isHashLink) {
 				return (

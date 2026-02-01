@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"allowImportingTsExtensions": true,
 		"allowJs": true,
 		"baseUrl": ".",
 		"esModuleInterop": true,

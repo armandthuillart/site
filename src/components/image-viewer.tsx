@@ -1,7 +1,7 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { Image } from "@unpic/react";
 import { useEffect, useState } from "react";
-import type { GalleryImage } from "@/components/image-gallery.tsx";
+import type { GalleryImage } from "@/components/image-gallery";
 
 interface ImageViewerProps {
 	images: GalleryImage[];
@@ -117,7 +117,7 @@ export function ImageViewer({ images, index }: ImageViewerProps) {
 					<>
 						<button
 							aria-label="Previous image"
-							className="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white hover:opacity-80 focus-visible:outline-2 focus-visible:outline-paper-1000 focus-visible:outline-offset-2 md:top-1/2 md:right-auto md:left-4"
+							className="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-1000 md:top-1/2 md:right-auto md:left-4"
 							onClick={goToPrevious}
 							type="button"
 						>
@@ -140,7 +140,7 @@ export function ImageViewer({ images, index }: ImageViewerProps) {
 
 						<button
 							aria-label="Next image"
-							className="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white hover:opacity-80 focus-visible:outline-2 focus-visible:outline-paper-1000 focus-visible:outline-offset-2 md:top-1/2 md:right-4 md:left-auto"
+							className="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-1000 md:top-1/2 md:right-4 md:left-auto"
 							onClick={goToNext}
 							type="button"
 						>

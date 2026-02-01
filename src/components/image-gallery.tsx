@@ -1,7 +1,7 @@
 import { Dialog } from "@base-ui/react";
 import { Image } from "@unpic/react";
 import { useState } from "react";
-import { ImageViewer } from "@/components/image-viewer.tsx";
+import { ImageViewer } from "@/components/image-viewer";
 
 interface ImageGalleryProps {
 	images: GalleryImage[];
@@ -22,7 +22,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
 					{images.map((image, i) => (
 						<Dialog.Trigger
 							aria-label={`Open image: ${image.alt}`}
-							className="cursor-pointer overflow-hidden rounded-md outline-paper-1000 hover:opacity-90"
+							className="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-1000"
 							key={image.url}
 							onClick={() => setIndex(i)}
 							type="button"
