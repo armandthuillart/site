@@ -33,7 +33,7 @@ export default defineConfig({
 		tanstackStart({
 			prerender: {
 				crawlLinks: true,
-				enabled: false,
+				enabled: false, // https://github.com/nitrojs/nitro/issues/3905
 				filter: (page) => !page.path.includes("#"),
 			},
 			sitemap: {
