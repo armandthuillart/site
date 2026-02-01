@@ -7,12 +7,24 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+	build: {
+		rollupOptions: {
+			onwarn() {
+				return;
+			},
+		},
+	},
 	plugins: [
 		mdx(await import("./source.config"), {
 			index: { target: "vite" },
 		}),
 		nitro({
 			preset: "vercel",
+			rollupConfig: {
+				onwarn() {
+					return;
+				},
+			},
 			vercel: { entryFormat: "node" },
 		}),
 		tailwindcss({
@@ -22,6 +34,7 @@ export default defineConfig({
 			prerender: {
 				crawlLinks: true,
 				enabled: true,
+				filter: (page) => !page.path.includes("#"),
 			},
 			sitemap: {
 				enabled: true,
@@ -33,6 +46,9 @@ export default defineConfig({
 		}),
 		viteReact(),
 	],
+	preview: {
+		port: 3000,
+	},
 	server: {
 		port: 3000,
 	},
