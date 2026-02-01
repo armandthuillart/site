@@ -33,7 +33,7 @@ export default defineConfig({
 		tanstackStart({
 			prerender: {
 				crawlLinks: true,
-				enabled: true,
+				enabled: false,
 				filter: (page) => !page.path.includes("#"),
 			},
 			sitemap: {
