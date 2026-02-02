@@ -1,8 +1,6 @@
-import {
-	ArrowBendUpLeftIcon,
-	CheckIcon,
-	LinkIcon,
-} from "@phosphor-icons/react";
+import { ArrowBendUpLeftIcon } from "@phosphor-icons/react/dist/ssr/ArrowBendUpLeft";
+import { CheckIcon } from "@phosphor-icons/react/dist/ssr/Check";
+import { LinkIcon } from "@phosphor-icons/react/dist/ssr/Link";
 import {
 	Link,
 	useCanGoBack,

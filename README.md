@@ -5,12 +5,6 @@ This is a [TanStack Start](https://tanstack.com/start) project bootstrapped with
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
 bun dev
 ```
 
