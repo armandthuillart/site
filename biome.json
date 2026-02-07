@@ -2,92 +2,38 @@
 	"$schema": "https://biomejs.dev/schemas/latest/schema.json",
 	"assist": {
 		"actions": {
-			"source": {
-				"recommended": true,
-				"useSortedAttributes": "on",
-				"useSortedKeys": "on",
-				"useSortedProperties": "on"
-			}
+			"source": { "useSortedKeys": "on" }
 		},
 		"enabled": true
 	},
 	"css": {
-		"formatter": {
-			"enabled": true
-		},
-		"parser": {
-			"tailwindDirectives": true
-		}
+		"parser": { "tailwindDirectives": true }
 	},
-	"files": {
-		"includes": ["**/*.{css,json,ts,tsx}"]
+	"html": {
+		"experimentalFullSupportEnabled": true,
+		"formatter": { "enabled": true }
 	},
-	"formatter": {
-		"enabled": true
+	"json": {
+		"formatter": { "expand": "auto" }
 	},
 	"linter": {
-		"enabled": true,
-		"rules": {
-			"a11y": "on",
-			"complexity": "on",
-			"correctness": "on",
-			"nursery": "on",
-			"performance": "on",
-			"security": "on",
-			"style": "on",
-			"suspicious": "on"
-		}
+		"domains": { "project": "recommended" }
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.config.ts"],
-			"linter": {
-				"rules": {
-					"style": {
-						"noDefaultExport": "off"
-					}
+			"assist": {
+				"actions": {
+					"source": { "organizeImports": "off", "useSortedKeys": "off" }
 				}
-			}
-		},
-		{
-			"includes": ["**/*.{css,json,ts,tsx}"],
+			},
+			"includes": ["**/*.astro"],
 			"linter": {
 				"rules": {
 					"correctness": {
-						"noProcessGlobal": "off",
-						"useImportExtensions": "off"
+						"noUnusedImports": "off",
+						"noUnusedVariables": "off"
 					},
-					"nursery": {
-						"noJsxLiterals": "off",
-						"noJsxPropsBind": "off",
-						"noUnresolvedImports": "off",
-						"useAwaitThenable": "off",
-						"useExplicitType": "off",
-						"useQwikValidLexicalScope": "off",
-						"useSortedClasses": {
-							"fix": "safe",
-							"level": "on",
-							"options": {
-								"attributes": ["className"],
-								"functions": ["clsx", "cn", "cva", "twMerge"]
-							}
-						}
-					},
-					"performance": {
-						"useSolidForComponent": "off"
-					},
-					"security": {
-						"noSecrets": "off"
-					},
-					"style": {
-						"noHeadElement": "off",
-						"noProcessEnv": "off",
-						"useComponentExportOnlyModules": "off",
-						"useNamingConvention": "off"
-					},
-					"suspicious": {
-						"noReactSpecificProps": "off"
-					}
+					"style": { "useImportType": "off" }
 				}
 			}
 		}

@@ -1,7 +1,10 @@
 # Dependencies
 node_modules
 
-# macOS (Finder)
+# Tanstack Start
+.tanstack
+
+# Miscellaneous
 .DS_Store
 
 # Environment variables
@@ -10,12 +13,14 @@ node_modules
 # Vercel
 .vercel
 
+# Nitro
+.nitro
+
 # TypeScript
 *.tsbuildinfo
 
-# Astro
-.astro
-dist
-
 # Bun
-bun.lockb
+bun.lock
+
+# Fumadocs
+.source

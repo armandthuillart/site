@@ -1,0 +1,168 @@
+---
+import BaseHead from "@/components/base-head.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/constants";
+import { getEntry, render } from "astro:content";
+import Paragraph from "@/components/paragraph.astro";
+import Anchor from "@/components/anchor.astro";
+
+const post = await getEntry("blog", "index");
+
+if (!post) {
+	throw new Error("Index post not found");
+}
+
+const { Content } = await render(post);
+
+const components = {
+	a: Anchor,
+	p: Paragraph,
+};
+---
+
+<html class="antialiased scheme-light-dark">
+	<head>
+		<BaseHead description={SITE_DESCRIPTION} title={SITE_TITLE} />
+	</head>
+
+	<body class="bg-background text-foreground selection:bg-selection">
+		<main class="overflow-clip isolate">
+			<div class="px-6 md:px-12">
+				<div
+					class="py-7 grid gap-10 md:grid-12 grid-cols-8 max-w-370 mx-auto md:py-8"
+				>
+					<div
+						class="flex flex-col items-start gap-2 col-start-5 col-end-8 md:col-end-9 lg:col-end-7"
+					>
+						<a
+							class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+							target="_blank"
+							href="https://x.com/armandthuillart"
+							rel="noopener noreferrer"
+							>X</a
+						>
+						<a
+							class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+							target="_blank"
+							href="https://github.com/thuillart"
+							rel="noopener noreferrer"
+							>GitHub</a
+						>
+						<a
+							class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+							target="_blank"
+							href="https://www.linkedin.com/in/armandthuillart/"
+							rel="noopener noreferrer"
+							>LinkedIn</a
+						>
+					</div>
+
+					<div class="max-lg:hidden col-start-7 col-end-9">
+						<a
+							class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+							href="/writings"
+							>Writings</a
+						>
+					</div>
+
+					<h1
+						class="font-serif col-start-1 col-end-9 text-4xl text-balance md:text-5xl xl:col-end-5"
+					>
+						Designer and developer living in Paris, France.
+					</h1>
+
+					<div class="col-start-1 col-end-9">
+						<a
+							class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+							href="/biography"
+							>Biography
+							<svg
+								fill="none"
+								class="size-4 shrink-0"
+								xmlns="http://www.w3.org/2000/svg"
+								stroke="currentColor"
+								viewBox="0 0 16 16"
+								stroke-width="1"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+									d="M6 12L10 8L6 4"
+								/>
+								<path
+									class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+									d="M2 8L13 8"
+								/>
+							</svg></a
+						>
+					</div>
+
+					<div
+						class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
+					>
+						<Content components={components} />
+					</div>
+
+					<div class="col-end-9 col-start-1 lg:col-start-3">
+						<div class="h-px w-8 bg-muted" />
+					</div>
+
+					<div class="col-start-1 col-end-9 md:col-end-3">
+						<h2 class="font-sans text-lg text-pretty">Companies</h2>
+					</div>
+
+					<div
+						class="grid gap-10 md:gap-12 col-end-9 col-start-1 lg:col-start-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
+					>
+						<div class="flex flex-col gap-2">
+							<div
+								class="aspect-square flex items-center justify-center bg-muted"
+							>
+								<svg
+									fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg"
+									width="68"
+									height="32"
+									viewBox="0 0 68 32"
+								>
+									<path
+										d="M0 23.5164C11.7242 23.5164 21.1035 12.9629 18.4528 0H27.0844L36.2938 31.9661H27.4582L23.6861 18.4942C19.4723 25.6543 11.4183 31.8303 0 31.9661V23.5164Z"
+									/>
+									<path
+										d="M68 8.48356C56.2758 8.48356 46.8965 19.0371 49.5472 32H40.9156L31.7062 0.033928H40.5418L44.3139 13.5058C48.5277 6.3457 56.5817 0.169671 68 0.033928V8.48356Z"
+									/>
+								</svg>
+							</div>
+
+							<p class="font-sans text-base text-pretty">Neap</p>
+						</div>
+
+						<div class="flex flex-col gap-2">
+							<div
+								class="aspect-square flex items-center justify-center bg-muted"
+							>
+								<svg
+									fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg"
+									width="67"
+									height="32"
+									viewBox="0 0 67 32"
+								>
+									<path
+										d="M67 32C67 27.7977 66.1335 23.6365 64.45 19.7541C62.7664 15.8717 60.2988 12.3441 57.1881 9.37258C54.0773 6.40111 50.3843 4.044 46.3199 2.43585C42.2555 0.827704 37.8993 -1.83688e-07 33.5 0C29.1007 1.83688e-07 24.7445 0.827705 20.6801 2.43586C16.6157 4.04401 12.9227 6.40111 9.81192 9.37258C6.70116 12.3441 4.23357 15.8717 2.55003 19.7541C0.866502 23.6365 -3.84597e-07 27.7977 0 32L67 32Z"
+									/>
+								</svg>
+							</div>
+
+							<p class="font-sans text-base text-pretty">Dome</p>
+						</div>
+					</div>
+
+					<div class="col-end-9 col-start-1 lg:col-start-3">
+						<div class="h-px w-8 bg-muted" />
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

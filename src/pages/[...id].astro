@@ -1,0 +1,59 @@
+---
+import BaseHead from "../components/base-head.astro";
+import Anchor from "../components/anchor.astro";
+import Blockquote from "../components/blockquote.astro";
+import Em from "../components/em.astro";
+import H1 from "../components/h1.astro";
+import H2 from "../components/h2.astro";
+import Li from "../components/li.astro";
+import Ol from "../components/ol.astro";
+import Paragraph from "../components/paragraph.astro";
+import Sup from "../components/sup.astro";
+import Ul from "../components/ul.astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+	const collection = await getCollection("blog");
+
+	const posts = collection.map((post) => ({
+		params: { id: post.id === "index" ? undefined : post.id },
+		props: { post },
+	}));
+
+	return posts;
+}
+
+interface Props {
+	post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const components = {
+	a: Anchor,
+	blockquote: Blockquote,
+	em: Em,
+	h1: H1,
+	h2: H2,
+	li: Li,
+	ol: Ol,
+	p: Paragraph,
+	sup: Sup,
+	ul: Ul,
+};
+---
+
+<html lang="en" class="antialiased scheme-light-dark">
+	<head>
+		<BaseHead description={post.data.description} title={post.data.title} />
+	</head>
+
+	<body class="bg-mist-0 dark:bg-mist-950">
+		<main class="overflow-clip isolate pt-20">
+			<article class="mx-auto max-w-xl px-6">
+				<Content components={components} />
+			</article>
+		</main>
+	</body>
+</html>

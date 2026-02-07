@@ -1,0 +1,101 @@
+{
+	"$schema": "https://biomejs.dev/schemas/latest/schema.json",
+	"assist": {
+		"actions": {
+			"source": {
+				"recommended": true,
+				"useSortedAttributes": "on",
+				"useSortedKeys": "on",
+				"useSortedProperties": "on"
+			}
+		},
+		"enabled": true
+	},
+	"css": {
+		"formatter": {
+			"enabled": true
+		},
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"files": {
+		"includes": ["**/*.{css,json,ts,tsx}"]
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"a11y": "on",
+			"complexity": "on",
+			"correctness": "on",
+			"nursery": "on",
+			"performance": "on",
+			"security": "on",
+			"style": "on",
+			"suspicious": "on"
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.config.ts"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noDefaultExport": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.{css,json,ts,tsx}"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noProcessGlobal": "off",
+						"useImportExtensions": "off"
+					},
+					"nursery": {
+						"noJsxLiterals": "off",
+						"noJsxPropsBind": "off",
+						"noUnresolvedImports": "off",
+						"useAwaitThenable": "off",
+						"useExplicitType": "off",
+						"useQwikValidLexicalScope": "off",
+						"useSortedClasses": {
+							"fix": "safe",
+							"level": "on",
+							"options": {
+								"attributes": ["className"],
+								"functions": ["clsx", "cn", "cva", "twMerge"]
+							}
+						}
+					},
+					"performance": {
+						"useSolidForComponent": "off"
+					},
+					"security": {
+						"noSecrets": "off"
+					},
+					"style": {
+						"noHeadElement": "off",
+						"noProcessEnv": "off",
+						"useComponentExportOnlyModules": "off",
+						"useNamingConvention": "off"
+					},
+					"suspicious": {
+						"noReactSpecificProps": "off"
+					}
+				}
+			}
+		}
+	],
+	"root": false,
+	"vcs": {
+		"clientKind": "git",
+		"enabled": true,
+		"useIgnoreFile": true
+	}
+}

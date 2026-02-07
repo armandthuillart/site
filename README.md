@@ -1,4 +1,4 @@
-This is a [TanStack Start](https://tanstack.com/start) project bootstrapped with [`@tanstack/cli`](https://tanstack.com/cli/latest).
+This is a [Astro](https://astro.build/start) project bootstrapped with [`@astro/latest`](https://docs.astro.build/en/install-and-setup/#install-from-the-cli-wizard).
 
 ## Getting Started
 
@@ -8,11 +8,9 @@ First, run the development server:
 bun dev
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+Open http://localhost:4173 with your browser to see the result.
 
-You can start editing the page by modifying `content/docs/index.tsx`. The page auto-updates as you edit the file.
-
-This project uses [Fumadocs](https://www.fumadocs.dev/), a documentation framework, to power and render its `MDX` pages.
+You can start editing the page by modifying `content/blog/index.md`. The page auto-updates as you edit the file.
 
 ## Open Source
 

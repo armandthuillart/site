@@ -3,13 +3,13 @@
 @import "@fontsource-variable/stix-two-text";
 
 @theme {
-	--color-paper-50: oklch(95.8% .00542 95.1);
-	--color-paper-100: oklch(94.4% .00108 17.2);
-	--color-paper-200: oklch(92.1% .00679 97.4);
-	--color-paper-700: oklch(26% .0113 91.7);
-	--color-paper-900: oklch(21.3% .0135 94);
-	--color-paper-950: oklch(18.1% .0155 102);
-	--color-paper-1000: oklch(65.2% .214 38);
+	--color-paper-50: oklch(95.8% 0.00542 95.1);
+	--color-paper-100: oklch(94.4% 0.00108 17.2);
+	--color-paper-200: oklch(92.1% 0.00679 97.4);
+	--color-paper-700: oklch(26% 0.0113 91.7);
+	--color-paper-900: oklch(21.3% 0.0135 94);
+	--color-paper-950: oklch(18.1% 0.0155 102);
+	--color-paper-1000: oklch(65.2% 0.214 38);
 	--font-sans: "STIX Two Text Variable", sans-serif;
 	--text-lg: 1.0625rem;
 	--text-lg--line-height: 1.5;
