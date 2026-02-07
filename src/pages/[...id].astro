@@ -9,6 +9,8 @@ import Ol from "@/components/ol.astro";
 import Paragraph from "@/components/paragraph.astro";
 import Sup from "@/components/sup.astro";
 import Ul from "@/components/ul.astro";
+import CollapsibleVideos from "@/components/collapsible-videos.astro";
+import ImageGallery from "@/components/image-gallery.astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
@@ -32,8 +34,10 @@ const { Content } = await render(post);
 const components = {
 	a: Anchor,
 	blockquote: Blockquote,
+	CollapsibleVideos,
 	em: Em,
 	h2: H2,
+	ImageGallery,
 	li: Li,
 	ol: Ol,
 	p: Paragraph,

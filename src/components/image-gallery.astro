@@ -1,0 +1,240 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+	images: {
+		url: ImageMetadata;
+		alt: string;
+	}[];
+}
+
+const { images } = Astro.props;
+---
+
+<div data-gallery data-images={JSON.stringify(images)}>
+	<div
+		class="relative my-8 block w-full md:left-1/2 md:my-16 md:w-screen md:max-w-6xl md:-translate-x-1/2"
+	>
+		<div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+			{images.map((image, i) => (
+					<button
+						aria-label={`Open image: ${image.alt}`}
+						class="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+						data-thumb
+						data-index={i}
+						type="button"
+					>
+						<Image
+							class="size-full object-cover"
+							alt={image.alt}
+							src={image.url}
+						/>
+					</button>
+				))}
+		</div>
+	</div>
+
+	<dialog
+		class="fixed inset-0 z-50 h-svh max-h-none max-w-none bg-transparent p-0 backdrop:bg-black/60 dark:backdrop:bg-black/90 backdrop:backdrop-blur-[1px]"
+		data-viewer
+	>
+		<div
+			class="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none md:px-24"
+		>
+			<h2 class="sr-only">Image viewer</h2>
+			<p class="sr-only">Navigate through images with arrow keys</p>
+
+			<button
+				type="button"
+				class="absolute inset-0 z-0 cursor-default focus-visible:outline-none"
+				tabindex="-1"
+				aria-hidden="true"
+				data-backdrop
+			/>
+
+			<div class="relative z-10 aspect-3/2 max-h-[90svh] w-full max-w-6xl">
+				<div class="relative size-full overflow-hidden">
+					<Image
+						src={images[0].url}
+						alt={images[0].alt}
+						class="size-full object-cover"
+						data-image
+					/>
+
+					<div
+						class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/90 via-black/70 to-transparent p-6 text-center"
+					>
+						<p
+							class="text-lg font-serif text-pretty text-background dark:text-foreground"
+							data-caption
+						/>
+					</div>
+				</div>
+			</div>
+
+			<button
+				aria-label="Close modal"
+				data-close
+				class="absolute size-14 flex items-center justify-center top-4 right-4 z-50 rounded-full text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current"
+				type="button"
+			>
+				<svg
+					fill="none"
+					class="size-8"
+					xmlns="http://www.w3.org/2000/svg"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					stroke-width={2}
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
+
+			{images.length > 1 && (
+					<>
+						<button
+							aria-label="Previous image"
+							class="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current md:top-1/2 md:right-auto md:left-4"
+							data-prev
+							type="button"
+						>
+							<svg
+								fill="none"
+								class="size-10"
+								xmlns="http://www.w3.org/2000/svg"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								aria-hidden="true"
+							>
+								<path
+									d="M15 19l-7-7 7-7"
+									stroke-width={2}
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						</button>
+
+						<button
+							aria-label="Next image"
+							data-next
+							class="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current md:top-1/2 md:right-4 md:left-auto"
+							type="button"
+						>
+							<svg
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+								class="size-10"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								aria-hidden="true"
+							>
+								<path
+									d="M9 5l7 7-7 7"
+									stroke-width={2}
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						</button>
+					</>
+				)}
+		</div>
+	</dialog>
+</div>
+
+<script>
+(() => {
+	document
+		.querySelectorAll<HTMLElement>("[data-gallery]")
+		.forEach((gallery) => {
+			const img = gallery.querySelector<HTMLImageElement>("[data-image]");
+			const modal = gallery.querySelector<HTMLDialogElement>("[data-viewer]");
+			const images = JSON.parse(gallery.dataset.images || "[]");
+			const caption = gallery.querySelector<HTMLElement>("[data-caption]");
+
+			if (!modal || !images.length) return;
+
+			let index = 0;
+
+			const update = () => {
+				const current = images[index];
+				if (img) {
+					img.src = current.url.src;
+					img.alt = current.alt;
+				}
+				if (caption) {
+					caption.textContent = current.alt;
+				}
+			};
+
+			const open = (i: number) => {
+				index = i;
+				update();
+				modal.showModal();
+				document.body.style.overflow = "hidden";
+			};
+
+			const close = () => {
+				modal.close();
+				document.body.style.overflow = "";
+			};
+
+			const prev = () => {
+				index = index > 0 ? index - 1 : images.length - 1;
+				update();
+			};
+
+			const next = () => {
+				index = index < images.length - 1 ? index + 1 : 0;
+				update();
+			};
+
+			gallery
+				.querySelectorAll<HTMLElement>("[data-thumb]")
+				.forEach((thumb, i) => {
+					thumb.addEventListener("click", () => open(i));
+				});
+
+			gallery
+				.querySelector<HTMLElement>("[data-close]")
+				?.addEventListener("click", close);
+			gallery
+				.querySelector<HTMLElement>("[data-backdrop]")
+				?.addEventListener("click", close);
+
+			gallery
+				.querySelector<HTMLElement>("[data-prev]")
+				?.addEventListener("click", (e) => {
+					e.stopPropagation();
+					prev();
+				});
+
+			gallery
+				.querySelector<HTMLElement>("[data-next]")
+				?.addEventListener("click", (e) => {
+					e.stopPropagation();
+					next();
+				});
+
+			modal.addEventListener("keydown", (e) => {
+				if (e.key === "ArrowLeft") {
+					e.preventDefault();
+					prev();
+				} else if (e.key === "ArrowRight") {
+					e.preventDefault();
+					next();
+				} else if (e.key === "Escape") {
+					document.body.style.overflow = "";
+				}
+			});
+
+			modal.addEventListener("close", () => {
+				document.body.style.overflow = "";
+			});
+		});
+})();
+</script>
