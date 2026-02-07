@@ -22,3 +22,6 @@ bun.lockb
 
 # migration
 .migration
+
+# Environment variables
+.env*.local

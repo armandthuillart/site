@@ -13,12 +13,12 @@ const SITE_URL = process.env.VERCEL_URL
 export default defineConfig({
 	adapter: vercel(),
 	experimental: { contentIntellisense: true },
-	integrations: [mdx(), sitemap()],
+	integrations: [mdx({ optimize: true }), sitemap()],
 	markdown: {
 		rehypePlugins: [rehypeKatex],
 		remarkPlugins: [remarkMath],
 	},
 	server: { port: 3000 },
 	site: SITE_URL,
-	vite: { plugins: [tailwindcss()] },
+	vite: { plugins: [tailwindcss({ optimize: true })] },
 });

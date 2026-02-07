@@ -37,3 +37,18 @@ const { title } = Astro.props;
 <meta property="twitter:title" content={title}>
 <meta property="twitter:image" content={new URL(ogImage.src, Astro.url)}>
 <meta property="twitter:description" content="Designer and developer.">
+
+<link
+	rel="preload"
+	href="/fonts/die-grotesk-a-regular.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin
+>
+<link
+	rel="preload"
+	href="/fonts/die-grotesk-b-regular.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin
+>
