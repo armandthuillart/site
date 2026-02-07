@@ -1,6 +1,6 @@
 ---
 import "@/styles/global.css";
-import image from "@/images/opengraph-image.png";
+import ogImage from "@/images/opengraph-image.png";
 
 type Props = { title: string };
 
@@ -29,11 +29,11 @@ const { title } = Astro.props;
 <meta property="og:url" content={Astro.url}>
 <meta property="og:type" content="website">
 <meta property="og:title" content={title}>
-<meta property="og:image" content={new URL(image.src, Astro.url)}>
+<meta property="og:image" content={new URL(ogImage.src, Astro.url)}>
 <meta property="og:description" content="Designer and developer.">
 
 <meta property="twitter:url" content={Astro.url}>
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:title" content={title}>
-<meta property="twitter:image" content={new URL(image.src, Astro.url)}>
+<meta property="twitter:image" content={new URL(ogImage.src, Astro.url)}>
 <meta property="twitter:description" content="Designer and developer.">
