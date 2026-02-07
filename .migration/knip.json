@@ -1,5 +1,0 @@
-{
-	"$schema": "https://unpkg.com/knip@5/schema.json",
-	"entry": ["src/router.tsx"],
-	"project": ["**/*.{css,mdx,ts,tsx}"]
-}
