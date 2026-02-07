@@ -2,6 +2,6 @@
 const { ...props } = Astro.props;
 ---
 
-<ul class="space-y-1 pl-4 [&>li]:list-[square]" {...props}>
+<ul {...props} class="space-y-1 pl-4 [&>li]:list-[square]">
 	<slot />
 </ul>

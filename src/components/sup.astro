@@ -1,11 +1,7 @@
 ---
-interface Props {
-	class?: string;
-}
-
-const { class: className = "", ...props } = Astro.props;
+const { ...props } = Astro.props;
 ---
 
-<sup class:list={["text-[.625rem]", className]} {...props}>
+<sup {...props} class="text-[.625rem]">
 	<slot />
 </sup>

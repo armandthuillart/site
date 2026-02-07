@@ -1,17 +1,10 @@
 ---
-interface Props {
-	class?: string;
-}
-
-const { class: className = "", ...props } = Astro.props;
+const { ...props } = Astro.props;
 ---
 
 <blockquote
-	class:list={[
-		"mt-5 not-last:mb-5 border-mist-700/10 border-l-3 pl-3.5 text-lg dark:border-mist-100/10 [&>p]:m-0",
-		className,
-	]}
 	{...props}
+	class="mt-5 not-last:mb-5 border-mist-700/10 border-l-3 pl-3.5 text-lg dark:border-mist-100/10 [&>p]:m-0"
 >
 	<slot />
 </blockquote>

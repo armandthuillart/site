@@ -1,0 +1,25 @@
+---
+import BaseHead from "@/components/base-head.astro";
+import type { ImageMetadata } from "astro";
+import FallbackImage from "@/images/opengraph-image.png";
+
+interface Props {
+	description: string;
+	image?: ImageMetadata;
+	title: string;
+}
+
+const { description, image = FallbackImage, title } = Astro.props;
+---
+
+<html class="antialiased scheme-light-dark">
+	<head>
+		<BaseHead description={description} image={image} title={title} />
+	</head>
+
+	<body class="bg-background text-foreground selection:bg-selection">
+		<main class="overflow-clip isolate">
+			<slot />
+		</main>
+	</body>
+</html>

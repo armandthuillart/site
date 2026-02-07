@@ -3,15 +3,14 @@
 @font-face {
 	font-family: "Die Grotesk A";
 	font-weight: 400;
-	src: url("/assets/fonts/die-grotesk-a-regular.woff2") format("woff2");
+	src: url("/fonts/die-grotesk-a-regular.woff2") format("woff2");
 }
 
 @font-face {
 	font-family: "Die Grotesk B";
 	font-weight: 400;
-	src: url("/assets/fonts/die-grotesk-b-regular.woff2") format("woff2");
+	src: url("/fonts/die-grotesk-b-regular.woff2") format("woff2");
 }
-
 
 @theme {
 	--color-background: var(--background);
@@ -20,6 +19,8 @@
 	--color-border: var(--border);
 	--color-selection: var(--selection);
 	--color-focus: var(--focus);
+	--color-yellow: var(--yellow);
+	--color-blue: var(--blue);
 	--font-sans: "Die Grotesk A", sans-serif;
 	--font-serif: "Die Grotesk B", serif;
 	--text-base: 0.9375rem;
@@ -39,6 +40,8 @@
 	--border: oklch(30% 0 0);
 	--selection: oklch(94% 0 0);
 	--focus: oklch(37.8% 0.182 263);
+	--yellow: oklch(87.6% 0.169 91.4);
+	--blue: oklch(45.2% 0.313 264);
 
 	@media (color-gamut: p3) {
 		--background: color(display-p3 1 1 1);
@@ -47,6 +50,8 @@
 		--border: color(display-p3 0.18 0.18 0.18);
 		--selection: color(display-p3 0.92 0.92 0.92);
 		--focus: color(display-p3 0 0.2 0.63);
+		--yellow: color(display-p3 0.971 0.826 0.329);
+		--blue: color(display-p3 -0.002 0.003 0.959);
 	}
 }
 
@@ -58,6 +63,8 @@
 		--border: oklch(32% 0 0);
 		--selection: oklch(30% 0 0);
 		--focus: oklch(37.8% 0.182 263);
+		--yellow: oklch(87.6% 0.169 91.4);
+		--blue: oklch(45.2% 0.313 264);
 
 		@media (color-gamut: p3) {
 			--background: color(display-p3 0.06 0.06 0.06);
@@ -66,6 +73,8 @@
 			--border: color(display-p3 0.2 0.2 0.2);
 			--selection: color(display-p3 0.18 0.18 0.18);
 			--focus: color(display-p3 0 0.56 0.87);
+			--yellow: color(display-p3 0.971 0.826 0.329);
+			--blue: color(display-p3 -0.002 0.003 0.959);
 		}
 	}
 }

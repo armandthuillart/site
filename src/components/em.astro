@@ -1,11 +1,7 @@
 ---
-interface Props {
-	class?: string;
-}
-
-const { class: className = "", ...props } = Astro.props;
+const { ...props } = Astro.props;
 ---
 
-<em class:list={["font-medium", className]} {...props}>
-	<slot />
-</em>
+<em {...props} class="font-medium"
+	><slot /></em
+>
