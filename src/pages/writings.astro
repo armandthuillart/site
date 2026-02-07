@@ -1,20 +1,74 @@
 ---
 import BaseLayout from "@/layouts/base-layout.astro";
-import { SITE_DESCRIPTION } from "@/constants";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog")).filter(
-	(post) => post.id !== "index",
+const posts = (await getCollection("blog")).filter((post) => !!post.data.date);
+
+posts.sort(
+	(a, b) =>
+		new Date(b.data.date ?? "").getTime() -
+		new Date(a.data.date ?? "").getTime(),
 );
+
+const format = (date: Date) =>
+	new Intl.DateTimeFormat("en-US", {
+		day: "numeric",
+		year: "numeric",
+		month: "long",
+	}).format(date);
 ---
 
-<BaseLayout description={SITE_DESCRIPTION} title="Writings · Armand Thuillart">
-	<div class="px-6 md:px-12">
-		<div
-			class="py-7 grid gap-10 md:grid-12 grid-cols-8 max-w-370 mx-auto md:py-8"
+<BaseLayout
+	metadata={{ title: "Writings · Armand Thuillart" }}
+	headline="Everything thoughts and ideas that crossed my mind so far."
+	title="Writings"
+>
+	<div class="col-start-1 col-end-9">
+		<a
+			class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+			href="/"
+			>Go back home
+			<svg
+				fill="none"
+				class="size-4 shrink-0"
+				xmlns="http://www.w3.org/2000/svg"
+				stroke="currentColor"
+				viewBox="0 0 16 16"
+				stroke-width="1"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+					d="M6 12L10 8L6 4"
+				/>
+				<path
+					class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+					d="M2 8L13 8"
+				/>
+			</svg></a
 		>
-			<div class="col-end-4 col-start-1">
-				<h1 class="text-4xl font-bold">Writings</h1>
+	</div>
+
+	<div
+		class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
+	>
+		<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
+			<div class="flex flex-col">
+				{posts.map((post) => (
+					<a
+						href={post.id}
+						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-2 focus-visible:outline-current"
+					>
+						<span class="font-sans text-lg text-pretty">
+							{format(post.data.date!)}
+						</span>
+
+						<span class="font-sans text-lg text-pretty">
+							{post.data.title}
+						</span>
+					</a>
+				))}
 			</div>
 		</div>
 	</div>

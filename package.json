@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"astro": "^5.17.1"
+		"astro": "^6.0.0-beta.9"
 	},
 	"devDependencies": {
 		"@astrojs/mdx": "^4.3.13",
@@ -11,6 +11,8 @@
 		"@tailwindcss/vite": "^4.1.18",
 		"knip": "^5.83.1",
 		"nitro": "npm:nitro-nightly@latest",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
 		"tailwindcss": "^4.1.18"
 	},
 	"scripts": {

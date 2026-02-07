@@ -1,437 +1,361 @@
 ---
 import BaseLayout from "@/layouts/base-layout.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/constants";
-import { getEntry, render } from "astro:content";
-import Paragraph from "@/components/paragraph.astro";
-import Anchor from "@/components/anchor.astro";
-
-const post = await getEntry("blog", "index");
-
-if (!post) {
-	throw new Error("Index post not found");
-}
-
-const { Content } = await render(post);
-
-const components = {
-	a: Anchor,
-	p: Paragraph,
-};
 ---
 
-<BaseLayout description={SITE_DESCRIPTION} title={SITE_TITLE}>
-	<div class="px-6 md:px-12">
-		<div
-			class="py-7 grid gap-10 md:grid-12 grid-cols-8 max-w-370 mx-auto md:py-8"
+<BaseLayout
+	metadata={{ title: "Armand Thuillart" }}
+	headline="Designer and developer living in Paris, France."
+	title="Armand Thuillart"
+>
+	<div class="col-start-1 col-end-9">
+		<a
+			class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+			href="/biography"
+			>Biography
+			<svg
+				fill="none"
+				class="size-4 shrink-0"
+				xmlns="http://www.w3.org/2000/svg"
+				stroke="currentColor"
+				viewBox="0 0 16 16"
+				stroke-width="1"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+					d="M6 12L10 8L6 4"
+				/>
+				<path
+					class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+					d="M2 8L13 8"
+				/>
+			</svg></a
 		>
-			<div class="col-end-4 col-start-1">
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="mailto:armand.thuillart@proton.me"
-					>armand.thuillart@pm.me</a
+	</div>
+
+	<div
+		class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
+	>
+		<p class="font-sans text-lg text-pretty">
+			Currently building two companies by day. Majoring in business
+			administration by night. I have been coding for three years and building
+			for the second half.
+		</p>
+
+		<p class="font-sans text-lg text-pretty">
+			I wear a lot of hats. I'm a student, designer, and developer. Together,
+			that makes me an entrepreneur who builds things.
+		</p>
+
+		<p class="font-sans text-lg text-pretty">
+			I also like art, music, and reading. My current wallpaper is "Beach at
+			Beverly" by John Frederick Kensett. I last listened to "Retour" by Tony
+			Anderson. I last read "The Alchemist" by Paulo Coelho.
+		</p>
+
+		<p class="font-sans text-lg text-pretty">
+			You can read my writing or code, or follow me online. I also make videos,
+			advise companies, and do angel investing. Reach out if interested.
+		</p>
+	</div>
+
+	<div class="col-end-9 col-start-1 lg:col-start-3">
+		<div class="h-px w-8 bg-muted" />
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-end-3">
+		<h2 class="font-sans text-lg text-pretty">Companies</h2>
+	</div>
+
+	<div
+		class="grid gap-10 md:gap-12 col-end-9 col-start-1 lg:col-start-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
+	>
+		<div class="flex flex-col gap-2">
+			<a
+				class="group/card aspect-square flex items-center justify-center bg-muted hover:bg-yellow focus-visible:bg-yellow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+				href="https://neap.app"
+			>
+				<svg
+					fill="currentColor"
+					xmlns="http://www.w3.org/2000/svg"
+					width="68"
+					height="32"
+					viewBox="0 0 68 32"
 				>
+					<path
+						d="M0 23.5164C11.7242 23.5164 21.1035 12.9629 18.4528 0H27.0844L36.2938 31.9661H27.4582L23.6861 18.4942C19.4723 25.6543 11.4183 31.8303 0 31.9661V23.5164Z"
+						class="group-hover/card:fill-black group-focus-visible/card:fill-black"
+					/>
+					<path
+						d="M68 8.48356C56.2758 8.48356 46.8965 19.0371 49.5472 32H40.9156L31.7062 0.033928H40.5418L44.3139 13.5058C48.5277 6.3457 56.5817 0.169671 68 0.033928V8.48356Z"
+						class="group-hover/card:fill-black group-focus-visible/card:fill-black"
+					/>
+				</svg>
+			</a>
+
+			<p class="font-sans text-base text-pretty">Neap</p>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<a
+				class="group/card aspect-square flex items-center justify-center bg-muted hover:bg-blue focus-visible:bg-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+				href="https://dome.app"
+			>
+				<svg
+					fill="currentColor"
+					xmlns="http://www.w3.org/2000/svg"
+					width="67"
+					height="32"
+					viewBox="0 0 67 32"
+				>
+					<path
+						d="M67 32C67 27.7977 66.1335 23.6365 64.45 19.7541C62.7664 15.8717 60.2988 12.3441 57.1881 9.37258C54.0773 6.40111 50.3843 4.044 46.3199 2.43585C42.2555 0.827704 37.8993 -1.83688e-07 33.5 0C29.1007 1.83688e-07 24.7445 0.827705 20.6801 2.43586C16.6157 4.04401 12.9227 6.40111 9.81192 9.37258C6.70116 12.3441 4.23357 15.8717 2.55003 19.7541C0.866502 23.6365 -3.84597e-07 27.7977 0 32L67 32Z"
+						class="group-hover/card:fill-white group-focus-visible/card:fill-white"
+					/>
+				</svg>
+			</a>
+
+			<p class="font-sans text-base text-pretty">Dome</p>
+		</div>
+	</div>
+
+	<div class="col-end-9 col-start-1 lg:col-start-3">
+		<div class="h-px w-8 bg-muted" />
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-end-3">
+		<h2 class="font-sans text-lg text-pretty">Academic background</h2>
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
+		<div class="flex flex-col">
+			<div
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
+			>
+				<span class="font-sans text-lg text-pretty">2025-2026</span>
+
+				<span class="font-sans text-lg text-pretty">Paris (France)</span>
+
+				<span class="font-sans text-lg text-pretty">Master 2</span>
 			</div>
 
 			<div
-				class="flex flex-col items-start gap-2 col-start-5 col-end-8 md:col-end-9 lg:col-end-7"
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
 			>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://x.com/armandthuillart"
-					>X</a
-				>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://github.com/thuillart"
-					>GitHub</a
-				>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://www.linkedin.com/in/armandthuillart/"
-					>LinkedIn</a
-				>
-			</div>
+				<span class="font-sans text-lg text-pretty">2024-2025 </span>
 
-			<div class="max-lg:hidden col-start-7 col-end-9">
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="/writings"
-					>Writings</a
-				>
-			</div>
+				<span class="font-sans text-lg text-pretty">Boston (USA)</span>
 
-			<h1
-				class="font-serif col-start-1 col-end-9 text-4xl text-balance md:text-5xl xl:col-end-5"
-			>
-				Designer and developer living in Paris, France.
-			</h1>
-
-			<div class="col-start-1 col-end-9">
-				<a
-					class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="/biography"
-					>Biography
-					<svg
-						fill="none"
-						class="size-4 shrink-0"
-						xmlns="http://www.w3.org/2000/svg"
-						stroke="currentColor"
-						viewBox="0 0 16 16"
-						stroke-width="1"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path
-							class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
-							d="M6 12L10 8L6 4"
-						/>
-						<path
-							class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
-							d="M2 8L13 8"
-						/>
-					</svg></a
-				>
+				<span class="font-sans text-lg text-pretty">Exchange at UMB</span>
 			</div>
 
 			<div
-				class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
 			>
-				<Content components={components} />
-			</div>
+				<span class="font-sans text-lg text-pretty">2024-2025</span>
 
-			<div class="col-end-9 col-start-1 lg:col-start-3">
-				<div class="h-px w-8 bg-muted" />
-			</div>
+				<span class="font-sans text-lg text-pretty">Caen (France)</span>
 
-			<div class="col-start-1 col-end-9 md:col-end-3">
-				<h2 class="font-sans text-lg text-pretty">Companies</h2>
+				<span class="font-sans text-lg text-pretty">Master 1</span>
 			</div>
 
 			<div
-				class="grid gap-10 md:gap-12 col-end-9 col-start-1 lg:col-start-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
 			>
-				<div class="flex flex-col gap-2">
-					<a
-						class="group/card aspect-square flex items-center justify-center bg-muted hover:bg-yellow focus-visible:bg-yellow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-						href="https://neap.app"
-					>
-						<svg
-							fill="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							width="68"
-							height="32"
-							viewBox="0 0 68 32"
-						>
-							<path
-								d="M0 23.5164C11.7242 23.5164 21.1035 12.9629 18.4528 0H27.0844L36.2938 31.9661H27.4582L23.6861 18.4942C19.4723 25.6543 11.4183 31.8303 0 31.9661V23.5164Z"
-								class="group-hover/card:fill-black group-focus-visible/card:fill-black"
-							/>
-							<path
-								d="M68 8.48356C56.2758 8.48356 46.8965 19.0371 49.5472 32H40.9156L31.7062 0.033928H40.5418L44.3139 13.5058C48.5277 6.3457 56.5817 0.169671 68 0.033928V8.48356Z"
-								class="group-hover/card:fill-black group-focus-visible/card:fill-black"
-							/>
-						</svg>
-					</a>
+				<span class="font-sans text-lg text-pretty">2023-2024</span>
 
-					<p class="font-sans text-base text-pretty">Neap</p>
-				</div>
+				<span class="font-sans text-lg text-pretty">Dublin (Ireland)</span>
 
-				<div class="flex flex-col gap-2">
-					<a
-						class="group/card aspect-square flex items-center justify-center bg-muted hover:bg-blue focus-visible:bg-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-						href="https://dome.app"
-					>
-						<svg
-							fill="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							width="67"
-							height="32"
-							viewBox="0 0 67 32"
-						>
-							<path
-								d="M67 32C67 27.7977 66.1335 23.6365 64.45 19.7541C62.7664 15.8717 60.2988 12.3441 57.1881 9.37258C54.0773 6.40111 50.3843 4.044 46.3199 2.43585C42.2555 0.827704 37.8993 -1.83688e-07 33.5 0C29.1007 1.83688e-07 24.7445 0.827705 20.6801 2.43586C16.6157 4.04401 12.9227 6.40111 9.81192 9.37258C6.70116 12.3441 4.23357 15.8717 2.55003 19.7541C0.866502 23.6365 -3.84597e-07 27.7977 0 32L67 32Z"
-								class="group-hover/card:fill-white group-focus-visible/card:fill-white"
-							/>
-						</svg>
-					</a>
-
-					<p class="font-sans text-base text-pretty">Dome</p>
-				</div>
-			</div>
-
-			<div class="col-end-9 col-start-1 lg:col-start-3">
-				<div class="h-px w-8 bg-muted" />
-			</div>
-
-			<div class="col-start-1 col-end-9 md:col-end-3">
-				<h2 class="font-sans text-lg text-pretty">Academic background</h2>
-			</div>
-
-			<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-				<div class="flex flex-col">
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2025-2026</span>
-
-						<span class="font-sans text-lg text-pretty">Paris (France)</span>
-
-						<span class="font-sans text-lg text-pretty">Master 2</span>
-					</div>
-
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2024-2025 </span>
-
-						<span class="font-sans text-lg text-pretty">Boston (USA)</span>
-
-						<span class="font-sans text-lg text-pretty">Exchange at UMB</span>
-					</div>
-
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2024-2025</span>
-
-						<span class="font-sans text-lg text-pretty">Caen (France)</span>
-
-						<span class="font-sans text-lg text-pretty">Master 1</span>
-					</div>
-
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2023-2024</span>
-
-						<span class="font-sans text-lg text-pretty">Dublin (Ireland)</span>
-
-						<span class="font-sans text-lg text-pretty">Exchange at TUD</span>
-					</div>
-
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2023-2024</span>
-
-						<span class="font-sans text-lg text-pretty">Santiago (Chile)</span>
-
-						<span class="font-sans text-lg text-pretty">Exchange at UAI</span>
-					</div>
-
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2022-2023</span>
-
-						<span class="font-sans text-lg text-pretty">Oxford (UK)</span>
-
-						<span class="font-sans text-lg text-pretty">Undergraduate 2</span>
-					</div>
-
-					<div
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
-					>
-						<span class="font-sans text-lg text-pretty">2021-2022</span>
-
-						<span class="font-sans text-lg text-pretty">Paris (France)</span>
-
-						<span class="font-sans text-lg text-pretty">Undergraduate 1</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-end-9 col-start-1 lg:col-start-3">
-				<div class="h-px w-8 bg-muted" />
-			</div>
-
-			<div class="col-start-1 col-end-9 md:col-end-3">
-				<h2 class="font-sans text-lg text-pretty">In case you are curious</h2>
-			</div>
-
-			<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-				<details class="group/accordion border-t border-border last:border-b">
-					<summary
-						class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
-					>
-						<h3>Open to work?</h3>
-
-						<svg
-							fill="currentColor"
-							class="my-auto group-open/accordion:hidden size-5"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-
-						<svg
-							class="my-auto  size-5 not-group-open/accordion:hidden"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</summary>
-
-					<p class="font-sans mt-1 pb-3 text-lg text-pretty">
-						Yes. Reach out if you have any questions.
-					</p>
-				</details>
-
-				<details class="group/accordion border-t border-border last:border-b">
-					<summary
-						class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
-					>
-						<h3>What are you best at?</h3>
-
-						<svg
-							fill="currentColor"
-							class="my-auto group-open/accordion:hidden size-5"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-
-						<svg
-							class="my-auto  size-5 not-group-open/accordion:hidden"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</summary>
-
-					<p class="font-sans mt-1 pb-3 text-lg text-pretty">
-						Learning by doing.
-					</p>
-				</details>
-
-				<details class="group/accordion border-t border-border last:border-b">
-					<summary
-						class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
-					>
-						<h3>Remote or on-site?</h3>
-
-						<svg
-							fill="currentColor"
-							class="my-auto group-open/accordion:hidden size-5"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-
-						<svg
-							class="my-auto  size-5 not-group-open/accordion:hidden"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</summary>
-
-					<p class="font-sans mt-1 pb-3 text-lg text-pretty">
-						I’m used to both. For on-site positions, I would consider Paris,
-						London, or San Francisco.
-					</p>
-				</details>
-
-				<details class="group/accordion border-t border-border last:border-b">
-					<summary
-						class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
-					>
-						<h3>How to get in touch?</h3>
-
-						<svg
-							fill="currentColor"
-							class="my-auto group-open/accordion:hidden size-5"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-
-						<svg
-							class="my-auto  size-5 not-group-open/accordion:hidden"
-							viewBox="0 0 15 15"
-						>
-							<path
-								d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
-								fill="currentColor"
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</summary>
-
-					<p class="font-sans mt-1 pb-3 text-lg text-pretty">
-						Email is best. I check it daily.
-					</p>
-				</details>
-			</div>
-
-			<div class="col-end-9 col-start-1 lg:col-start-3">
-				<div class="h-px w-8 bg-muted" />
-			</div>
-
-			<div class="col-end-9 md:col-end-3 col-start-1">
-				<div class="text-base text-pretty">© Armand Thuillart</div>
+				<span class="font-sans text-lg text-pretty">Exchange at TUD</span>
 			</div>
 
 			<div
-				class="items-start flex flex-col gap-2 col-end-9 xl:col-end-7 col-start-1 md:col-start-3"
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
 			>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://x.com/armandthuillart"
-					>X</a
-				>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://github.com/thuillart"
-					>GitHub</a
-				>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://www.linkedin.com/in/armandthuillart/"
-					>LinkedIn</a
-				>
-				<a
-					class="font-sans text-base decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-					href="https://www.youtube.com/@armandthuillart"
-					>YouTube</a
-				>
+				<span class="font-sans text-lg text-pretty">2023-2024</span>
+
+				<span class="font-sans text-lg text-pretty">Santiago (Chile)</span>
+
+				<span class="font-sans text-lg text-pretty">Exchange at UAI</span>
+			</div>
+
+			<div
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
+			>
+				<span class="font-sans text-lg text-pretty">2022-2023</span>
+
+				<span class="font-sans text-lg text-pretty">Oxford (UK)</span>
+
+				<span class="font-sans text-lg text-pretty">Undergraduate 2</span>
+			</div>
+
+			<div
+				class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-3"
+			>
+				<span class="font-sans text-lg text-pretty">2021-2022</span>
+
+				<span class="font-sans text-lg text-pretty">Paris (France)</span>
+
+				<span class="font-sans text-lg text-pretty">Undergraduate 1</span>
 			</div>
 		</div>
+	</div>
+
+	<div class="col-end-9 col-start-1 lg:col-start-3">
+		<div class="h-px w-8 bg-muted" />
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-end-3">
+		<h2 class="font-sans text-lg text-pretty">In case you are curious</h2>
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
+		<details class="group/accordion border-t border-border last:border-b">
+			<summary
+				class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
+			>
+				<h3>Open to work?</h3>
+
+				<svg
+					fill="currentColor"
+					class="my-auto group-open/accordion:hidden size-5"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+
+				<svg
+					class="my-auto  size-5 not-group-open/accordion:hidden"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</summary>
+
+			<p class="font-sans mt-1 pb-3 text-lg text-pretty">
+				Yes. Reach out if you have any questions.
+			</p>
+		</details>
+
+		<details class="group/accordion border-t border-border last:border-b">
+			<summary
+				class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
+			>
+				<h3>What are you best at?</h3>
+
+				<svg
+					fill="currentColor"
+					class="my-auto group-open/accordion:hidden size-5"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+
+				<svg
+					class="my-auto  size-5 not-group-open/accordion:hidden"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</summary>
+
+			<p class="font-sans mt-1 pb-3 text-lg text-pretty">Learning by doing.</p>
+		</details>
+
+		<details class="group/accordion border-t border-border last:border-b">
+			<summary
+				class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
+			>
+				<h3>Remote or on-site?</h3>
+
+				<svg
+					fill="currentColor"
+					class="my-auto group-open/accordion:hidden size-5"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+
+				<svg
+					class="my-auto  size-5 not-group-open/accordion:hidden"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</summary>
+
+			<p class="font-sans mt-1 pb-3 text-lg text-pretty">
+				I’m used to both. For on-site positions, I would consider Paris, London,
+				or San Francisco.
+			</p>
+		</details>
+
+		<details class="group/accordion border-t border-border last:border-b">
+			<summary
+				class="flex font-sans w-full cursor-pointer list-none justify-between gap-6 py-3 text-lg text-pretty [&::-webkit-details-marker]:hidden focus-visible:outline-current"
+			>
+				<h3>How to get in touch?</h3>
+
+				<svg
+					fill="currentColor"
+					class="my-auto group-open/accordion:hidden size-5"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+
+				<svg
+					class="my-auto  size-5 not-group-open/accordion:hidden"
+					viewBox="0 0 15 15"
+				>
+					<path
+						d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
+						fill="currentColor"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</summary>
+
+			<p class="font-sans mt-1 pb-3 text-lg text-pretty">
+				Email is best. I check it daily.
+			</p>
+		</details>
 	</div>
 </BaseLayout>

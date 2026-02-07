@@ -1,3 +1,4 @@
+@import "katex/dist/katex.min.css";
 @import "tailwindcss";
 
 @font-face {
@@ -18,7 +19,6 @@
 	--color-foreground: var(--foreground);
 	--color-border: var(--border);
 	--color-selection: var(--selection);
-	--color-focus: var(--focus);
 	--color-yellow: var(--yellow);
 	--color-blue: var(--blue);
 	--font-sans: "Die Grotesk A", sans-serif;
@@ -39,7 +39,6 @@
 	--foreground: oklch(30% 0 0);
 	--border: oklch(30% 0 0);
 	--selection: oklch(94% 0 0);
-	--focus: oklch(37.8% 0.182 263);
 	--yellow: oklch(87.6% 0.169 91.4);
 	--blue: oklch(45.2% 0.313 264);
 
@@ -49,7 +48,6 @@
 		--foreground: color(display-p3 0.18 0.18 0.18);
 		--border: color(display-p3 0.18 0.18 0.18);
 		--selection: color(display-p3 0.92 0.92 0.92);
-		--focus: color(display-p3 0 0.2 0.63);
 		--yellow: color(display-p3 0.971 0.826 0.329);
 		--blue: color(display-p3 -0.002 0.003 0.959);
 	}
@@ -62,7 +60,6 @@
 		--foreground: oklch(94.5% 0 0);
 		--border: oklch(32% 0 0);
 		--selection: oklch(30% 0 0);
-		--focus: oklch(37.8% 0.182 263);
 		--yellow: oklch(87.6% 0.169 91.4);
 		--blue: oklch(45.2% 0.313 264);
 
@@ -72,7 +69,6 @@
 			--foreground: color(display-p3 0.93 0.93 0.93);
 			--border: color(display-p3 0.2 0.2 0.2);
 			--selection: color(display-p3 0.18 0.18 0.18);
-			--focus: color(display-p3 0 0.56 0.87);
 			--yellow: color(display-p3 0.971 0.826 0.329);
 			--blue: color(display-p3 -0.002 0.003 0.959);
 		}

@@ -2,9 +2,6 @@
 const { ...props } = Astro.props;
 ---
 
-<li
-	{...props}
-	class="text-lg marker:text-mist-700/60 dark:marker:text-mist-100/60"
->
+<li {...props} class="font-sans text-pretty text-lg marker:text-border">
 	<slot />
 </li>

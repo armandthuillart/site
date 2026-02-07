@@ -1,18 +1,21 @@
 import { getCollection } from "astro:content";
 import rss, { type RSSOptions } from "@astrojs/rss";
-import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../constants";
+
+const SITE_URL = process.env.VERCEL_URL
+	? `https://${process.env.VERCEL_URL}`
+	: "http://localhost:3000";
 
 export async function GET() {
 	const blogPosts = await getCollection("blog");
 
 	const rssOptions: RSSOptions = {
-		description: SITE_DESCRIPTION,
+		description: "Designer and developer.",
 		items: blogPosts.map((post) => ({
 			...post.data,
 			link: `${post.id}/`,
 		})),
 		site: SITE_URL,
-		title: SITE_TITLE,
+		title: "Armand Thuillart",
 	};
 
 	return rss(rssOptions);

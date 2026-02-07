@@ -3,7 +3,6 @@ import BaseLayout from "@/layouts/base-layout.astro";
 import Anchor from "@/components/anchor.astro";
 import Blockquote from "@/components/blockquote.astro";
 import Em from "@/components/em.astro";
-import H1 from "@/components/h1.astro";
 import H2 from "@/components/h2.astro";
 import Li from "@/components/li.astro";
 import Ol from "@/components/ol.astro";
@@ -15,12 +14,10 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 export async function getStaticPaths() {
 	const collection = await getCollection("blog");
 
-	const posts = collection
-		.filter((post) => post.id !== "index")
-		.map((post) => ({
-			params: { id: post.id },
-			props: { post },
-		}));
+	const posts = collection.map((post) => ({
+		params: { id: post.id },
+		props: { post },
+	}));
 
 	return posts;
 }
@@ -36,7 +33,6 @@ const components = {
 	a: Anchor,
 	blockquote: Blockquote,
 	em: Em,
-	h1: H1,
 	h2: H2,
 	li: Li,
 	ol: Ol,
@@ -46,8 +42,39 @@ const components = {
 };
 ---
 
-<BaseLayout description={post.data.description} title={post.data.title}>
-	<article class="mx-auto max-w-xl px-6">
+<BaseLayout
+	metadata={post.data.metadata}
+	headline={post.data.headline}
+	title={post.data.title}
+>
+	<div class="col-start-1 col-end-9">
+		<a
+			class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+			href="/"
+			>Go back home
+			<svg
+				fill="none"
+				class="size-4 shrink-0"
+				xmlns="http://www.w3.org/2000/svg"
+				stroke="currentColor"
+				viewBox="0 0 16 16"
+				stroke-width="1"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+					d="M6 12L10 8L6 4"
+				/>
+				<path
+					class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+					d="M2 8L13 8"
+				/>
+			</svg></a
+		>
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
 		<Content components={components} />
-	</article>
+	</div>
 </BaseLayout>
