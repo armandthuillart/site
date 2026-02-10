@@ -11,7 +11,11 @@ const SITE_URL = process.env.VERCEL_URL
 	: "http://localhost:3000";
 
 export default defineConfig({
-	adapter: vercel(),
+	adapter: vercel({
+		webAnalytics: {
+			enabled: true,
+		},
+	}),
 	experimental: { contentIntellisense: true },
 	integrations: [mdx(), sitemap()],
 	markdown: {
