@@ -7,7 +7,9 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
 export default defineConfig({
-	adapter: cloudflare(),
+	adapter: cloudflare({
+		imageService: "compile",
+	}),
 	experimental: { contentIntellisense: true },
 	integrations: [mdx(), sitemap()],
 	markdown: {
