@@ -20,8 +20,6 @@ dist
 # Bun
 bun.lockb
 
-# migration
-.migration
-
 # Environment variables
 .env*.local
+
