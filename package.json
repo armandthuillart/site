@@ -1,14 +1,13 @@
 {
 	"dependencies": {
-		"@vercel/analytics": "^1.6.1",
-		"astro": "^6.0.0-beta.10"
+		"astro": "^6.0.0-beta.11"
 	},
 	"devDependencies": {
-		"@astrojs/mdx": "^5.0.0-beta.6",
+		"@astrojs/cloudflare": "^12.6.12",
+		"@astrojs/mdx": "^5.0.0-beta.7",
 		"@astrojs/rss": "^4.0.15-beta.3",
 		"@astrojs/sitemap": "^3.7.0",
-		"@astrojs/vercel": "^10.0.0-beta.3",
-		"@biomejs/biome": "^2.3.14",
+		"@biomejs/biome": "^2.3.15",
 		"@tailwindcss/vite": "^4.1.18",
 		"rehype-katex": "^7.0.1",
 		"remark-math": "^6.0.0",
