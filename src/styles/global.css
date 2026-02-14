@@ -20,7 +20,7 @@
 	--color-border: var(--border);
 	--color-selection: var(--selection);
 	--color-blue: var(--blue);
-	--color-green: var(--green);
+	--color-yellow: var(--yellow);
 	--font-sans: "Die Grotesk A", sans-serif;
 	--font-serif: "Die Grotesk B", serif;
 	--text-base: 0.9375rem;
@@ -40,7 +40,7 @@
 	--border: oklch(30% 0 0);
 	--selection: oklch(94% 0 0);
 	--blue: oklch(45.2% 0.313 264);
-	--green: oklch(74.3% 0.219 135);
+	--yellow: oklch(88.7% 0.182 95.3);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,7 +51,7 @@
 		--border: oklch(32% 0 0);
 		--selection: oklch(30% 0 0);
 		--blue: oklch(45.2% 0.313 264);
-		--green: oklch(74.3% 0.219 135);
+		--yellow: oklch(88.7% 0.182 95.3);
 	}
 }
 
