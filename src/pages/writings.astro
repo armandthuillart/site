@@ -34,6 +34,7 @@ const format = (date: Date) =>
 				xmlns="http://www.w3.org/2000/svg"
 				stroke="currentColor"
 				viewBox="0 0 16 16"
+				aria-hidden="true"
 				stroke-width="1"
 				stroke-linecap="round"
 				stroke-linejoin="round"
@@ -57,11 +58,11 @@ const format = (date: Date) =>
 			<div class="flex flex-col">
 				{posts.map((post) => (
 					<a
-						href={post.id}
+						href={`/${post.id}`}
 						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-2 focus-visible:outline-current"
 					>
 						<span class="font-sans text-lg text-pretty">
-							{format(post.data.date!)}
+							{post.data.date && format(post.data.date)}
 						</span>
 
 						<span class="font-sans text-lg text-pretty">

@@ -15,12 +15,10 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 export async function getStaticPaths() {
 	const collection = await getCollection("blog");
 
-	const posts = collection.map((post) => ({
+	return collection.map((post) => ({
 		params: { id: post.id },
 		props: { post },
 	}));
-
-	return posts;
 }
 
 interface Props {
@@ -60,6 +58,7 @@ const components = {
 				xmlns="http://www.w3.org/2000/svg"
 				stroke="currentColor"
 				viewBox="0 0 16 16"
+				aria-hidden="true"
 				stroke-width="1"
 				stroke-linecap="round"
 				stroke-linejoin="round"
