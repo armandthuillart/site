@@ -1,13 +1,13 @@
 {
 	"dependencies": {
-		"astro": "^6.0.0-beta.13"
+		"astro": "^6.0.0-beta.14"
 	},
 	"devDependencies": {
 		"@astrojs/cloudflare": "^12.6.12",
 		"@astrojs/mdx": "^5.0.0-beta.8",
 		"@astrojs/rss": "^4.0.15-beta.3",
 		"@astrojs/sitemap": "^3.7.0",
-		"@biomejs/biome": "^2.4.2",
+		"@biomejs/biome": "^2.4.4",
 		"@tailwindcss/vite": "^4.2.0",
 		"rehype-katex": "^7.0.1",
 		"remark-math": "^6.0.0",
