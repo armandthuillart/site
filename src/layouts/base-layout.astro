@@ -2,8 +2,8 @@
 import BaseHead from "@/components/base-head.astro";
 
 interface Props {
+	headline?: string;
 	metadata: { title: string };
-	headline: string;
 	title: string;
 	date?: string;
 }
@@ -72,7 +72,7 @@ const { metadata, headline } = Astro.props;
 
 					<div class="col-end-9 md:col-end-3 col-start-1">
 						<div class="text-base text-pretty">
-							© {new Date().getFullYear()}, Armand Thuillart
+							© {new Date().getFullYear()}
 						</div>
 					</div>
 
