@@ -13,6 +13,12 @@
 	src: url("/fonts/die-grotesk-b-regular.woff2") format("woff2");
 }
 
+@font-face {
+	font-family: "Die Grotesk B";
+	font-weight: 500;
+	src: url("/fonts/die-grotesk-b-medium.woff2") format("woff2");
+}
+
 @theme {
 	--color-background: var(--background);
 	--color-muted: var(--muted);
@@ -27,6 +33,8 @@
 	--text-base--line-height: 1.375rem;
 	--text-lg: 1.125rem;
 	--text-lg--line-height: 1.5625rem;
+	--text-xl: 1.3125rem;
+	--text-xl--line-height: 1.625rem;
 	--text-4xl: 2.25rem;
 	--text-4xl--line-height: 2.375rem;
 	--text-5xl: 2.625rem;

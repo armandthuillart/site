@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+	url: ImageMetadata;
+	alt: string;
+}
+
+const { url, alt } = Astro.props;
+---
+
+<div
+	class="relative my-8 block w-full md:left-1/2 md:my-16 md:w-screen md:max-w-6xl md:-translate-x-1/2"
+>
+	<div class="bg-border dark:bg-selection p-2">
+		<Image
+			src={url}
+			alt={alt}
+			class="aspect-video select-none pointer-events-none object-cover object-bottom size-full border border-border"
+			width={1152}
+			height={648}
+		/>
+	</div>
+</div>

@@ -16,7 +16,7 @@
 	"scripts": {
 		"astro": "astro",
 		"build": "astro build",
-		"dev": "astro dev",
+		"dev": "NODE_OPTIONS='--no-deprecation' astro dev",
 		"lint": "biome check --write .",
 		"preview": "astro preview"
 	},

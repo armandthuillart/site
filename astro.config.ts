@@ -10,12 +10,16 @@ export default defineConfig({
 	adapter: cloudflare({
 		imageService: "compile",
 	}),
-	experimental: { contentIntellisense: true },
+	experimental: {
+		contentIntellisense: true,
+	},
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		rehypePlugins: [rehypeKatex],
 		remarkPlugins: [remarkMath],
 	},
 	site: "https://armandthuillart.com",
-	vite: { plugins: [tailwindcss()] },
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });
