@@ -1,0 +1,85 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/base-layout.astro";
+import { getListeningStats } from "@/lib/apple-music";
+
+let topArtists: { name: string; count: number }[] = [];
+let topTracks: { name: string; artist: string; count: number }[] = [];
+let totalTracks = 0;
+let error = "";
+
+try {
+	const stats = await getListeningStats();
+	topArtists = stats.topArtists;
+	topTracks = stats.topTracks;
+	totalTracks = stats.totalTracks;
+} catch (e: unknown) {
+	error = e instanceof Error ? e.message : String(e);
+}
+---
+
+<BaseLayout headline="Time" title="Music · Armand Thuillart">
+	<div class="col-start-1 col-end-9">
+		<a
+			class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+			href="/"
+			>Go back home
+			<svg
+				fill="none"
+				class="size-4 shrink-0"
+				xmlns="http://www.w3.org/2000/svg"
+				stroke="currentColor"
+				view-box="0 0 16 16"
+				aria-hidden="true"
+				stroke-width="1"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+					d="M6 12L10 8L6 4"
+				/>
+				<path
+					class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+					d="M2 8L13 8"
+				/>
+			</svg></a
+		>
+	</div>
+
+	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
+		{error ? (
+			<p class="font-sans text-lg text-red-500">{error}</p>
+		) : (
+			<>
+				<h2 class="font-serif text-xl font-medium">Top artists</h2>
+				<ol class="mt-4 list-decimal pl-5 space-y-1">
+					{topArtists.map((a) => (
+						<li class="font-sans text-lg">
+							{a.name}
+							<span class="text-muted text-base ml-2">({a.count})</span>
+						</li>
+					))}
+				</ol>
+
+				<h2 class="font-serif text-xl font-medium mt-14">Top tracks</h2>
+				<ol class="mt-4 list-decimal pl-5 space-y-1">
+					{topTracks.map((t) => (
+						<li class="font-sans text-lg">
+							{t.name}
+							<span class="text-muted text-base ml-1">— {t.artist}</span>
+							{t.count > 1 && (
+								<span class="text-muted text-base ml-2">({t.count})</span>
+							)}
+						</li>
+					))}
+				</ol>
+
+				<p class="font-sans text-base text-muted mt-10">
+					Based on the last {totalTracks} tracks played.
+				</p>
+			</>
+		)}
+	</div>
+</BaseLayout>

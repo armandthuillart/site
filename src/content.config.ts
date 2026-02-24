@@ -8,9 +8,9 @@ const blog = defineCollection({
 		pattern: "**/*.mdx",
 	}),
 	schema: z.object({
+		brief: z.string(),
 		date: z.optional(z.coerce.date()),
 		headline: z.string(),
-		metadata: z.object({ title: z.string() }),
 		title: z.string(),
 	}),
 });

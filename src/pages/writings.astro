@@ -1,27 +1,30 @@
 ---
-import BaseLayout from "@/layouts/base-layout.astro";
 import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/base-layout.astro";
 
-const posts = (await getCollection("blog")).filter((post) => !!post.data.date);
-
-posts.sort(
-	(a, b) =>
-		new Date(b.data.date ?? "").getTime() -
-		new Date(a.data.date ?? "").getTime(),
+const posts = (await getCollection("blog")).filter((post) =>
+	Boolean(post.data.date),
 );
 
-const format = (date: Date) =>
-	new Intl.DateTimeFormat("en-US", {
+posts.sort((a, b) => {
+	const dateA = new Date(a.data.date ?? "");
+	const dateB = new Date(b.data.date ?? "");
+	return dateB.getTime() - dateA.getTime();
+});
+
+function getDate(date: Date) {
+	const { format } = new Intl.DateTimeFormat("en-US", {
 		day: "numeric",
-		year: "numeric",
 		month: "long",
-	}).format(date);
+		year: "numeric",
+	});
+	return format(date);
+}
 ---
 
 <BaseLayout
-	metadata={{ title: "Writings · Armand Thuillart" }}
 	headline="Some thoughts and ideas that made it to the internet."
-	title="Writings"
+	title="Writings · Armand Thuillart"
 >
 	<div class="col-start-1 col-end-9">
 		<a
@@ -33,7 +36,7 @@ const format = (date: Date) =>
 				class="size-4 shrink-0"
 				xmlns="http://www.w3.org/2000/svg"
 				stroke="currentColor"
-				viewBox="0 0 16 16"
+				view-box="0 0 16 16"
 				aria-hidden="true"
 				stroke-width="1"
 				stroke-linecap="round"
@@ -58,15 +61,15 @@ const format = (date: Date) =>
 			<div class="flex flex-col">
 				{posts.map((post) => (
 					<a
-						href={`/${post.id}`}
 						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-2 focus-visible:outline-current"
+						href={`/${post.id}`}
 					>
 						<span class="font-sans text-lg text-pretty">
-							{post.data.date && format(post.data.date)}
+							{post.data.date && getDate(post.data.date)}
 						</span>
 
 						<span class="font-sans text-lg text-pretty">
-							{post.data.title}
+							{post.data.brief}
 						</span>
 					</a>
 				))}

@@ -1,7 +1,11 @@
 ---
 import "@/styles/global.css";
 import ogImage from "@/images/opengraph-image.png";
-type Props = { title: string };
+
+interface Props {
+	title: string;
+}
+
 const { title } = Astro.props;
 ---
 

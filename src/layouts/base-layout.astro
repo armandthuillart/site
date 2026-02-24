@@ -2,18 +2,16 @@
 import BaseHead from "@/components/base-head.astro";
 
 interface Props {
-	headline?: string;
-	metadata: { title: string };
+	headline: string | null;
 	title: string;
-	date?: string;
 }
 
-const { metadata, headline } = Astro.props;
+const { headline, title } = Astro.props;
 ---
 
 <html lang="en" class="antialiased scheme-light-dark">
 	<head>
-		<BaseHead title={metadata.title} />
+		<BaseHead title={title} />
 	</head>
 
 	<body class="bg-background text-foreground selection:bg-selection">

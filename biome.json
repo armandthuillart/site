@@ -2,38 +2,87 @@
 	"$schema": "https://biomejs.dev/schemas/latest/schema.json",
 	"assist": {
 		"actions": {
-			"source": { "useSortedKeys": "on" }
+			"source": {
+				"noDuplicateClasses": "on",
+				"organizeImports": "on",
+				"useSortedInterfaceMembers": "on",
+				"useSortedKeys": "on",
+				"useSortedProperties": "on"
+			}
 		},
 		"enabled": true
 	},
 	"css": {
-		"parser": { "tailwindDirectives": true }
+		"parser": {
+			"tailwindDirectives": true
+		}
 	},
 	"html": {
 		"experimentalFullSupportEnabled": true,
-		"formatter": { "enabled": true }
+		"formatter": {
+			"enabled": true
+		}
 	},
 	"json": {
-		"formatter": { "expand": "auto" }
+		"formatter": {
+			"expand": "always"
+		}
 	},
 	"linter": {
-		"domains": { "project": "recommended" }
+		"rules": {
+			"a11y": "on",
+			"complexity": "on",
+			"correctness": "on",
+			"nursery": "on",
+			"performance": "on",
+			"security": "on",
+			"style": "on",
+			"suspicious": "on"
+		}
 	},
 	"overrides": [
 		{
-			"assist": {
-				"actions": {
-					"source": { "organizeImports": "off", "useSortedKeys": "off" }
+			"includes": [
+				"**"
+			],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUndeclaredVariables": "off",
+						"noUnresolvedImports": "off",
+						"useJsxKeyInIterable": "off",
+						"useQwikValidLexicalScope": "off"
+					},
+					"nursery": {
+						"noLeakedRender": "off",
+						"noShadow": "off",
+						"noUnknownAttribute": "off",
+						"useExplicitType": "off",
+						"useSortedClasses": "off"
+					},
+					"performance": {
+						"useSolidForComponent": "off"
+					},
+					"style": {
+						"noImplicitBoolean": "off"
+					}
 				}
-			},
-			"includes": ["**/*.astro"],
+			}
+		},
+		{
+			"includes": [
+				"**/*.astro"
+			],
 			"linter": {
 				"rules": {
 					"correctness": {
 						"noUnusedImports": "off",
 						"noUnusedVariables": "off"
 					},
-					"style": { "useImportType": "off" }
+					"style": {
+						"useExportsLast": "off",
+						"useImportType": "off"
+					}
 				}
 			}
 		}

@@ -83,7 +83,7 @@ const { images } = Astro.props;
 					class="size-8"
 					xmlns="http://www.w3.org/2000/svg"
 					stroke="currentColor"
-					viewBox="0 0 24 24"
+					view-box="0 0 24 24"
 					aria-hidden="true"
 					stroke-width={2}
 					stroke-linecap="round"
@@ -106,7 +106,7 @@ const { images } = Astro.props;
 								class="size-10"
 								xmlns="http://www.w3.org/2000/svg"
 								stroke="currentColor"
-								viewBox="0 0 24 24"
+								view-box="0 0 24 24"
 								aria-hidden="true"
 							>
 								<path
@@ -129,7 +129,7 @@ const { images } = Astro.props;
 								xmlns="http://www.w3.org/2000/svg"
 								class="size-10"
 								stroke="currentColor"
-								viewBox="0 0 24 24"
+								view-box="0 0 24 24"
 								aria-hidden="true"
 							>
 								<path
@@ -156,7 +156,7 @@ const { images } = Astro.props;
 			const images = JSON.parse(gallery.dataset.images || "[]");
 			const caption = gallery.querySelector<HTMLElement>("[data-caption]");
 
-			if (!modal || !images.length) return;
+			if (!(modal && images.length)) return;
 
 			let index = 0;
 

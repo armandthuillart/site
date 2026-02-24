@@ -63,8 +63,3 @@
 	}
 }
 
-@layer base {
-	html {
-		@apply [text-rendering:optimizeLegibility] [font-synthesis:none];
-	}
-}

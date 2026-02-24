@@ -3,7 +3,6 @@ import BaseLayout from "@/layouts/base-layout.astro";
 ---
 
 <BaseLayout
-	metadata={{ title: "Armand Thuillart" }}
 	headline="Designer and developer living in Paris, France."
 	title="Armand Thuillart"
 >
@@ -17,7 +16,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 				class="size-4 shrink-0"
 				xmlns="http://www.w3.org/2000/svg"
 				stroke="currentColor"
-				viewBox="0 0 16 16"
+				view-box="0 0 16 16"
 				aria-hidden="true"
 				stroke-width="1"
 				stroke-linecap="round"
@@ -150,7 +149,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 					xmlns="http://www.w3.org/2000/svg"
 					width="68"
 					height="32"
-					viewBox="0 0 68 32"
+					view-box="0 0 68 32"
 					aria-hidden="true"
 				>
 					<path
@@ -178,7 +177,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 					xmlns="http://www.w3.org/2000/svg"
 					width="67"
 					height="32"
-					viewBox="0 0 67 32"
+					view-box="0 0 67 32"
 					aria-hidden="true"
 				>
 					<path
@@ -292,7 +291,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 				<svg
 					fill="currentColor"
 					class="my-auto group-open/accordion:hidden size-5"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -305,7 +304,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 
 				<svg
 					class="my-auto  size-5 not-group-open/accordion:hidden"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -331,7 +330,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 				<svg
 					fill="currentColor"
 					class="my-auto group-open/accordion:hidden size-5"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -344,7 +343,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 
 				<svg
 					class="my-auto  size-5 not-group-open/accordion:hidden"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -371,7 +370,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 				<svg
 					fill="currentColor"
 					class="my-auto group-open/accordion:hidden size-5"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -384,7 +383,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 
 				<svg
 					class="my-auto  size-5 not-group-open/accordion:hidden"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -411,7 +410,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 				<svg
 					fill="currentColor"
 					class="my-auto group-open/accordion:hidden size-5"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -424,7 +423,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 
 				<svg
 					class="my-auto  size-5 not-group-open/accordion:hidden"
-					viewBox="0 0 15 15"
+					view-box="0 0 15 15"
 					aria-hidden="true"
 				>
 					<path
@@ -443,29 +442,40 @@ import BaseLayout from "@/layouts/base-layout.astro";
 	</div>
 
 	<script>
-	const trigger = document.getElementById("follow-online");
 	const label = document.getElementById("follow-online-label");
 	const links = document.getElementById("follow-online-links");
-	if (trigger && label && links && !trigger.dataset.expanded) {
-		const showLinks = () => {
-			trigger.dataset.expanded = "true";
+	const trigger = document.getElementById("follow-online");
+
+	function showLinks() {
+		if (label) {
 			label.classList.add("hidden");
 			label.setAttribute("aria-hidden", "true");
+		}
+
+		if (links) {
 			links.classList.remove("hidden");
 			links.removeAttribute("aria-hidden");
+		}
+
+		if (trigger) {
 			trigger.removeAttribute("role");
+			trigger.dataset.expanded = "true";
 			trigger.removeAttribute("tabindex");
 			trigger.removeEventListener("click", showLinks);
-			trigger.removeEventListener("keydown", keyHandler);
-		};
-		const keyHandler = (e: KeyboardEvent) => {
-			if (e.key === "Enter" || e.key === " ") {
-				e.preventDefault();
-				showLinks();
-			}
-		};
+			trigger.removeEventListener("keydown", handleKeyDown);
+		}
+	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === "Enter" || event.key === " ") {
+			event.preventDefault();
+			showLinks();
+		}
+	}
+
+	if (trigger) {
 		trigger.addEventListener("click", showLinks);
-		trigger.addEventListener("keydown", keyHandler);
+		trigger.addEventListener("keydown", handleKeyDown);
 	}
 	</script>
 </BaseLayout>
