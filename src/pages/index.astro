@@ -57,6 +57,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 			<a
 				class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
 				href="/music"
+				id="music-link"
 				>music</a
 			>
 			when not listening to it, and read
@@ -476,6 +477,17 @@ import BaseLayout from "@/layouts/base-layout.astro";
 	if (trigger) {
 		trigger.addEventListener("click", showLinks);
 		trigger.addEventListener("keydown", handleKeyDown);
+	}
+
+	const link = document.getElementById("music-link");
+
+	if (link) {
+		link.addEventListener("mouseenter", () => fetch("/api/music-stats"), {
+			once: true,
+		});
+		link.addEventListener("focus", () => fetch("/api/music-stats"), {
+			once: true,
+		});
 	}
 	</script>
 </BaseLayout>

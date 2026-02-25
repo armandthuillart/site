@@ -1,22 +1,7 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import BaseLayout from "@/layouts/base-layout.astro";
-import { getListeningStats } from "@/lib/apple-music";
-
-let topArtists: { name: string; count: number }[] = [];
-let topTracks: { name: string; artist: string; count: number }[] = [];
-let totalTracks = 0;
-let error = "";
-
-try {
-	const stats = await getListeningStats();
-	topArtists = stats.topArtists;
-	topTracks = stats.topTracks;
-	totalTracks = stats.totalTracks;
-} catch (e: unknown) {
-	error = e instanceof Error ? e.message : String(e);
-}
 ---
 
 <BaseLayout headline="Time" title="Music · Armand Thuillart">
@@ -49,42 +34,154 @@ try {
 	</div>
 
 	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-		{error && (
-			<p class="font-sans text-lg text-red-500">{error}</p>
-		)}
+		<p
+			id="music-error"
+			class="font-sans text-lg text-red-500 hidden"
+			data-error
+			aria-hidden="true"
+		/>
 
-		{!error && (	
-			<>
-				<h2 class="font-serif text-xl font-medium">Top artists</h2>
+		<div id="music-stats">
+			<h2 class="font-serif text-xl font-medium">Top artists</h2>
 
-				<ol class="mt-4 list-decimal pl-5 space-y-1">
-					{topArtists.map((a) => (
-						<li class="font-sans text-lg">
-							{a.name}
-							<span class="text-muted text-base ml-2">({a.count})</span>
-						</li>
-					))}
-				</ol>
+			<ol
+				id="music-artists"
+				class="mt-4 list-none space-y-3 pl-0"
+				aria-busy="true"
+			>
+				{Array.from({ length: 10 }).map((_, i) => (
+					<li class="flex items-center gap-3">
+						<span class="w-5 text-sm tabular-nums">{i + 1}</span>
 
-				<h2 class="font-serif text-xl font-medium mt-14">Top tracks</h2>
-				
-				<ol class="mt-4 list-decimal pl-5 space-y-1">
-					{topTracks.map((t) => (
-						<li class="font-sans text-lg">
-							{t.name}
-							<span class="text-foreground/50 text-base ml-1">— {t.artist}</span>
-							
-							{t.count > 1 && (
-								<span class="text-foreground/50 text-base ml-2">({t.count})</span>
-							)}
-						</li>
-					))}
-				</ol>
+						<span class="size-8 rounded-full bg-foreground/10 animate-pulse" aria-hidden="true" />
 
-				<p class="font-sans text-base text-foreground/50 mt-10">
-					Based on the last {totalTracks} tracks played.
-				</p>
-			</>
-		)}
+						<span class="inline-block h-5 w-32 rounded bg-foreground/10 animate-pulse" aria-hidden="true" />
+					</li>
+				))}
+			</ol>
+
+			<h2 class="font-serif text-xl font-medium mt-14">Top tracks</h2>
+			<ol
+				id="music-tracks"
+				class="mt-4 list-none space-y-3 pl-0"
+				aria-busy="true"
+			>
+				{Array.from({ length: 10 }).map((_, i) => (
+					<li class="flex items-center gap-3">
+						<span class="w-5 text-sm tabular-nums">{i + 1}</span>
+						
+						<span class="size-8 rounded bg-foreground/10 animate-pulse" aria-hidden="true" />
+
+						<div class="flex flex-col gap-0.5">
+							<span class="inline-block h-4 w-36 rounded bg-foreground/10 animate-pulse" aria-hidden="true" />
+							<span class="inline-block h-3 w-24 rounded bg-foreground/10 animate-pulse" aria-hidden="true" />
+						</div>
+					</li>
+				))}
+			</ol>
+
+			<p id="music-footer" class="font-sans text-base mt-10">
+				<span
+					class="inline-block h-4 w-56 rounded bg-foreground/10 animate-pulse"
+					aria-hidden="true"
+				/>
+			</p>
+		</div>
 	</div>
+
+	<script>
+	import { tryCatch } from "@/lib/utils.ts";
+
+	function escapeHtml(s: string) {
+		const div = document.createElement("div");
+		div.textContent = s;
+		return div.innerHTML;
+	}
+
+	function escapeAttr(s: string) {
+		const div = document.createElement("div");
+		div.textContent = s;
+		return div.innerHTML.replace(/"/g, "&quot;");
+	}
+
+	(async () => {
+		const artistsEl = document.getElementById("music-artists");
+		const tracksEl = document.getElementById("music-tracks");
+		const footerEl = document.getElementById("music-footer");
+		const errorEl = document.getElementById("music-error");
+
+		if (!(artistsEl && tracksEl && footerEl && errorEl)) {
+			return;
+		}
+
+		const fetchStats = async () => {
+			const res = await fetch("/api/music-stats");
+			const data = await res.json();
+
+			if (!res.ok) {
+				throw new Error(data.error ?? "Something went wrong.");
+			}
+
+			return data;
+		};
+
+		const result = await tryCatch(fetchStats());
+
+		if (result.error) {
+			errorEl.textContent = result.error.message;
+			errorEl.classList.remove("hidden");
+			errorEl.removeAttribute("aria-hidden");
+			document.getElementById("music-stats")?.setAttribute("hidden", "");
+			return;
+		}
+
+		const { topArtists, topTracks, totalTracks } = result.data;
+
+		const linkClass =
+			"font-medium decoration-neutral-500 decoration-1 underline-offset-[2.5px] hover:underline";
+
+		artistsEl.setAttribute("aria-busy", "false");
+		artistsEl.innerHTML = topArtists
+			.map(
+				(
+					a: { name: string; count: number; artworkUrl?: string },
+					i: number,
+				) => {
+					const rank = i + 1;
+					const img = a.artworkUrl
+						? `<img alt="${escapeHtml(a.name)}" loading="lazy" width="32" height="32" decoding="async" class="size-8 rounded-full object-cover" src="${escapeAttr(a.artworkUrl)}">`
+						: `<span class="size-8 rounded-full bg-foreground/10 flex shrink-0" aria-hidden="true"></span>`;
+					return `<li class="flex items-center gap-3"><span class="w-5 text-sm text-neutral-500 tabular-nums">${rank}</span>${img}<span class="font-medium">${escapeHtml(a.name)}</span></li>`;
+				},
+			)
+			.join("");
+
+		tracksEl.setAttribute("aria-busy", "false");
+		tracksEl.innerHTML = topTracks
+			.map(
+				(
+					t: {
+						name: string;
+						artist: string;
+						count: number;
+						artworkUrl?: string;
+						url?: string;
+					},
+					i: number,
+				) => {
+					const rank = i + 1;
+					const img = t.artworkUrl
+						? `<img alt="${escapeHtml(t.name)}" loading="lazy" width="32" height="32" decoding="async" class="size-8 rounded object-cover" src="${escapeAttr(t.artworkUrl)}">`
+						: `<span class="size-8 rounded bg-foreground/10 flex shrink-0" aria-hidden="true"></span>`;
+					const trackContent = t.url
+						? `<a href="${escapeAttr(t.url)}" target="_blank" rel="noopener noreferrer" class="${linkClass}">${escapeHtml(t.name)}</a>`
+						: `<span class="font-medium">${escapeHtml(t.name)}</span>`;
+					return `<li class="flex items-center gap-3"><span class="w-5 text-sm text-neutral-500 tabular-nums">${rank}</span>${img}<div class="flex flex-col">${trackContent}<span class="text-sm text-neutral-600 dark:text-neutral-400">${escapeHtml(t.artist)}</span></div></li>`;
+				},
+			)
+			.join("");
+
+		footerEl.textContent = `Based on the last ${totalTracks} tracks played.`;
+	})();
+	</script>
 </BaseLayout>

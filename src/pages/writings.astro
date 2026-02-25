@@ -12,7 +12,7 @@ posts.sort((a, b) => {
 	return dateB.getTime() - dateA.getTime();
 });
 
-function getDate(date: Date) {
+function formatDate(date: Date) {
 	const { format } = new Intl.DateTimeFormat("en-US", {
 		day: "numeric",
 		month: "long",
@@ -65,7 +65,7 @@ function getDate(date: Date) {
 						href={`/${post.id}`}
 					>
 						<span class="font-sans text-lg text-pretty">
-							{post.data.date && getDate(post.data.date)}
+							{post.data.date && formatDate(post.data.date)}
 						</span>
 
 						<span class="font-sans text-lg text-pretty">

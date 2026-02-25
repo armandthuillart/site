@@ -53,6 +53,7 @@
 					"correctness": {
 						"noUndeclaredVariables": "off",
 						"noUnresolvedImports": "off",
+						"useImportExtensions": "off",
 						"useJsxKeyInIterable": "off",
 						"useQwikValidLexicalScope": "off"
 					},
@@ -70,7 +71,9 @@
 						"noDefaultExport": "off",
 						"noImplicitBoolean": "off",
 						"noJsxLiterals": "off",
-						"noRestrictedGlobals": "off"
+						"noRestrictedGlobals": "off",
+						"useExportsLast": "off",
+						"useNamingConvention": "off"
 					}
 				}
 			}

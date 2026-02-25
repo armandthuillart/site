@@ -148,95 +148,103 @@ const { images } = Astro.props;
 
 <script>
 (() => {
-	document
-		.querySelectorAll<HTMLElement>("[data-gallery]")
-		.forEach((gallery) => {
-			const img = gallery.querySelector<HTMLImageElement>("[data-image]");
-			const modal = gallery.querySelector<HTMLDialogElement>("[data-viewer]");
-			const images = JSON.parse(gallery.dataset.images || "[]");
-			const caption = gallery.querySelector<HTMLElement>("[data-caption]");
+	for (const gallery of document.querySelectorAll<HTMLElement>(
+		"[data-gallery]",
+	)) {
+		const img = gallery.querySelector<HTMLImageElement>("[data-image]");
+		const modal = gallery.querySelector<HTMLDialogElement>("[data-viewer]");
+		const images = JSON.parse(gallery.dataset.images || "[]");
+		const caption = gallery.querySelector<HTMLElement>("[data-caption]");
 
-			if (!(modal && images.length > 0)) {
-				return;
+		if (!(modal && images.length > 0)) {
+			return;
+		}
+
+		let index = 0;
+
+		const update = () => {
+			const current = images[index];
+			if (img) {
+				img.src = current.url.src;
+				img.alt = current.alt;
 			}
+			if (caption) {
+				caption.textContent = current.alt;
+			}
+		};
 
-			let index = 0;
+		const open = (i: number) => {
+			index = i;
+			update();
+			modal.showModal();
+			document.body.style.overflow = "hidden";
+		};
 
-			const update = () => {
-				const current = images[index];
-				if (img) {
-					img.src = current.url.src;
-					img.alt = current.alt;
-				}
-				if (caption) {
-					caption.textContent = current.alt;
-				}
-			};
+		const close = () => {
+			modal.close();
+			document.body.style.overflow = "";
+		};
 
-			const open = (i: number) => {
-				index = i;
-				update();
-				modal.showModal();
-				document.body.style.overflow = "hidden";
-			};
+		const prev = () => {
+			if (index > 0) {
+				index -= 1;
+			} else {
+				index = images.length - 1;
+			}
+			update();
+		};
 
-			const close = () => {
-				modal.close();
-				document.body.style.overflow = "";
-			};
+		const next = () => {
+			if (index < images.length - 1) {
+				index += 1;
+			} else {
+				index = 0;
+			}
+			update();
+		};
 
-			const prev = () => {
-				index = index > 0 ? index - 1 : images.length - 1;
-				update();
-			};
+		for (const [i, thumb] of gallery
+			.querySelectorAll<HTMLElement>("[data-thumb]")
+			.entries()) {
+			thumb.addEventListener("click", () => open(i));
+		}
 
-			const next = () => {
-				index = index < images.length - 1 ? index + 1 : 0;
-				update();
-			};
+		gallery
+			.querySelector<HTMLElement>("[data-close]")
+			?.addEventListener("click", close);
+		gallery
+			.querySelector<HTMLElement>("[data-backdrop]")
+			?.addEventListener("click", close);
 
-			gallery
-				.querySelectorAll<HTMLElement>("[data-thumb]")
-				.forEach((thumb, i) => {
-					thumb.addEventListener("click", () => open(i));
-				});
-
-			gallery
-				.querySelector<HTMLElement>("[data-close]")
-				?.addEventListener("click", close);
-			gallery
-				.querySelector<HTMLElement>("[data-backdrop]")
-				?.addEventListener("click", close);
-
-			gallery
-				.querySelector<HTMLElement>("[data-prev]")
-				?.addEventListener("click", (e) => {
-					e.stopPropagation();
-					prev();
-				});
-
-			gallery
-				.querySelector<HTMLElement>("[data-next]")
-				?.addEventListener("click", (e) => {
-					e.stopPropagation();
-					next();
-				});
-
-			modal.addEventListener("keydown", (e) => {
-				if (e.key === "ArrowLeft") {
-					e.preventDefault();
-					prev();
-				} else if (e.key === "ArrowRight") {
-					e.preventDefault();
-					next();
-				} else if (e.key === "Escape") {
-					document.body.style.overflow = "";
-				}
+		gallery
+			.querySelector<HTMLElement>("[data-prev]")
+			?.addEventListener("click", (e) => {
+				e.stopPropagation();
+				prev();
 			});
 
-			modal.addEventListener("close", () => {
-				document.body.style.overflow = "";
+		gallery
+			.querySelector<HTMLElement>("[data-next]")
+			?.addEventListener("click", (e) => {
+				e.stopPropagation();
+				next();
 			});
+
+		modal.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowLeft") {
+				e.preventDefault();
+				prev();
+			} else if (e.key === "ArrowRight") {
+				e.preventDefault();
+				next();
+			} else if (e.key === "Escape") {
+				document.body.style.overflow = "";
+			}
 		});
+
+		modal.addEventListener("close", () => {
+			document.body.style.overflow = "";
+		});
+	}
 })();
 </script>

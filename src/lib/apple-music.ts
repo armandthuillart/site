@@ -5,13 +5,23 @@ const TEAM_ID = import.meta.env.APPLE_MUSIC_TEAM_ID;
 const USER_TOKEN = import.meta.env.APPLE_MUSIC_USER_TOKEN;
 const PRIVATE_KEY = import.meta.env.APPLE_MUSIC_PRIVATE_KEY;
 
+const API_BASE = "https://api.music.apple.com";
+const MS_PER_SECOND = 1000;
+const TOKEN_REFRESH_MARGIN_SECONDS = 60;
+const RECENT_TRACKS_LIMIT = 25;
+const TOP_N = 10;
+
 let cachedToken: string | null = null;
 let tokenExpiry: number | null = null;
 
-export async function getDeveloperToken(): Promise<string> {
-	const now = Math.floor(Date.now() / 1000);
+async function getDeveloperToken(): Promise<string> {
+	const now = Math.floor(Date.now() / MS_PER_SECOND);
 
-	if (cachedToken && tokenExpiry && now < tokenExpiry - 60) {
+	if (
+		cachedToken &&
+		tokenExpiry &&
+		now < tokenExpiry - TOKEN_REFRESH_MARGIN_SECONDS
+	) {
 		return cachedToken;
 	}
 
@@ -37,7 +47,7 @@ export async function getDeveloperToken(): Promise<string> {
 	return jwt;
 }
 
-export function getUserToken(): string {
+function getUserToken(): string {
 	if (!USER_TOKEN || USER_TOKEN === "dummy") {
 		throw new Error("Missing APPLE_MUSIC_USER_TOKEN. Run the auth page first.");
 	}
@@ -49,44 +59,47 @@ interface AppleMusicTrack {
 		name: string;
 		artistName: string;
 		albumName: string;
-		artwork?: {
-			url: string;
-			width: number;
-			height: number;
-		};
+		artwork?: { url: string; width: number; height: number };
 		url?: string;
 	};
 	id: string;
 }
 
 interface ArtistCount {
+	artworkUrl?: string;
 	count: number;
 	name: string;
 }
 
 interface TrackCount {
 	artist: string;
+	artworkUrl?: string;
 	count: number;
 	name: string;
+	url?: string;
 }
 
-async function fetchRecentlyPlayedTracks(
-	developerToken: string,
-	userToken: string,
-): Promise<AppleMusicTrack[]> {
-	const tracks: AppleMusicTrack[] = [];
-	let offset = 0;
-	const limit = 25; // max per request for this endpoint
+function resolveArtworkUrl(
+	artwork: { url: string } | undefined,
+	size = 64,
+): string | undefined {
+	if (!artwork?.url) {
+		return;
+	}
+	return artwork.url
+		.replace(/{w}/g, String(size))
+		.replace(/{h}/g, String(size));
+}
 
-	while (true) {
+function fetchAllPages<T>(
+	path: string,
+	headers: Record<string, string>,
+	limit: number,
+): Promise<T[]> {
+	async function fetchPage(offset: number): Promise<T[]> {
 		const res = await fetch(
-			`https://api.music.apple.com/v1/me/recent/played/tracks?limit=${limit}&offset=${offset}`,
-			{
-				headers: {
-					Authorization: `Bearer ${developerToken}`,
-					"Music-User-Token": userToken,
-				},
-			},
+			`${API_BASE}${path}?limit=${limit}&offset=${offset}`,
+			{ headers },
 		);
 
 		if (!res.ok) {
@@ -95,55 +108,74 @@ async function fetchRecentlyPlayedTracks(
 		}
 
 		const data = await res.json();
-		const items = data.data ?? [];
-		tracks.push(...items);
+		const page: T[] = data.data ?? [];
 
-		if (!data.next || items.length < limit) {
-			break;
+		if (!data.next || page.length < limit) {
+			return page;
 		}
-		offset += limit;
+
+		return [...page, ...(await fetchPage(offset + limit))];
 	}
 
-	return tracks;
+	return fetchPage(0);
+}
+
+function topN<T, V>(
+	items: T[],
+	keyFn: (item: T) => string,
+	valueFn: (item: T) => V,
+	n: number,
+): (V & { count: number })[] {
+	const map = new Map<string, V & { count: number }>();
+
+	for (const item of items) {
+		const key = keyFn(item);
+		const existing = map.get(key);
+		if (existing) {
+			existing.count += 1;
+		} else {
+			map.set(key, { ...valueFn(item), count: 1 });
+		}
+	}
+
+	return [...map.values()].sort((a, b) => b.count - a.count).slice(0, n);
 }
 
 export async function getListeningStats() {
 	const developerToken = await getDeveloperToken();
 	const userToken = getUserToken();
-	const tracks = await fetchRecentlyPlayedTracks(developerToken, userToken);
+	const headers = {
+		Authorization: `Bearer ${developerToken}`,
+		"Music-User-Token": userToken,
+	};
 
-	// Count artist frequency across recent listening history
-	const artistMap = new Map<string, number>();
-	for (const track of tracks) {
-		const artist = track.attributes.artistName;
-		artistMap.set(artist, (artistMap.get(artist) ?? 0) + 1);
-	}
+	const tracks = await fetchAllPages<AppleMusicTrack>(
+		"/v1/me/recent/played/tracks",
+		headers,
+		RECENT_TRACKS_LIMIT,
+	);
 
-	const topArtists: ArtistCount[] = [...artistMap.entries()]
-		.map(([name, count]) => ({ count, name }))
-		.sort((a, b) => b.count - a.count)
-		.slice(0, 10);
+	const topArtists: ArtistCount[] = topN(
+		tracks,
+		(t) => t.attributes.artistName,
+		(t) => ({
+			artworkUrl: resolveArtworkUrl(t.attributes.artwork),
+			name: t.attributes.artistName,
+		}),
+		TOP_N,
+	);
 
-	// Count track frequency (replayed songs rank higher)
-	const trackMap = new Map<string, { artist: string; count: number }>();
-	for (const track of tracks) {
-		const key = `${track.attributes.name}::${track.attributes.artistName}`;
-		const existing = trackMap.get(key);
-		if (existing) {
-			existing.count++;
-		} else {
-			trackMap.set(key, { artist: track.attributes.artistName, count: 1 });
-		}
-	}
-
-	const topTracks: TrackCount[] = [...trackMap.entries()]
-		.map(([key, val]) => ({
-			artist: val.artist,
-			count: val.count,
-			name: key.split("::")[0],
-		}))
-		.sort((a, b) => b.count - a.count)
-		.slice(0, 10);
+	const topTracks: TrackCount[] = topN(
+		tracks,
+		(t) => `${t.attributes.name}::${t.attributes.artistName}`,
+		(t) => ({
+			artist: t.attributes.artistName,
+			artworkUrl: resolveArtworkUrl(t.attributes.artwork),
+			name: t.attributes.name,
+			url: t.attributes.url,
+		}),
+		TOP_N,
+	);
 
 	return { topArtists, topTracks, totalTracks: tracks.length };
 }
