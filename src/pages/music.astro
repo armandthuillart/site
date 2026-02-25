@@ -92,16 +92,112 @@ import BaseLayout from "@/layouts/base-layout.astro";
 	<script>
 	import { tryCatch } from "@/lib/utils.ts";
 
-	function escapeHtml(s: string) {
-		const div = document.createElement("div");
-		div.textContent = s;
-		return div.innerHTML;
+	interface Artist {
+		artworkUrl?: string;
+		count: number;
+		name: string;
 	}
 
-	function escapeAttr(s: string) {
-		const div = document.createElement("div");
-		div.textContent = s;
-		return div.innerHTML.replace(/"/g, "&quot;");
+	interface Track {
+		artist: string;
+		artworkUrl?: string;
+		count: number;
+		name: string;
+		url?: string;
+	}
+
+	function el(
+		tag: string,
+		className: string,
+		children?: (Node | string)[],
+	): HTMLElement {
+		const node = document.createElement(tag);
+		if (className) {
+			node.className = className;
+		}
+		if (children) {
+			node.append(...children);
+		}
+		return node;
+	}
+
+	function rankSpan(i: number): HTMLElement {
+		return el("span", "w-5 text-sm text-neutral-500 tabular-nums", [
+			String(i + 1),
+		]);
+	}
+
+	const ARTWORK_SIZE = 32;
+
+	function artworkImg(
+		alt: string,
+		src: string,
+		rounded: string,
+	): HTMLImageElement {
+		const img = document.createElement("img");
+		img.alt = alt;
+		img.loading = "lazy";
+		img.width = ARTWORK_SIZE;
+		img.height = ARTWORK_SIZE;
+		img.decoding = "async";
+		img.className = `size-8 ${rounded} object-cover`;
+		img.src = src;
+		return img;
+	}
+
+	function artworkPlaceholder(rounded: string): HTMLElement {
+		const span = el("span", `size-8 ${rounded} bg-foreground/10 flex shrink-0`);
+		span.setAttribute("aria-hidden", "true");
+		return span;
+	}
+
+	function renderArtist(a: Artist, i: number): HTMLElement {
+		let artwork: HTMLElement;
+		if (a.artworkUrl) {
+			artwork = artworkImg(a.name, a.artworkUrl, "rounded-full");
+		} else {
+			artwork = artworkPlaceholder("rounded-full");
+		}
+
+		return el("li", "flex items-center gap-3", [
+			rankSpan(i),
+			artwork,
+			el("span", "font-medium", [a.name]),
+		]);
+	}
+
+	function renderTrack(t: Track, i: number): HTMLElement {
+		let artwork: HTMLElement;
+		if (t.artworkUrl) {
+			artwork = artworkImg(t.name, t.artworkUrl, "rounded");
+		} else {
+			artwork = artworkPlaceholder("rounded");
+		}
+
+		let title: HTMLElement;
+		if (t.url) {
+			title = el(
+				"a",
+				"font-medium decoration-neutral-500 decoration-1 underline-offset-[2.5px] hover:underline",
+				[t.name],
+			);
+			title.setAttribute("href", t.url);
+			title.setAttribute("target", "_blank");
+			title.setAttribute("rel", "noopener noreferrer");
+		} else {
+			title = el("span", "font-medium", [t.name]);
+		}
+
+		return el("li", "flex items-center gap-3", [
+			rankSpan(i),
+			artwork,
+			el("div", "flex flex-col", [
+				title,
+				el("span", "text-sm text-neutral-600 dark:text-neutral-400", [
+					t.artist,
+				]),
+			]),
+		]);
 	}
 
 	(async () => {
@@ -137,49 +233,15 @@ import BaseLayout from "@/layouts/base-layout.astro";
 
 		const { topArtists, topTracks, totalTracks } = result.data;
 
-		const linkClass =
-			"font-medium decoration-neutral-500 decoration-1 underline-offset-[2.5px] hover:underline";
-
 		artistsEl.setAttribute("aria-busy", "false");
-		artistsEl.innerHTML = topArtists
-			.map(
-				(
-					a: { name: string; count: number; artworkUrl?: string },
-					i: number,
-				) => {
-					const rank = i + 1;
-					const img = a.artworkUrl
-						? `<img alt="${escapeHtml(a.name)}" loading="lazy" width="32" height="32" decoding="async" class="size-8 rounded-full object-cover" src="${escapeAttr(a.artworkUrl)}">`
-						: `<span class="size-8 rounded-full bg-foreground/10 flex shrink-0" aria-hidden="true"></span>`;
-					return `<li class="flex items-center gap-3"><span class="w-5 text-sm text-neutral-500 tabular-nums">${rank}</span>${img}<span class="font-medium">${escapeHtml(a.name)}</span></li>`;
-				},
-			)
-			.join("");
+		artistsEl.replaceChildren(
+			...topArtists.map((a: Artist, i: number) => renderArtist(a, i)),
+		);
 
 		tracksEl.setAttribute("aria-busy", "false");
-		tracksEl.innerHTML = topTracks
-			.map(
-				(
-					t: {
-						name: string;
-						artist: string;
-						count: number;
-						artworkUrl?: string;
-						url?: string;
-					},
-					i: number,
-				) => {
-					const rank = i + 1;
-					const img = t.artworkUrl
-						? `<img alt="${escapeHtml(t.name)}" loading="lazy" width="32" height="32" decoding="async" class="size-8 rounded object-cover" src="${escapeAttr(t.artworkUrl)}">`
-						: `<span class="size-8 rounded bg-foreground/10 flex shrink-0" aria-hidden="true"></span>`;
-					const trackContent = t.url
-						? `<a href="${escapeAttr(t.url)}" target="_blank" rel="noopener noreferrer" class="${linkClass}">${escapeHtml(t.name)}</a>`
-						: `<span class="font-medium">${escapeHtml(t.name)}</span>`;
-					return `<li class="flex items-center gap-3"><span class="w-5 text-sm text-neutral-500 tabular-nums">${rank}</span>${img}<div class="flex flex-col">${trackContent}<span class="text-sm text-neutral-600 dark:text-neutral-400">${escapeHtml(t.artist)}</span></div></li>`;
-				},
-			)
-			.join("");
+		tracksEl.replaceChildren(
+			...topTracks.map((t: Track, i: number) => renderTrack(t, i)),
+		);
 
 		footerEl.textContent = `Based on the last ${totalTracks} tracks played.`;
 	})();
