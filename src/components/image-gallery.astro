@@ -156,7 +156,9 @@ const { images } = Astro.props;
 			const images = JSON.parse(gallery.dataset.images || "[]");
 			const caption = gallery.querySelector<HTMLElement>("[data-caption]");
 
-			if (!(modal && images.length)) return;
+			if (!(modal && images.length > 0)) {
+				return;
+			}
 
 			let index = 0;
 

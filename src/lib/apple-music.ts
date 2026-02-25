@@ -24,7 +24,7 @@ export async function getDeveloperToken(): Promise<string> {
 	const key = await importPKCS8(PRIVATE_KEY, "ES256");
 	const expiresIn = 15_777_000; // 6 months
 
-	const jwt = await new SignJWT({})
+	const jwt = await new SignJWT()
 		.setProtectedHeader({ alg: "ES256", kid: KEY_ID })
 		.setIssuer(TEAM_ID)
 		.setIssuedAt(now)

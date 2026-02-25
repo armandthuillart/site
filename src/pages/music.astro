@@ -49,11 +49,14 @@ try {
 	</div>
 
 	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-		{error ? (
+		{error && (
 			<p class="font-sans text-lg text-red-500">{error}</p>
-		) : (
+		)}
+
+		{!error && (	
 			<>
 				<h2 class="font-serif text-xl font-medium">Top artists</h2>
+
 				<ol class="mt-4 list-decimal pl-5 space-y-1">
 					{topArtists.map((a) => (
 						<li class="font-sans text-lg">
@@ -64,19 +67,21 @@ try {
 				</ol>
 
 				<h2 class="font-serif text-xl font-medium mt-14">Top tracks</h2>
+				
 				<ol class="mt-4 list-decimal pl-5 space-y-1">
 					{topTracks.map((t) => (
 						<li class="font-sans text-lg">
 							{t.name}
-							<span class="text-muted text-base ml-1">— {t.artist}</span>
+							<span class="text-foreground/50 text-base ml-1">— {t.artist}</span>
+							
 							{t.count > 1 && (
-								<span class="text-muted text-base ml-2">({t.count})</span>
+								<span class="text-foreground/50 text-base ml-2">({t.count})</span>
 							)}
 						</li>
 					))}
 				</ol>
 
-				<p class="font-sans text-base text-muted mt-10">
+				<p class="font-sans text-base text-foreground/50 mt-10">
 					Based on the last {totalTracks} tracks played.
 				</p>
 			</>

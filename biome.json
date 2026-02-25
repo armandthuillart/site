@@ -47,6 +47,9 @@
 			],
 			"linter": {
 				"rules": {
+					"complexity": {
+						"noExcessiveLinesPerFunction": "off"
+					},
 					"correctness": {
 						"noUndeclaredVariables": "off",
 						"noUnresolvedImports": "off",
@@ -64,7 +67,10 @@
 						"useSolidForComponent": "off"
 					},
 					"style": {
-						"noImplicitBoolean": "off"
+						"noDefaultExport": "off",
+						"noImplicitBoolean": "off",
+						"noJsxLiterals": "off",
+						"noRestrictedGlobals": "off"
 					}
 				}
 			}
