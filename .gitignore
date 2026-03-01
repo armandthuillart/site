@@ -23,3 +23,5 @@ bun.lockb
 # Environment variables
 .env*.local
 
+# Cloudflare
+.wrangler
