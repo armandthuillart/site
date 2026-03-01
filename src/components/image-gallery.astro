@@ -3,34 +3,62 @@ import { Image } from "astro:assets";
 
 interface Props {
 	images: {
-		url: ImageMetadata;
+		url: ImageMetadata | string;
 		alt: string;
 	}[];
 }
 
 const { images } = Astro.props;
+
+const serialized = images.map((img) => {
+	let src: string;
+
+	if (typeof img.url === "string") {
+		src = img.url;
+	} else {
+		const { src: urlSrc } = img.url;
+		src = urlSrc;
+	}
+
+	return {
+		alt: img.alt,
+		src,
+	};
+});
 ---
 
-<div data-gallery data-images={JSON.stringify(images)}>
+<div data-gallery data-images={JSON.stringify(serialized)}>
 	<div
 		class="relative my-8 block w-full md:left-1/2 md:my-16 md:w-screen md:max-w-6xl md:-translate-x-1/2"
 	>
 		<div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
 			{images.map((image, i) => (
-					<button
-						aria-label={`Open image: ${image.alt}`}
-						class="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
-						data-thumb
-						data-index={i}
-						type="button"
-					>
+				<button
+					aria-label={`Open image: ${image.alt}`}
+					class="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+					data-thumb
+					data-index={i}
+					type="button"
+				>
+					{typeof image.url === "string" && (
+						<Image
+							class="size-full object-cover"
+							alt={image.alt}
+							src={image.url}
+							width={400}
+							height={300}
+						/>
+					)}
+					
+					{typeof image.url !== "string" && (
 						<Image
 							class="size-full object-cover"
 							alt={image.alt}
 							src={image.url}
 						/>
-					</button>
-				))}
+					)}
+				</button>
+			))}
 		</div>
 	</div>
 
@@ -54,12 +82,25 @@ const { images } = Astro.props;
 
 			<div class="relative z-10 aspect-3/2 max-h-[90svh] w-full max-w-6xl">
 				<div class="relative size-full overflow-hidden">
-					<Image
-						src={images[0].url}
-						alt={images[0].alt}
-						class="size-full object-cover"
-						data-image
-					/>
+					{typeof images[0].url === "string" && (
+						<Image
+							src={images[0].url}
+							alt={images[0].alt}
+							class="size-full object-cover"
+							width={800}
+							height={600}
+							data-image
+						/>
+					)}
+					
+					{typeof images[0].url !== "string" && (
+						<Image
+							src={images[0].url}
+							alt={images[0].alt}
+							class="size-full object-cover"
+							data-image
+						/>
+					)}
 
 					<div
 						class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/90 via-black/70 to-transparent p-6 text-center"
@@ -165,7 +206,7 @@ const { images } = Astro.props;
 		const update = () => {
 			const current = images[index];
 			if (img) {
-				img.src = current.url.src;
+				img.src = current.src;
 				img.alt = current.alt;
 			}
 			if (caption) {
