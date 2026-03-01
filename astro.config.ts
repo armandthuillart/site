@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 
 export default defineConfig({
 	adapter: cloudflare({
-		imageService: "cloudflare",
+		imageService: "compile",
 	}),
 	experimental: {
 		contentIntellisense: true,
