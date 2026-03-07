@@ -1,3 +1,4 @@
+// ⚠️ horrible
 import { importPKCS8, SignJWT } from "jose";
 
 const KEY_ID = import.meta.env.APPLE_MUSIC_KEY_ID;
@@ -87,8 +88,8 @@ function resolveArtworkUrl(
 		return;
 	}
 	return artwork.url
-		.replace(/{w}/g, String(size))
-		.replace(/{h}/g, String(size));
+		.replace(/{w}/gu, String(size))
+		.replace(/{h}/gu, String(size));
 }
 
 function fetchAllPages<T>(

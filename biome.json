@@ -13,20 +13,14 @@
 		"enabled": true
 	},
 	"css": {
-		"parser": {
-			"tailwindDirectives": true
-		}
+		"parser": { "tailwindDirectives": true }
 	},
 	"html": {
 		"experimentalFullSupportEnabled": true,
-		"formatter": {
-			"enabled": true
-		}
+		"formatter": { "enabled": true }
 	},
 	"json": {
-		"formatter": {
-			"expand": "always"
-		}
+		"formatter": { "expand": "auto" }
 	},
 	"linter": {
 		"rules": {
@@ -42,9 +36,7 @@
 	},
 	"overrides": [
 		{
-			"includes": [
-				"**"
-			],
+			"includes": ["**"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -79,9 +71,7 @@
 			}
 		},
 		{
-			"includes": [
-				"**/*.astro"
-			],
+			"includes": ["**/*.astro"],
 			"linter": {
 				"rules": {
 					"correctness": {

@@ -8,16 +8,11 @@ import remarkMath from "remark-math";
 
 export default defineConfig({
 	adapter: cloudflare(),
-	experimental: {
-		contentIntellisense: true,
-	},
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		rehypePlugins: [rehypeKatex],
 		remarkPlugins: [remarkMath],
 	},
 	site: "https://armandthuillart.com",
-	vite: {
-		plugins: [tailwindcss()],
-	},
+	vite: { plugins: [tailwindcss()] },
 });

@@ -17,14 +17,8 @@ function normalize(error: unknown): Error {
 
 export async function tryCatch<T>(promise: Promise<T>): Promise<Response<T>> {
 	try {
-		return {
-			data: await promise,
-			error: null,
-		};
+		return { data: await promise, error: null };
 	} catch (error: unknown) {
-		return {
-			data: null,
-			error: normalize(error),
-		};
+		return { data: null, error: normalize(error) };
 	}
 }
