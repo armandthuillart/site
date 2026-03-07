@@ -4,7 +4,7 @@
 		"jose": "^6.2.0"
 	},
 	"devDependencies": {
-		"@astrojs/cloudflare": "^13.0.0-beta.14",
+		"@astrojs/cloudflare": "^12.6.12",
 		"@astrojs/mdx": "^5.0.0-beta.12",
 		"@astrojs/rss": "^4.0.15",
 		"@astrojs/sitemap": "^3.7.0",
