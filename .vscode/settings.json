@@ -1,5 +1,4 @@
 {
-	"astro.content-intellisense": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.biome": "explicit"
 	},
