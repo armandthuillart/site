@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: 'Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions "/commit". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping'
+description: 'Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions "/commit". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Splitting large changes into small commits—one purpose per commit, (4) Intelligent file staging for logical grouping'
 license: MIT
 allowed-tools: Bash
 ---
@@ -64,7 +64,17 @@ git diff
 git status --porcelain
 ```
 
-### 2. Stage Files (if needed)
+### 2. Split large changes: one purpose, one commit
+
+When the working tree or stash contains many files or unrelated changes, **do not commit everything in one commit**. Split by logical purpose:
+
+1. **Group changes** by intent (e.g. "docs only", "fix auth", "remove unused skills", "add tests").
+2. **Commit in sequence**: for each group, stage only those files, write one conventional message, commit, then repeat for the next group.
+3. Use `git add <path>` (or `git add -p` for partial hunks) so each commit contains a single, coherent change.
+
+Example: 20 modified files that are "remove old skills" + "update AGENTS.md" → two commits: first stage and commit the skill deletions, then stage and commit AGENTS.md.
+
+### 3. Stage Files (if needed)
 
 If nothing is staged or you want to group changes differently:
 
@@ -76,21 +86,21 @@ git add path/to/file1 path/to/file2
 git add *.test.*
 git add src/components/*
 
-# Interactive staging
+# Interactive staging (per hunk)
 git add -p
 ```
 
 **Never commit secrets** (.env, credentials.json, private keys).
 
-### 3. Generate Commit Message
+### 4. Generate Commit Message
 
 Analyze the diff to determine:
 
 - **Type**: What kind of change is this?
-- **Scope**: What area/module is affected?
-- **Description**: One-line summary of what changed (present tense, imperative mood, <72 chars)
+- **Scope**: What area/module is affected? Use lowercase (e.g. `agents`, not `AGENTS`).
+- **Description**: One-line summary of what changed (present tense, imperative mood, <72 chars). Keep concise; avoid repeating scope or filename in the description.
 
-### 4. Execute Commit
+### 5. Execute Commit
 
 ```bash
 # Single line
@@ -109,11 +119,11 @@ EOF
 
 ## Best Practices
 
-- One logical change per commit
+- **One purpose, one commit**: split big stashes or large diffs into small, logical commits.
 - Present tense: "add" not "added"
 - Imperative mood: "fix bug" not "fixes bug"
 - Reference issues: `Closes #123`, `Refs #456`
-- Keep description under 72 characters
+- Keep description under 72 characters; scope lowercase
 
 ## Git Safety Protocol
 
