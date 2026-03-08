@@ -40,5 +40,5 @@ bunx <tool>
 ## Git
 
 - Use the `git-commit` skill to commit.
-- Run `git pull` to sync local with origin.
+- After commit, run `git pull` to sync local with origin.
 
