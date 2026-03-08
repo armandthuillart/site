@@ -16,8 +16,8 @@ const serialized = images.map((img) => {
 	if (typeof img.url === "string") {
 		src = img.url;
 	} else {
-		const { src: urlSrc } = img.url;
-		src = urlSrc;
+		const { src: url } = img.url;
+		src = url;
 	}
 
 	return {
