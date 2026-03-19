@@ -1,6 +1,4 @@
-import { MusicKit } from "@/lib/music-kit.ts";
-
-export const prerender = false;
+import { MusicKit } from "@lib/music-kit";
 
 const CACHE_TTL_MINUTES = 10;
 const SECONDS_PER_MINUTE = 60;

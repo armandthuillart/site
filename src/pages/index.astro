@@ -1,5 +1,106 @@
 ---
-import BaseLayout from "@/layouts/base-layout.astro";
+import BaseLayout from "@layouts/base-layout.astro";
+
+const startedCodingOn = new Date("2023-06-13");
+const startedBuildingOn = new Date("2025-04-21");
+
+function getCalendarDuration(from: Date, to: Date) {
+	const start = new Date(from);
+	const end = new Date(to);
+
+	let years = end.getFullYear() - start.getFullYear();
+	let months = end.getMonth() - start.getMonth();
+	let days = end.getDate() - start.getDate();
+
+	if (days < 0) {
+		months -= 1;
+		const daysInPreviousMonth = new Date(
+			end.getFullYear(),
+			end.getMonth(),
+			0,
+		).getDate();
+		days += daysInPreviousMonth;
+	}
+
+	if (months < 0) {
+		years -= 1;
+		months += 12;
+	}
+
+	return { days, months, years };
+}
+
+function getRoundedMonths(from: Date, to: Date) {
+	const { years, months, days } = getCalendarDuration(from, to);
+	const roundedDaysToMonth = days >= 15 ? 1 : 0;
+
+	return years * 12 + months + roundedDaysToMonth;
+}
+
+function getRoundedYears(from: Date, to: Date) {
+	const roundedMonths = getRoundedMonths(from, to);
+
+	return Math.round(roundedMonths / 12);
+}
+
+function toWord(value: number) {
+	const words = [
+		"zero",
+		"one",
+		"two",
+		"three",
+		"four",
+		"five",
+		"six",
+		"seven",
+		"eight",
+		"nine",
+		"ten",
+	];
+
+	if (value >= 0 && value <= 10) {
+		return words[value];
+	}
+
+	return String(value);
+}
+
+function formatYearsInWords(value: number) {
+	const word = toWord(value);
+
+	return `${word} year${value === 1 ? "" : "s"}`;
+}
+
+function formatPastYears(from: Date, to: Date) {
+	const roundedMonths = getRoundedMonths(from, to);
+	const roundedHalfYears = Math.round(roundedMonths / 6) / 2;
+
+	if (roundedHalfYears <= 0.5) {
+		return "half a year";
+	}
+
+	if (Number.isInteger(roundedHalfYears)) {
+		const fullYears = roundedHalfYears;
+		if (fullYears === 1) {
+			return "year";
+		}
+		return `${toWord(fullYears)} years`;
+	}
+
+	const fullYears = Math.floor(roundedHalfYears);
+	if (fullYears === 1) {
+		return "year and a half";
+	}
+
+	return `${toWord(fullYears)} and a half years`;
+}
+
+const now = new Date();
+
+const haveBeenCodingFor = formatYearsInWords(
+	getRoundedYears(startedCodingOn, now),
+);
+const haveBeenBuildingFor = formatPastYears(startedBuildingOn, now);
 ---
 
 <BaseLayout
@@ -38,33 +139,42 @@ import BaseLayout from "@/layouts/base-layout.astro";
 		class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
 	>
 		<p class="font-sans text-lg text-pretty">
-			Currently building two companies. Majoring in business administration
-			aside. I’ve been coding for three years and building for the second half.
+			Currently building
+			<a
+				class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+				href="https://www.rosace.app"
+			>
+				Rosace</a
+			>. Majoring in business administration on the side. I’ve been coding for
+			{haveBeenCodingFor}
+			and have been building for the past {haveBeenBuildingFor}.
 		</p>
 
 		<p class="font-sans text-lg text-pretty">
-			I wear a lot of hats. I'm a student, designer, and developer. All together
-			makes me an entrepreneur who builds things.
+			I wear a lot of hats. I’m a student, designer, and developer. I spend most
+			of my time designing and building for the web.
 		</p>
 
 		<p class="font-sans text-lg text-pretty">
-			I also like art, music, and reading. My wallpaper is a
+			I also care about art, music, and reading. My wallpaper is a
 			<a
 				class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
 				href="/paintings"
 				>painting</a
-			>. I listen to a lot of
+			>. My
 			<a
 				class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
 				href="/music"
 				id="music-link"
-				>music</a
-			>, and read many kinds of
+				>playlists</a
+			>
+			are endless, and so is my
 			<a
 				class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
 				href="/readings"
-				>books</a
-			>.
+				>reading</a
+			>
+			list.
 		</p>
 
 		<p class="font-sans text-lg text-pretty">
@@ -137,57 +247,31 @@ import BaseLayout from "@/layouts/base-layout.astro";
 	<div
 		class="grid gap-10 md:gap-12 col-end-9 col-start-1 lg:col-start-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
 	>
-		<div class="flex flex-col gap-2">
-			<a
-				class="group/card aspect-square flex items-center justify-center bg-muted hover:bg-yellow focus-visible:bg-yellow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-				href="https://neap.app"
-				aria-label="Neap"
+		<a
+			class="group focus-visible:outline-none flex flex-col gap-2"
+			href="https://www.rosace.app"
+		>
+			<div
+				aria-label="Rosace"
+				class="group-focus-visible:text-background aspect-square flex items-center justify-center bg-muted group-focus-visible:bg-foreground group-focus-visible:outline-offset-2 focus-visible:outline-current"
 			>
 				<svg
+					aria-hidden="true"
 					fill="currentColor"
 					xmlns="http://www.w3.org/2000/svg"
-					width="68"
-					height="32"
-					view-box="0 0 68 32"
-					aria-hidden="true"
+					class="size-16"
+					viewBox="0 0 24 24"
 				>
-					<path
-						d="M0 23.5164C11.7242 23.5164 21.1035 12.9629 18.4528 0H27.0844L36.2938 31.9661H27.4582L23.6861 18.4942C19.4723 25.6543 11.4183 31.8303 0 31.9661V23.5164Z"
-						class="group-hover/card:fill-black/90 group-focus-visible/card:fill-black/90"
-					/>
-					<path
-						d="M68 8.48356C56.2758 8.48356 46.8965 19.0371 49.5472 32H40.9156L31.7062 0.033928H40.5418L44.3139 13.5058C48.5277 6.3457 56.5817 0.169671 68 0.033928V8.48356Z"
-						class="group-hover/card:fill-black/90 group-focus-visible/card:fill-black/90"
-					/>
+					<use href="/sprite.svg#rosace" />
 				</svg>
-			</a>
+			</div>
 
-			<p class="font-sans text-base text-pretty">Neap</p>
-		</div>
-
-		<div class="flex flex-col gap-2">
-			<a
-				class="group/card aspect-square flex items-center justify-center bg-muted hover:bg-blue focus-visible:bg-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-				href="https://dome.family"
-				aria-label="Dome"
+			<p
+				class="w-fit font-sans text-base text-pretty decoration-1 underline-offset-4 not-group-hover:not-focus-visible:underline group-active:bg-foreground group-active:text-background"
 			>
-				<svg
-					fill="currentColor"
-					xmlns="http://www.w3.org/2000/svg"
-					width="67"
-					height="32"
-					view-box="0 0 67 32"
-					aria-hidden="true"
-				>
-					<path
-						d="M67 32C67 27.7977 66.1335 23.6365 64.45 19.7541C62.7664 15.8717 60.2988 12.3441 57.1881 9.37258C54.0773 6.40111 50.3843 4.044 46.3199 2.43585C42.2555 0.827704 37.8993 -1.83688e-07 33.5 0C29.1007 1.83688e-07 24.7445 0.827705 20.6801 2.43586C16.6157 4.04401 12.9227 6.40111 9.81192 9.37258C6.70116 12.3441 4.23357 15.8717 2.55003 19.7541C0.866502 23.6365 -3.84597e-07 27.7977 0 32L67 32Z"
-						class="group-hover/card:fill-white group-focus-visible/card:fill-white"
-					/>
-				</svg>
-			</a>
-
-			<p class="font-sans text-base text-pretty">Dome</p>
-		</div>
+				Rosace
+			</p>
+		</a>
 	</div>
 
 	<div class="col-end-9 col-start-1 lg:col-start-3">

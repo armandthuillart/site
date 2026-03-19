@@ -14,5 +14,7 @@ export default defineConfig({
 		remarkPlugins: [remarkMath],
 	},
 	site: "https://armandthuillart.com",
-	vite: { plugins: [tailwindcss()] },
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });

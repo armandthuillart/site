@@ -1,12 +1,16 @@
 ---
-import "@/styles/global.css";
-import ogImage from "@/images/opengraph-image.png";
+import "@styles/global.css";
+import ogImage from "@images/opengraph-image.png";
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+const rssUrl = new URL("rss.xml", Astro.site);
+const ogImageUrl = new URL(ogImage.src, Astro.url);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8">
@@ -15,14 +19,14 @@ const { title } = Astro.props;
 <link
 	rel="alternate"
 	type="application/rss+xml"
-	href={new URL('rss.xml', Astro.site)}
+	href={rssUrl}
 	title="Armand Thuillart"
 >
 
 <link rel="icon" href="/favicon.ico">
 <link rel="manifest" href="/manifest.json">
 <link rel="sitemap" href="/sitemap-index.xml">
-<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)}>
+<link rel="canonical" href={canonicalUrl}>
 
 <title>{title}</title>
 <meta name="title" content={title}>
@@ -31,13 +35,13 @@ const { title } = Astro.props;
 <meta property="og:url" content={Astro.url}>
 <meta property="og:type" content="website">
 <meta property="og:title" content={title}>
-<meta property="og:image" content={new URL(ogImage.src, Astro.url)}>
+<meta property="og:image" content={ogImageUrl}>
 <meta property="og:description" content="Designer and developer.">
 
 <meta property="twitter:url" content={Astro.url}>
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:title" content={title}>
-<meta property="twitter:image" content={new URL(ogImage.src, Astro.url)}>
+<meta property="twitter:image" content={ogImageUrl}>
 <meta property="twitter:description" content="Designer and developer.">
 
 <meta name="color-scheme" content="light dark">

@@ -40,5 +40,6 @@ bunx <tool>
 ## Git
 
 - Use the `git-commit` skill to commit.
+- Prefer **small, focused commits** over large ones.
 - After commit, run `git pull` to sync local with origin.
 

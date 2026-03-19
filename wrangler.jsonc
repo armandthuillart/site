@@ -1,8 +1,10 @@
 {
-	"assets": { "binding": "ASSETS", "directory": "./dist" },
-	"compatibility_date": "2026-03-07",
-	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-	"main": "dist/_worker.js/index.js",
+	"assets": {
+		"directory": "./dist"
+	},
+	"compatibility_date": "2026-03-12",
 	"name": "personal-website",
-	"observability": { "enabled": true }
+	"observability": {
+		"enabled": true
+	}
 }

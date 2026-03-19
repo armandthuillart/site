@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 interface Props {
 	images: {
@@ -27,7 +28,7 @@ const serialized = images.map((img) => {
 });
 ---
 
-<div data-gallery data-images={JSON.stringify(serialized)}>
+<div data-gallery={true} data-images={JSON.stringify(serialized)}>
 	<div
 		class="relative my-8 block w-full md:left-1/2 md:my-16 md:w-screen md:max-w-6xl md:-translate-x-1/2"
 	>
@@ -36,7 +37,7 @@ const serialized = images.map((img) => {
 				<button
 					aria-label={`Open image: ${image.alt}`}
 					class="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
-					data-thumb
+					data-thumb={true}
 					data-index={i}
 					type="button"
 				>
@@ -64,7 +65,7 @@ const serialized = images.map((img) => {
 
 	<dialog
 		class="fixed inset-0 z-50 h-svh max-h-none max-w-none bg-transparent p-0 backdrop:bg-black/60 dark:backdrop:bg-black/90 backdrop:backdrop-blur-[1px]"
-		data-viewer
+		data-viewer={true}
 	>
 		<div
 			class="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none md:px-24"
@@ -77,7 +78,7 @@ const serialized = images.map((img) => {
 				class="absolute inset-0 z-0 cursor-default focus-visible:outline-none"
 				tabindex="-1"
 				aria-hidden="true"
-				data-backdrop
+				data-backdrop={true}
 			/>
 
 			<div class="relative z-10 aspect-3/2 max-h-[90svh] w-full max-w-6xl">
@@ -89,7 +90,7 @@ const serialized = images.map((img) => {
 							class="size-full object-cover"
 							width={800}
 							height={600}
-							data-image
+							data-image={true}
 						/>
 					)}
 
@@ -98,7 +99,7 @@ const serialized = images.map((img) => {
 							src={images[0].url}
 							alt={images[0].alt}
 							class="size-full object-cover"
-							data-image
+							data-image={true}
 						/>
 					)}
 
@@ -107,7 +108,7 @@ const serialized = images.map((img) => {
 					>
 						<p
 							class="text-lg font-serif text-pretty text-background dark:text-foreground"
-							data-caption
+							data-caption={true}
 						/>
 					</div>
 				</div>
@@ -115,7 +116,7 @@ const serialized = images.map((img) => {
 
 			<button
 				aria-label="Close modal"
-				data-close
+				data-close={true}
 				class="absolute size-14 flex items-center justify-center top-4 right-4 z-50 rounded-full text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current"
 				type="button"
 			>
@@ -139,7 +140,7 @@ const serialized = images.map((img) => {
 						<button
 							aria-label="Previous image"
 							class="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current md:top-1/2 md:right-auto md:left-4"
-							data-prev
+							data-prev={true}
 							type="button"
 						>
 							<svg
@@ -161,7 +162,7 @@ const serialized = images.map((img) => {
 
 						<button
 							aria-label="Next image"
-							data-next
+							data-next={true}
 							class="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current md:top-1/2 md:right-4 md:left-auto"
 							type="button"
 						>

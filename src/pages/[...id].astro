@@ -1,17 +1,17 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import CollapsibleVideos from "@/components/collapsible-videos.astro";
-import ImageGallery from "@/components/image-gallery.astro";
-import Anchor from "@/components/mdx/anchor.astro";
-import Blockquote from "@/components/mdx/blockquote.astro";
-import Em from "@/components/mdx/em.astro";
-import H2 from "@/components/mdx/h2.astro";
-import Li from "@/components/mdx/li.astro";
-import Ol from "@/components/mdx/ol.astro";
-import Paragraph from "@/components/mdx/paragraph.astro";
-import Ul from "@/components/mdx/ul.astro";
-import Painting from "@/components/painting.astro";
-import BaseLayout from "@/layouts/base-layout.astro";
+import CollapsibleVideos from "@components/collapsible-videos.astro";
+import ImageGallery from "@components/image-gallery.astro";
+import Anchor from "@components/mdx/anchor.astro";
+import Blockquote from "@components/mdx/blockquote.astro";
+import Em from "@components/mdx/em.astro";
+import H2 from "@components/mdx/h2.astro";
+import Li from "@components/mdx/li.astro";
+import Ol from "@components/mdx/ol.astro";
+import Paragraph from "@components/mdx/paragraph.astro";
+import Ul from "@components/mdx/ul.astro";
+import Painting from "@components/painting.astro";
+import BaseLayout from "@layouts/base-layout.astro";
 
 export async function getStaticPaths() {
 	const collection = await getCollection("blog");

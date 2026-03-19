@@ -1,7 +1,7 @@
 ---
-export const prerender = true;
+import BaseLayout from "@layouts/base-layout.astro";
 
-import BaseLayout from "@/layouts/base-layout.astro";
+export const prerender = true;
 ---
 
 <BaseLayout
@@ -40,7 +40,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 		<p
 			id="music-error"
 			class="font-sans text-lg text-red-500 hidden"
-			data-error
+			data-error={true}
 			aria-hidden="true"
 		/>
 
@@ -93,7 +93,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 	</div>
 
 	<script>
-	import { tryCatch } from "@/lib/utils.ts";
+	import { tryCatch } from "@lib/utils";
 
 	interface Artist {
 		artworkUrl?: string;

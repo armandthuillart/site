@@ -1,19 +1,22 @@
 {
-	"$schema": "https://biomejs.dev/schemas/latest/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
 	"assist": {
 		"actions": {
 			"source": {
 				"noDuplicateClasses": "on",
 				"organizeImports": "on",
+				"useSortedAttributes": "on",
 				"useSortedInterfaceMembers": "on",
 				"useSortedKeys": "on",
 				"useSortedProperties": "on"
 			}
-		},
-		"enabled": true
+		}
 	},
 	"css": {
 		"parser": { "tailwindDirectives": true }
+	},
+	"files": {
+		"includes": ["**"]
 	},
 	"html": {
 		"experimentalFullSupportEnabled": true,
@@ -29,6 +32,7 @@
 			"correctness": "on",
 			"nursery": "on",
 			"performance": "on",
+			"recommended": true,
 			"security": "on",
 			"style": "on",
 			"suspicious": "on"
@@ -38,49 +42,95 @@
 		{
 			"includes": ["**"],
 			"linter": {
+				"domains": {
+					"next": "none",
+					"playwright": "none",
+					"project": "all",
+					"qwik": "none",
+					"react": "all",
+					"solid": "none",
+					"test": "none",
+					"turborepo": "none",
+					"types": "all",
+					"vue": "none"
+				},
 				"rules": {
 					"complexity": {
+						"noExcessiveCognitiveComplexity": "off",
 						"noExcessiveLinesPerFunction": "off"
 					},
 					"correctness": {
-						"noUndeclaredVariables": "off",
+						"noNodejsModules": "off",
+						"noProcessGlobal": "off",
+						"noUndeclaredDependencies": "off",
 						"noUnresolvedImports": "off",
-						"useImportExtensions": "off",
-						"useJsxKeyInIterable": "off",
-						"useQwikValidLexicalScope": "off"
+						"useImportExtensions": "off"
 					},
 					"nursery": {
+						"noExcessiveClassesPerFile": "off",
+						"noExcessiveLinesPerFile": "off",
+						"noFloatingPromises": "off",
+						"noJsxPropsBind": "off",
 						"noLeakedRender": "off",
 						"noShadow": "off",
-						"noUnknownAttribute": "off",
+						"noTernary": "off",
+						"useAwaitThenable": "off",
 						"useExplicitType": "off",
-						"useSortedClasses": "off"
+						"useGlobalThis": "off",
+						"useSortedClasses": { "fix": "safe", "level": "on" },
+						"useVueHyphenatedAttributes": "off"
 					},
 					"performance": {
-						"useSolidForComponent": "off"
+						"noBarrelFile": "off",
+						"useTopLevelRegex": "off"
+					},
+					"security": {
+						"noSecrets": "off"
 					},
 					"style": {
 						"noDefaultExport": "off",
-						"noImplicitBoolean": "off",
 						"noJsxLiterals": "off",
-						"noRestrictedGlobals": "off",
-						"useExportsLast": "off",
+						"noMagicNumbers": "off",
+						"noProcessEnv": "off",
+						"useComponentExportOnlyModules": "off",
+						"useFilenamingConvention": "off",
 						"useNamingConvention": "off"
+					},
+					"suspicious": {
+						"noConsole": "off",
+						"noEmptyBlockStatements": "off",
+						"noImportCycles": "off",
+						"noShadowRestrictedNames": "off",
+						"useAwait": "off"
 					}
 				}
 			}
 		},
 		{
+			"assist": {
+				"actions": {
+					"source": { "useSortedAttributes": "off" }
+				}
+			},
 			"includes": ["**/*.astro"],
 			"linter": {
 				"rules": {
 					"correctness": {
+						"noUndeclaredDependencies": "off",
 						"noUnusedImports": "off",
 						"noUnusedVariables": "off"
 					},
+					"nursery": {
+						"noUnknownAttribute": "off",
+						"useSortedClasses": "off"
+					},
 					"style": {
+						"useConst": "off",
 						"useExportsLast": "off",
 						"useImportType": "off"
+					},
+					"suspicious": {
+						"noUnusedExpressions": "off"
 					}
 				}
 			}

@@ -40,7 +40,7 @@ interface ListTracksOptions {
 	limit?: number;
 }
 
-export interface RotationTrack {
+interface RotationTrack {
 	artist: string;
 	artworkUrl?: string;
 	id: string;
@@ -161,3 +161,5 @@ export class MusicKit {
 		return (await response.json()) as AppleMusicPage;
 	}
 }
+
+export type { RotationTrack };
