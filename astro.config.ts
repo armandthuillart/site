@@ -7,14 +7,14 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
 export default defineConfig({
-	adapter: cloudflare(),
-	integrations: [mdx(), sitemap()],
-	markdown: {
-		rehypePlugins: [rehypeKatex],
-		remarkPlugins: [remarkMath],
-	},
-	site: "https://armandthuillart.com",
-	vite: {
-		plugins: [tailwindcss()],
-	},
+  adapter: cloudflare(),
+  integrations: [mdx(), sitemap()],
+  markdown: {
+    rehypePlugins: [rehypeKatex],
+    remarkPlugins: [remarkMath],
+  },
+  site: "https://armandthuillart.com",
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

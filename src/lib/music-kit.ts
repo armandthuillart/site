@@ -8,158 +8,152 @@ const TOKEN_REFRESH_BUFFER_SECONDS = 60;
 const MILLISECONDS_PER_SECOND = 1000;
 
 interface Credentials {
-	keyId: string;
-	privateKey: string;
-	teamId: string;
-	userToken: string;
+  keyId: string;
+  privateKey: string;
+  teamId: string;
+  userToken: string;
 }
 
 interface CachedDeveloperToken {
-	expiresAt: number;
-	token: string;
+  expiresAt: number;
+  token: string;
 }
 
 interface AppleMusicTrack {
-	attributes: {
-		artistName: string;
-		artwork?: {
-			url: string;
-		};
-		name: string;
-		url?: string;
-	};
-	id: string;
+  attributes: {
+    artistName: string;
+    artwork?: {
+      url: string;
+    };
+    name: string;
+    url?: string;
+  };
+  id: string;
 }
 
 interface AppleMusicPage {
-	data?: AppleMusicTrack[];
-	next?: string;
+  data?: AppleMusicTrack[];
+  next?: string;
 }
 
 interface ListTracksOptions {
-	limit?: number;
+  limit?: number;
 }
 
 interface RotationTrack {
-	artist: string;
-	artworkUrl?: string;
-	id: string;
-	name: string;
-	url?: string;
+  artist: string;
+  artworkUrl?: string;
+  id: string;
+  name: string;
+  url?: string;
 }
 
 let cachedDeveloperToken: CachedDeveloperToken | null = null;
 
 function getCredentials(): Credentials {
-	const keyId = import.meta.env.APPLE_MUSIC_KEY_ID;
-	const privateKey = import.meta.env.APPLE_MUSIC_PRIVATE_KEY;
-	const teamId = import.meta.env.APPLE_MUSIC_TEAM_ID;
-	const userToken = import.meta.env.APPLE_MUSIC_USER_TOKEN;
+  const keyId = import.meta.env.APPLE_MUSIC_KEY_ID;
+  const privateKey = import.meta.env.APPLE_MUSIC_PRIVATE_KEY;
+  const teamId = import.meta.env.APPLE_MUSIC_TEAM_ID;
+  const userToken = import.meta.env.APPLE_MUSIC_USER_TOKEN;
 
-	if (!(keyId && privateKey && teamId)) {
-		throw new Error(
-			"Missing Apple Music credentials: APPLE_MUSIC_KEY_ID, APPLE_MUSIC_PRIVATE_KEY, or APPLE_MUSIC_TEAM_ID.",
-		);
-	}
+  if (!(keyId && privateKey && teamId)) {
+    throw new Error(
+      "Missing Apple Music credentials: APPLE_MUSIC_KEY_ID, APPLE_MUSIC_PRIVATE_KEY, or APPLE_MUSIC_TEAM_ID.",
+    );
+  }
 
-	if (!userToken || userToken === "dummy") {
-		throw new Error("Missing APPLE_MUSIC_USER_TOKEN. Run the auth page first.");
-	}
+  if (!userToken || userToken === "dummy") {
+    throw new Error("Missing APPLE_MUSIC_USER_TOKEN. Run the auth page first.");
+  }
 
-	return { keyId, privateKey, teamId, userToken };
+  return { keyId, privateKey, teamId, userToken };
 }
 
 async function getDeveloperToken(credentials: Credentials): Promise<string> {
-	const now = Math.floor(Date.now() / MILLISECONDS_PER_SECOND);
+  const now = Math.floor(Date.now() / MILLISECONDS_PER_SECOND);
 
-	if (
-		cachedDeveloperToken &&
-		now < cachedDeveloperToken.expiresAt - TOKEN_REFRESH_BUFFER_SECONDS
-	) {
-		return cachedDeveloperToken.token;
-	}
+  if (cachedDeveloperToken && now < cachedDeveloperToken.expiresAt - TOKEN_REFRESH_BUFFER_SECONDS) {
+    return cachedDeveloperToken.token;
+  }
 
-	const privateKey = await importPKCS8(credentials.privateKey, "ES256");
-	const token = await new SignJWT()
-		.setProtectedHeader({ alg: "ES256", kid: credentials.keyId })
-		.setIssuer(credentials.teamId)
-		.setIssuedAt(now)
-		.setExpirationTime(now + TOKEN_LIFETIME_SECONDS)
-		.sign(privateKey);
+  const privateKey = await importPKCS8(credentials.privateKey, "ES256");
+  const token = await new SignJWT()
+    .setProtectedHeader({ alg: "ES256", kid: credentials.keyId })
+    .setIssuer(credentials.teamId)
+    .setIssuedAt(now)
+    .setExpirationTime(now + TOKEN_LIFETIME_SECONDS)
+    .sign(privateKey);
 
-	cachedDeveloperToken = {
-		expiresAt: now + TOKEN_LIFETIME_SECONDS,
-		token,
-	};
+  cachedDeveloperToken = {
+    expiresAt: now + TOKEN_LIFETIME_SECONDS,
+    token,
+  };
 
-	return token;
+  return token;
 }
 
 export class MusicKit {
-	private readonly credentials = getCredentials();
+  private readonly credentials = getCredentials();
 
-	readonly rotation = {
-		tracks: {
-			list: async (options: ListTracksOptions = {}): Promise<RotationTrack[]> =>
-				this.listRotationTracks(options),
-		},
-	};
+  readonly rotation = {
+    tracks: {
+      list: async (options: ListTracksOptions = {}): Promise<RotationTrack[]> =>
+        this.listRotationTracks(options),
+    },
+  };
 
-	private async listRotationTracks(
-		options: ListTracksOptions,
-	): Promise<RotationTrack[]> {
-		const limit = options.limit ?? DEFAULT_TRACK_LIMIT;
-		const tracks: RotationTrack[] = [];
-		let nextPath: string | null = `/v1/me/recent/played/tracks?limit=${limit}`;
+  private async listRotationTracks(options: ListTracksOptions): Promise<RotationTrack[]> {
+    const limit = options.limit ?? DEFAULT_TRACK_LIMIT;
+    const tracks: RotationTrack[] = [];
+    let nextPath: string | null = `/v1/me/recent/played/tracks?limit=${limit}`;
 
-		while (nextPath) {
-			// biome-ignore lint/performance/noAwaitInLoops: Apple Music pagination depends on the previous page response.
-			const page = await this.request(nextPath);
-			const pageTracks = page.data ?? [];
+    while (nextPath) {
+      const page = await this.request(nextPath);
+      const pageTracks = page.data ?? [];
 
-			if (pageTracks.length === 0) {
-				break;
-			}
+      if (pageTracks.length === 0) {
+        break;
+      }
 
-			for (const track of pageTracks) {
-				const { artistName, artwork, name, url } = track.attributes;
-				const artworkUrl = artwork?.url
-					?.replace(/\{w\}/gu, String(ARTWORK_SIZE))
-					.replace(/\{h\}/gu, String(ARTWORK_SIZE));
+      for (const track of pageTracks) {
+        const { artistName, artwork, name, url } = track.attributes;
 
-				tracks.push({
-					artist: artistName,
-					artworkUrl,
-					id: track.id,
-					name,
-					url,
-				});
-			}
+        const artworkUrl = artwork?.url
+          ?.replace(/\{w\}/gu, String(ARTWORK_SIZE))
+          .replace(/\{h\}/gu, String(ARTWORK_SIZE));
 
-			nextPath = page.next ?? null;
-		}
+        tracks.push({
+          artist: artistName,
+          artworkUrl,
+          id: track.id,
+          name,
+          url,
+        });
+      }
 
-		return tracks;
-	}
+      nextPath = page.next ?? null;
+    }
 
-	private async request(path: string): Promise<AppleMusicPage> {
-		const developerToken = await getDeveloperToken(this.credentials);
-		const response = await fetch(new URL(path, API_BASE_URL), {
-			headers: {
-				Authorization: `Bearer ${developerToken}`,
-				"Music-User-Token": this.credentials.userToken,
-			},
-		});
+    return tracks;
+  }
 
-		if (!response.ok) {
-			const message = await response.text();
-			throw new Error(
-				`Apple Music API request failed with ${response.status}: ${message}`,
-			);
-		}
+  private async request(path: string): Promise<AppleMusicPage> {
+    const developerToken = await getDeveloperToken(this.credentials);
 
-		return (await response.json()) as AppleMusicPage;
-	}
+    const response = await fetch(new URL(path, API_BASE_URL), {
+      headers: {
+        Authorization: `Bearer ${developerToken}`,
+        "Music-User-Token": this.credentials.userToken,
+      },
+    });
+
+    if (!response.ok) {
+      const message = await response.text();
+      throw new Error(`Apple Music API request failed with ${response.status}: ${message}`);
+    }
+
+    return (await response.json()) as AppleMusicPage;
+  }
 }
 
 export type { RotationTrack };

@@ -7,7 +7,7 @@ I use it to write, publish, and share things.
 - **Astro**
 - **MDX**
 - **Tailwind CSS**
-- **Cloudflare**
+- **Cloudflare Workers**
 
 ## Development
 
