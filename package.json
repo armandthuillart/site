@@ -18,7 +18,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.2",
     "katex": "^0.16.44",
-    "knip": "^6.0.6",
+    "knip": "^6.1.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "tailwindcss": "^4.2.2",
