@@ -14,68 +14,66 @@ import Painting from "@components/painting.astro";
 import BaseLayout from "@layouts/base-layout.astro";
 
 export async function getStaticPaths() {
-	const collection = await getCollection("blog");
+  const collection = await getCollection("blog");
 
-	return collection.map((post) => ({
-		params: {
-			id: post.id,
-		},
-		props: { post },
-	}));
+  return collection.map((post) => ({
+    params: {
+      id: post.id,
+    },
+    props: { post },
+  }));
 }
 
 interface Props {
-	post: CollectionEntry<"blog">;
+  post: CollectionEntry<"blog">;
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 
 const components = {
-	a: Anchor,
-	blockquote: Blockquote,
-	CollapsibleVideos,
-	em: Em,
-	h2: H2,
-	ImageGallery,
-	li: Li,
-	ol: Ol,
-	Painting,
-	p: Paragraph,
-	ul: Ul,
+  a: Anchor,
+  blockquote: Blockquote,
+  CollapsibleVideos,
+  em: Em,
+  h2: H2,
+  ImageGallery,
+  li: Li,
+  ol: Ol,
+  Painting,
+  p: Paragraph,
+  ul: Ul,
 };
 ---
 
 <BaseLayout headline={post.data.headline} title={post.data.title}>
-	<div class="col-start-1 col-end-9">
-		<a
-			class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
-			href="/"
-			>Go back home
-			<svg
-				fill="none"
-				class="size-4 shrink-0"
-				xmlns="http://www.w3.org/2000/svg"
-				stroke="currentColor"
-				view-box="0 0 16 16"
-				aria-hidden="true"
-				stroke-width="1"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<path
-					class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
-					d="M6 12L10 8L6 4"
-				/>
-				<path
-					class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
-					d="M2 8L13 8"
-				/>
-			</svg></a
-		>
-	</div>
+  <div class="col-start-1 col-end-9">
+    <a
+      class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+      href="/"
+      >Go back home
+      <svg
+        fill="none"
+        class="size-4 shrink-0"
+        xmlns="http://www.w3.org/2000/svg"
+        stroke="currentColor"
+        view-box="0 0 16 16"
+        aria-hidden="true"
+        stroke-width="1"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+          d="M6 12L10 8L6 4"></path>
+        <path
+          class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+          d="M2 8L13 8"></path>
+      </svg></a
+    >
+  </div>
 
-	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-		<Content components={components} />
-	</div>
+  <div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
+    <Content components={components} />
+  </div>
 </BaseLayout>

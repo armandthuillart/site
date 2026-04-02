@@ -3,8 +3,8 @@ const { ...props } = Astro.props;
 ---
 
 <h2
-	{...props}
-	class="not-first:mt-10 mb-4 font-medium font-serif text-pretty text-xl"
+  {...props}
+  class="not-first:mt-10 mb-4 font-medium font-serif text-pretty text-xl"
 >
-	<slot />
+  <slot />
 </h2>

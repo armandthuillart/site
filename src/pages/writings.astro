@@ -3,77 +3,77 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/base-layout.astro";
 
 const posts = (await getCollection("blog")).filter((post) =>
-	Boolean(post.data.date),
+  Boolean(post.data.date),
 );
 
 posts.sort((a, b) => {
-	const dateA = new Date(a.data.date ?? "");
-	const dateB = new Date(b.data.date ?? "");
-	return dateB.getTime() - dateA.getTime();
+  const dateA = new Date(a.data.date ?? "");
+  const dateB = new Date(b.data.date ?? "");
+  return dateB.getTime() - dateA.getTime();
 });
 
 function formatDate(date: Date) {
-	const { format } = new Intl.DateTimeFormat("en-US", {
-		day: "numeric",
-		month: "long",
-		year: "numeric",
-	});
-	return format(date);
+  const { format } = new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  return format(date);
 }
 ---
 
 <BaseLayout
-	headline="Some thoughts and ideas that made it to the internet."
-	title="Writings · Armand Thuillart"
+  headline="Some thoughts and ideas that made it to the internet."
+  title="Writings · Armand Thuillart"
 >
-	<div class="col-start-1 col-end-9">
-		<a
-			class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
-			href="/"
-			>Go back home
-			<svg
-				fill="none"
-				class="size-4 shrink-0"
-				xmlns="http://www.w3.org/2000/svg"
-				stroke="currentColor"
-				view-box="0 0 16 16"
-				aria-hidden="true"
-				stroke-width="1"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<path
-					class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
-					d="M6 12L10 8L6 4"
-				/>
-				<path
-					class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
-					d="M2 8L13 8"
-				/>
-			</svg></a
-		>
-	</div>
+  <div class="col-start-1 col-end-9">
+    <a
+      class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+      href="/"
+      >Go back home
+      <svg
+        fill="none"
+        class="size-4 shrink-0"
+        xmlns="http://www.w3.org/2000/svg"
+        stroke="currentColor"
+        view-box="0 0 16 16"
+        aria-hidden="true"
+        stroke-width="1"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          class="transition-transform duration-100 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1"
+          d="M6 12L10 8L6 4"></path>
+        <path
+          class="opacity-0 transition-opacity duration-100 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+          d="M2 8L13 8"></path>
+      </svg></a
+    >
+  </div>
 
-	<div
-		class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
-	>
-		<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-			<div class="flex flex-col">
-				{posts.map((post) => (
-					<a
-						class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-2 focus-visible:outline-current"
-						href={`/${post.id}`}
-					>
-						<span class="font-sans text-lg text-pretty">
-							{post.data.date && formatDate(post.data.date)}
-						</span>
+  <div
+    class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
+  >
+    <div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
+      <div class="flex flex-col">
+        {
+          posts.map((post) => (
+            <a
+              class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-2 focus-visible:outline-current"
+              href={`/${post.id}`}
+            >
+              <span class="font-sans text-lg text-pretty">
+                {post.data.date && formatDate(post.data.date)}
+              </span>
 
-						<span class="font-sans text-lg text-pretty">
-							{post.data.brief}
-						</span>
-					</a>
-				))}
-			</div>
-		</div>
-	</div>
+              <span class="font-sans text-lg text-pretty">
+                {post.data.brief}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </BaseLayout>

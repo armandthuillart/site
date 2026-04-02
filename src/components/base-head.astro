@@ -3,7 +3,7 @@ import "@styles/global.css";
 import ogImage from "@images/opengraph-image.png";
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -13,59 +13,59 @@ const ogImageUrl = new URL(ogImage.src, Astro.url);
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <link
-	rel="alternate"
-	type="application/rss+xml"
-	href={rssUrl}
-	title="Armand Thuillart"
->
+  rel="alternate"
+  type="application/rss+xml"
+  href={rssUrl}
+  title="Armand Thuillart"
+/>
 
-<link rel="icon" href="/favicon.ico">
-<link rel="manifest" href="/manifest.json">
-<link rel="sitemap" href="/sitemap-index.xml">
-<link rel="canonical" href={canonicalUrl}>
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="canonical" href={canonicalUrl} />
 
 <title>{title}</title>
-<meta name="title" content={title}>
-<meta name="description" content="Designer and developer.">
+<meta name="title" content={title} />
+<meta name="description" content="Designer and developer." />
 
-<meta property="og:url" content={Astro.url}>
-<meta property="og:type" content="website">
-<meta property="og:title" content={title}>
-<meta property="og:image" content={ogImageUrl}>
-<meta property="og:description" content="Designer and developer.">
+<meta property="og:url" content={Astro.url} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:description" content="Designer and developer." />
 
-<meta property="twitter:url" content={Astro.url}>
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content={title}>
-<meta property="twitter:image" content={ogImageUrl}>
-<meta property="twitter:description" content="Designer and developer.">
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:image" content={ogImageUrl} />
+<meta property="twitter:description" content="Designer and developer." />
 
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFF">
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFF" />
 
 <link
-	rel="preload"
-	href="/fonts/die-grotesk-a-regular.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin
->
+  rel="preload"
+  href="/fonts/die-grotesk-a-regular.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 <link
-	rel="preload"
-	href="/fonts/die-grotesk-b-regular.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin
->
+  rel="preload"
+  href="/fonts/die-grotesk-b-regular.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 <link
-	rel="preload"
-	href="/fonts/die-grotesk-b-medium.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin
->
+  rel="preload"
+  href="/fonts/die-grotesk-b-medium.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>

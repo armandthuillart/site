@@ -1,7 +1,10 @@
 {
+  "[astro]": { "editor.defaultFormatter": "astro-build.astro-vscode" },
   "editor.codeActionsOnSave": { "source.fixAll.oxc": "explicit" },
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
+  "files.associations": { "*.css": "tailwindcss" },
+  "json.format.enable": false,
   "oxc.fmt.configPath": "./vite.config.ts"
 }
