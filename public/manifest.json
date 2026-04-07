@@ -7,8 +7,8 @@
     {
       "purpose": "any",
       "sizes": "any",
-      "src": "/favicon.svg",
-      "type": "image/svg+xml"
+      "src": "/favicon.ico",
+      "type": "image/x-icon"
     },
     {
       "purpose": "any",
