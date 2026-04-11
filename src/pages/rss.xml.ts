@@ -1,18 +1,19 @@
-import { getCollection, type CollectionEntry } from "astro:content";
 import rss, { type RSSOptions } from "@astrojs/rss";
+import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
 
-export async function GET() {
-  const blogPosts = await getCollection("blog");
+export const GET: APIRoute = async ({ site }) => {
+  const posts = await getCollection("blog");
 
   const rssOptions: RSSOptions = {
     description: "Designer and developer.",
-    items: blogPosts.map((post: CollectionEntry<"blog">) => ({
+    items: posts.map((post) => ({
       ...post.data,
       link: `${post.id}/`,
     })),
-    site: "https://armandthuillart.com",
     title: "Armand Thuillart",
+    site: site!.href,
   };
 
   return rss(rssOptions);
-}
+};

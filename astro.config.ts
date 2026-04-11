@@ -1,18 +1,46 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "astro/config";
-import rehypeKatex from "rehype-katex";
-import remarkMath from "remark-math";
+import { defineConfig, fontProviders } from "astro/config";
 
 export default defineConfig({
   integrations: [mdx(), sitemap()],
-  markdown: {
-    rehypePlugins: [rehypeKatex],
-    remarkPlugins: [remarkMath],
-  },
+  fonts: [
+    {
+      provider: fontProviders.local(),
+      name: "Die Grotesk B",
+      cssVariable: "--font-die-grotesk-b",
+      options: {
+        variants: [
+          {
+            src: ["./public/fonts/die-grotesk-b-regular.woff2"],
+            weight: 400,
+          },
+          {
+            src: ["./public/fonts/die-grotesk-b-medium.woff2"],
+            weight: 500,
+          },
+        ],
+      },
+    },
+    {
+      provider: fontProviders.local(),
+      name: "Die Grotesk A",
+      cssVariable: "--font-die-grotesk-a",
+      options: {
+        variants: [
+          {
+            src: ["./public/fonts/die-grotesk-a-regular.woff2"],
+            weight: 400,
+          },
+          {
+            src: ["./public/fonts/die-grotesk-a-medium.woff2"],
+            weight: 500,
+          },
+        ],
+      },
+    },
+  ],
   site: "https://armandthuillart.com",
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  vite: { plugins: [tailwindcss()] },
 });

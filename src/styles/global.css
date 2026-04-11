@@ -1,32 +1,14 @@
-@import "katex/dist/katex.min.css";
 @import "tailwindcss";
-
-@font-face {
-  font-family: "Die Grotesk A";
-  font-weight: 400;
-  src: url("/fonts/die-grotesk-a-regular.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Die Grotesk B";
-  font-weight: 400;
-  src: url("/fonts/die-grotesk-b-regular.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Die Grotesk B";
-  font-weight: 500;
-  src: url("/fonts/die-grotesk-b-medium.woff2") format("woff2");
-}
 
 @theme {
   --color-background: var(--background);
   --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-selection: var(--selection);
-  --font-sans: "Die Grotesk A", sans-serif;
-  --font-serif: "Die Grotesk B", serif;
+  --font-sans: var(--font-die-grotesk-a);
+  --font-serif: var(--font-die-grotesk-b);
   --text-4xl: 2.25rem;
   --text-4xl--line-height: 2.375rem;
   --text-5xl: 2.625rem;
@@ -36,7 +18,7 @@
   --text-lg: 1.125rem;
   --text-lg--line-height: 1.5625rem;
   --text-xl: 1.3125rem;
-  --text-xl--line-height: 1.625rem;
+  --text-xl--line-height: 1.875rem;
 }
 
 :root {
@@ -44,6 +26,7 @@
   --border: oklch(30% 0 0);
   --foreground: oklch(30% 0 0);
   --muted: oklch(97.5% 0 0);
+  --muted-foreground: oklch(50% 0 0);
   --selection: oklch(94% 0 0);
 }
 
@@ -53,6 +36,7 @@
     --border: oklch(32% 0 0);
     --foreground: oklch(94.5% 0 0);
     --muted: oklch(23.5% 0 0);
+    --muted-foreground: oklch(60% 0 0);
     --selection: oklch(30% 0 0);
   }
 }

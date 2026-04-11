@@ -1,57 +1,36 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
-import CollapsibleVideos from "@components/collapsible-videos.astro";
-import ImageGallery from "@components/image-gallery.astro";
 import Anchor from "@components/mdx/anchor.astro";
-import Blockquote from "@components/mdx/blockquote.astro";
-import Em from "@components/mdx/em.astro";
-import H2 from "@components/mdx/h2.astro";
-import Li from "@components/mdx/li.astro";
-import Ol from "@components/mdx/ol.astro";
 import Paragraph from "@components/mdx/paragraph.astro";
-import Ul from "@components/mdx/ul.astro";
-import Painting from "@components/painting.astro";
+import Heading2 from "@components/mdx/h2.astro";
 import BaseLayout from "@layouts/base-layout.astro";
+import { getCollection, render } from "astro:content";
+import Education from "@components/education.astro";
+import FAQs from "@components/faqs.astro";
+import Separator from "@components/separator.astro";
+import Projects from "@components/projects.astro";
 
 export async function getStaticPaths() {
-  const collection = await getCollection("blog");
-
-  return collection.map((post) => ({
-    params: {
-      id: post.id,
-    },
-    props: { post },
-  }));
-}
-
-interface Props {
-  post: CollectionEntry<"blog">;
+  return await getCollection("blog").then((posts) =>
+    posts.map((post) => ({
+      params: {
+        id: post.id === "index" ? undefined : post.id,
+      },
+      props: { post },
+    })),
+  );
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
-const components = {
-  a: Anchor,
-  blockquote: Blockquote,
-  CollapsibleVideos,
-  em: Em,
-  h2: H2,
-  ImageGallery,
-  li: Li,
-  ol: Ol,
-  Painting,
-  p: Paragraph,
-  ul: Ul,
-};
 ---
 
-<BaseLayout headline={post.data.headline} title={post.data.title}>
+<BaseLayout title={post.data.title} description={post.data.description}>
   <div class="col-start-1 col-end-9">
     <a
       class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
-      href="/"
-      >Go back home
+      href={post.id === "index" ? "/story" : "/"}
+    >
+      {post.id === "index" ? "My life in 5 minutes" : "Go back home"}
       <svg
         fill="none"
         class="size-4 shrink-0"
@@ -59,7 +38,7 @@ const components = {
         stroke="currentColor"
         view-box="0 0 16 16"
         aria-hidden="true"
-        stroke-width="1"
+        stroke-width={1}
         stroke-linecap="round"
         stroke-linejoin="round"
       >
@@ -74,6 +53,25 @@ const components = {
   </div>
 
   <div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-    <Content components={components} />
+    <Content
+      components={{
+        a: Anchor,
+        p: Paragraph,
+        h2: Heading2,
+      }}
+    />
   </div>
+
+  {
+    post.id === "index" && (
+      <>
+        <Separator />
+        <Projects />
+        <Separator />
+        <Education />
+        <Separator />
+        <FAQs />
+      </>
+    )
+  }
 </BaseLayout>

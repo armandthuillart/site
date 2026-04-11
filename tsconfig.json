@@ -11,5 +11,5 @@
   },
   "exclude": ["dist"],
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*", "src/content/blog/engineering.mdx"]
+  "include": [".astro/types.d.ts", "**/*", "src/content/blog/stack.mdx"]
 }

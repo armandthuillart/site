@@ -1,16 +1,17 @@
 ---
 import "@styles/global.css";
 import ogImage from "@images/opengraph-image.png";
+import { Font } from "astro:assets";
 
 interface Props {
   title: string;
 }
 
-const { title } = Astro.props;
+let { title } = Astro.props;
 
-const rssUrl = new URL("rss.xml", Astro.site);
+title = title + " | Armand Thuillart";
+
 const ogImageUrl = new URL(ogImage.src, Astro.url);
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8" />
@@ -19,14 +20,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 <link
   rel="alternate"
   type="application/rss+xml"
-  href={rssUrl}
+  href={new URL("rss.xml", Astro.site)}
   title="Armand Thuillart"
 />
 
 <link rel="icon" href="/favicon.ico" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<link rel="canonical" href={canonicalUrl} />
+<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 
 <title>{title}</title>
 <meta name="title" content={title} />
@@ -48,24 +49,5 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111" />
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFF" />
 
-<link
-  rel="preload"
-  href="/fonts/die-grotesk-a-regular.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
-<link
-  rel="preload"
-  href="/fonts/die-grotesk-b-regular.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
-<link
-  rel="preload"
-  href="/fonts/die-grotesk-b-medium.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
+<Font cssVariable="--font-die-grotesk-a" preload />
+<Font cssVariable="--font-die-grotesk-b" preload />

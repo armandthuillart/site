@@ -2,29 +2,23 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/base-layout.astro";
 
-const posts = (await getCollection("blog")).filter((post) =>
-  Boolean(post.data.date),
-);
-
-posts.sort((a, b) => {
-  const dateA = new Date(a.data.date ?? "");
-  const dateB = new Date(b.data.date ?? "");
-  return dateB.getTime() - dateA.getTime();
-});
-
-function formatDate(date: Date) {
-  const { format } = new Intl.DateTimeFormat("en-US", {
+function format(date: Date) {
+  const formatter = new Intl.DateTimeFormat("en-US", {
     day: "numeric",
-    month: "long",
     year: "numeric",
+    month: "long",
   });
-  return format(date);
+  return formatter.format(date);
 }
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.id !== "index")
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout
-  headline="Some thoughts and ideas that made it to the internet."
-  title="Writings · Armand Thuillart"
+  title="Writings"
+  description="Some thoughts and ideas that made it to paper."
 >
   <div class="col-start-1 col-end-9">
     <a
@@ -53,27 +47,25 @@ function formatDate(date: Date) {
   </div>
 
   <div
-    class="flex flex-col gap-4 col-start-1 col-end-9 md:col-start-3 xl:col-end-7"
+    class="grid gap-10 md:gap-12 col-end-9 col-start-1 lg:col-start-3 lg:col-end-7 md:grid-cols-2"
   >
-    <div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
-      <div class="flex flex-col">
-        {
-          posts.map((post) => (
-            <a
-              class="first:border-t border-border border-b py-3 grid gap-10 lg:gap-12 grid-cols-2 focus-visible:outline-current"
-              href={`/${post.id}`}
-            >
-              <span class="font-sans text-lg text-pretty">
-                {post.data.date && formatDate(post.data.date)}
-              </span>
+    {
+      posts.map((post) => (
+        <a class="flex flex-col gap-4" href={`/${post.id}`}>
+          <div class="aspect-square bg-muted" />
 
-              <span class="font-sans text-lg text-pretty">
-                {post.data.brief}
+          <div class="flex flex-col gap-3 pr-8">
+            <div class="font-sans text-lg text-pretty">{post.data.title}</div>
+
+            <div class="inline-flex gap-3 text-base">
+              Topic
+              <span class="text-muted-foreground">
+                {format(post.data.pubDate)}
               </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
+            </div>
+          </div>
+        </a>
+      ))
+    }
   </div>
 </BaseLayout>

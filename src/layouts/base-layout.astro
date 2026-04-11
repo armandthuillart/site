@@ -2,11 +2,11 @@
 import BaseHead from "@components/base-head.astro";
 
 interface Props {
-  headline: string | null;
   title: string;
+  description: string;
 }
 
-const { headline, title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <html lang="en" class="antialiased scheme-light-dark">
@@ -54,7 +54,7 @@ const { headline, title } = Astro.props;
           <h1
             class="font-serif col-start-1 col-end-9 text-4xl text-balance md:text-5xl xl:col-end-5"
           >
-            {headline}
+            {description}
           </h1>
 
           <slot />
