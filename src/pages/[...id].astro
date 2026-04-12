@@ -12,6 +12,8 @@ import UnorderedList from "@components/mdx/ul.astro";
 import ListItem from "@components/mdx/li.astro";
 import OrderedList from "@components/mdx/ol.astro";
 import Code from "@components/mdx/code.astro";
+import Blockquote from "@components/mdx/blockquote.astro";
+import Emphasis from "@components/mdx/em.astro";
 
 export async function getStaticPaths() {
   return await getCollection("blog").then((posts) =>
@@ -60,12 +62,14 @@ const { Content } = await render(post);
     <Content
       components={{
         a: Anchor,
-        p: Paragraph,
+        blockquote: Blockquote,
+        code: Code,
+        em: Emphasis,
         h2: Heading2,
         li: ListItem,
         ol: OrderedList,
+        p: Paragraph,
         ul: UnorderedList,
-        code: Code,
       }}
     />
   </div>
