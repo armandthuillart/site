@@ -1,28 +1,23 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@layouts/base-layout.astro";
 
 function format(date: Date) {
   const formatter = new Intl.DateTimeFormat("en-US", {
     month: "long",
     year: "numeric",
+    day: "numeric",
   });
   return formatter.format(date);
 }
 
-const posts = (await getCollection("blog"))
-  .filter((post) => post.id !== "index")
-  .sort(
-    (a, b) =>
-      Math.max(
-        b.data.pubDate.valueOf(),
-        b.data.updatedDate?.valueOf() ?? -Infinity,
-      ) -
-      Math.max(
-        a.data.pubDate.valueOf(),
-        a.data.updatedDate?.valueOf() ?? -Infinity,
-      ),
-  );
+let posts: CollectionEntry<"blog">[] = [];
+
+posts = await getCollection("blog", ({ data }) => {
+  return !!data.date || !!data.topic;
+});
+
+posts = posts.sort((a, b) => b.data.date!.valueOf() - a.data.date!.valueOf());
 ---
 
 <BaseLayout
@@ -60,20 +55,21 @@ const posts = (await getCollection("blog"))
   >
     {
       posts.map((post) => (
-        <a class="flex flex-col gap-4" href={`/${post.id}`}>
+        <a
+          class="focus-visible:outline-none focus-visible:ring-2 flex flex-col gap-4"
+          href={`/${post.id}`}
+        >
           <div class="aspect-square bg-muted" />
 
           <div class="flex flex-col gap-3 pr-8">
             <div class="font-sans text-lg text-pretty">{post.data.title}</div>
 
             <div class="inline-flex gap-3 text-base">
-              <span>{format(post.data.pubDate)}</span>
+              <span>{post.data.topic}</span>
 
-              {post.data.updatedDate && (
-                <span class="text-muted-foreground">
-                  Updated {format(post.data.updatedDate)}
-                </span>
-              )}
+              <span class="text-muted-foreground">
+                {format(post.data.date!)}
+              </span>
             </div>
           </div>
         </a>

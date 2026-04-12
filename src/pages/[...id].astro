@@ -8,6 +8,10 @@ import Education from "@components/education.astro";
 import FAQs from "@components/faqs.astro";
 import Separator from "@components/separator.astro";
 import Projects from "@components/projects.astro";
+import UnorderedList from "@components/mdx/ul.astro";
+import ListItem from "@components/mdx/li.astro";
+import OrderedList from "@components/mdx/ol.astro";
+import Code from "@components/mdx/code.astro";
 
 export async function getStaticPaths() {
   return await getCollection("blog").then((posts) =>
@@ -58,6 +62,10 @@ const { Content } = await render(post);
         a: Anchor,
         p: Paragraph,
         h2: Heading2,
+        li: ListItem,
+        ol: OrderedList,
+        ul: UnorderedList,
+        code: Code,
       }}
     />
   </div>
