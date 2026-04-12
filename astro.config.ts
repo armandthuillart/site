@@ -42,5 +42,8 @@ export default defineConfig({
     },
   ],
   site: "https://armandthuillart.com",
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    // @ts-ignore
+    plugins: [tailwindcss()],
+  },
 });
