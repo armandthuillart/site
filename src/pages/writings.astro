@@ -4,16 +4,25 @@ import BaseLayout from "@layouts/base-layout.astro";
 
 function format(date: Date) {
   const formatter = new Intl.DateTimeFormat("en-US", {
-    day: "numeric",
-    year: "numeric",
     month: "long",
+    year: "numeric",
   });
   return formatter.format(date);
 }
 
 const posts = (await getCollection("blog"))
   .filter((post) => post.id !== "index")
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .sort(
+    (a, b) =>
+      Math.max(
+        b.data.pubDate.valueOf(),
+        b.data.updatedDate?.valueOf() ?? -Infinity,
+      ) -
+      Math.max(
+        a.data.pubDate.valueOf(),
+        a.data.updatedDate?.valueOf() ?? -Infinity,
+      ),
+  );
 ---
 
 <BaseLayout
@@ -58,10 +67,13 @@ const posts = (await getCollection("blog"))
             <div class="font-sans text-lg text-pretty">{post.data.title}</div>
 
             <div class="inline-flex gap-3 text-base">
-              Topic
-              <span class="text-muted-foreground">
-                {format(post.data.pubDate)}
-              </span>
+              <span>{format(post.data.pubDate)}</span>
+
+              {post.data.updatedDate && (
+                <span class="text-muted-foreground">
+                  Updated {format(post.data.updatedDate)}
+                </span>
+              )}
             </div>
           </div>
         </a>
