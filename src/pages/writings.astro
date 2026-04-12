@@ -14,7 +14,7 @@ function format(date: Date) {
 let posts: CollectionEntry<"blog">[] = [];
 
 posts = await getCollection("blog", ({ data }) => {
-  return !!data.date || !!data.topic;
+  return !!data.date && !!data.topic && !data.draft;
 });
 
 posts = posts.sort((a, b) => b.data.date!.valueOf() - a.data.date!.valueOf());
