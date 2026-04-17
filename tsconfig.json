@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "verbatimModuleSyntax": true,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@images/*": ["./src/images/*"],
-      "@layouts/*": ["./src/layouts/*"],
       "@public/*": ["./public/*"],
       "@styles/*": ["./src/styles/*"]
     }
   },
   "exclude": ["dist"],
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*", "src/content/blog/stack.mdx"]
+  "include": [".astro/types.d.ts", "**/*"]
 }

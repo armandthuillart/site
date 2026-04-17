@@ -37,7 +37,7 @@ const serialized = images.map((img) => {
         images.map((image, i) => (
           <button
             aria-label={`Open image: ${image.alt}`}
-            class="cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+            class="focus-visible:outline-foreground cursor-pointer overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2"
             data-thumb={true}
             data-index={i}
             type="button"
@@ -66,7 +66,7 @@ const serialized = images.map((img) => {
   </div>
 
   <dialog
-    class="fixed inset-0 z-50 h-svh max-h-none max-w-none bg-transparent p-0 backdrop:bg-black/60 dark:backdrop:bg-black/90 backdrop:backdrop-blur-[1px]"
+    class="fixed inset-0 z-50 h-svh max-h-none max-w-none bg-transparent p-0 backdrop:bg-black/60 backdrop:backdrop-blur-[1px] dark:backdrop:bg-black/90"
     data-viewer={true}
   >
     <div
@@ -112,7 +112,7 @@ const serialized = images.map((img) => {
             class="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/90 via-black/70 to-transparent p-6 text-center"
           >
             <p
-              class="text-lg font-serif text-pretty text-background dark:text-foreground"
+              class="text-background dark:text-foreground font-serif text-lg text-pretty"
               data-caption={true}
             >
             </p>
@@ -123,7 +123,7 @@ const serialized = images.map((img) => {
       <button
         aria-label="Close modal"
         data-close={true}
-        class="absolute size-14 flex items-center justify-center top-4 right-4 z-50 rounded-full text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current"
+        class="absolute top-4 right-4 z-50 flex size-14 items-center justify-center rounded-full text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
         type="button"
       >
         <svg
@@ -146,7 +146,7 @@ const serialized = images.map((img) => {
           <>
             <button
               aria-label="Previous image"
-              class="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current md:top-1/2 md:right-auto md:left-4"
+              class="absolute right-1/2 bottom-4 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current md:top-1/2 md:right-auto md:left-4"
               data-prev={true}
               type="button"
             >
@@ -170,7 +170,7 @@ const serialized = images.map((img) => {
             <button
               aria-label="Next image"
               data-next={true}
-              class="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current md:top-1/2 md:right-4 md:left-auto"
+              class="absolute bottom-4 left-1/2 z-50 size-fit -translate-y-1/2 rounded-full p-2 text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current md:top-1/2 md:right-4 md:left-auto"
               type="button"
             >
               <svg

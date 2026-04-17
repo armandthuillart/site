@@ -4,7 +4,7 @@ const { ...props } = Astro.props;
 
 <ol
   {...props}
-  class="space-y-[.5em] pl-[2.5ch] [&>li]:list-decimal text-pretty text-lg font-sans"
+  class="space-y-[.5em] pl-[2.5ch] font-sans text-lg text-pretty [&>li]:list-decimal"
 >
   <slot />
 </ol>

@@ -4,7 +4,7 @@ const { ...props } = Astro.props;
 
 <blockquote
   {...props}
-  class="mt-5 not-last:mb-5 border-border border-l-3 pl-3.5 text-lg text-pretty font-sans [&>p]:m-0"
+  class="border-border mt-5 border-l-3 pl-3.5 font-sans text-lg text-pretty not-last:mb-5 [&>p]:m-0"
 >
   <slot />
 </blockquote>

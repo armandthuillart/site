@@ -2,7 +2,7 @@
 import Anchor from "@components/mdx/anchor.astro";
 import Paragraph from "@components/mdx/paragraph.astro";
 import Heading2 from "@components/mdx/h2.astro";
-import BaseLayout from "@layouts/base-layout.astro";
+import BaseLayout from "@components/base-layout.astro";
 import { getCollection, render } from "astro:content";
 import Education from "@components/education.astro";
 import FAQs from "@components/faqs.astro";
@@ -33,7 +33,7 @@ const { Content } = await render(post);
 <BaseLayout title={post.data.title} description={post.data.description}>
   <div class="col-start-1 col-end-9">
     <a
-      class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+      class="group/link active:bg-foreground active:text-background inline-flex items-center gap-1 font-sans text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
       href={post.id === "index" ? "/story" : "/"}
     >
       {post.id === "index" ? "My life in 5 minutes" : "Go back home"}

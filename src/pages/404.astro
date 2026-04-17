@@ -1,19 +1,19 @@
 ---
-import BaseLayout from "@layouts/base-layout.astro";
+import BaseLayout from "@components/base-layout.astro";
 ---
 
 <BaseLayout title="404" description="Page not found">
-  <div class="col-end-9 col-start-1">
+  <div class="col-start-1 col-end-9">
     <p class="font-sans text-lg text-pretty">
       This page couldn't be found. Please go back
       <a
         href="/"
-        class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+        class="active:bg-foreground active:text-background decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
         >home</a
       >
       or create a corresponding <a
         href="https://github.com/thuillart/site/issues/new/"
-        class="decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+        class="active:bg-foreground active:text-background decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
         >issue</a
       >.
     </p>

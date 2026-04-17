@@ -1,6 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
-import BaseLayout from "@layouts/base-layout.astro";
+import BaseLayout from "@components/base-layout.astro";
 
 function format(date: Date) {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -26,7 +26,7 @@ posts = posts.sort((a, b) => b.data.date!.valueOf() - a.data.date!.valueOf());
 >
   <div class="col-start-1 col-end-9">
     <a
-      class="group/link font-sans inline-flex gap-1 items-center text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current active:bg-foreground active:text-background"
+      class="group/link active:bg-foreground active:text-background inline-flex items-center gap-1 font-sans text-lg decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
       href="/"
       >Go back home
       <svg
@@ -51,15 +51,15 @@ posts = posts.sort((a, b) => b.data.date!.valueOf() - a.data.date!.valueOf());
   </div>
 
   <div
-    class="grid gap-10 md:gap-12 col-end-9 col-start-1 lg:col-start-3 lg:col-end-7 md:grid-cols-2"
+    class="col-start-1 col-end-9 grid gap-10 md:grid-cols-2 md:gap-12 lg:col-start-3 lg:col-end-7"
   >
     {
       posts.map((post) => (
         <a
-          class="focus-visible:outline-none focus-visible:ring-2 flex flex-col gap-4"
+          class="flex flex-col gap-4 focus-visible:ring-2 focus-visible:outline-none"
           href={`/${post.id}`}
         >
-          <div class="aspect-square bg-muted" />
+          <div class="bg-muted aspect-square" />
 
           <div class="flex flex-col gap-3 pr-8">
             <div class="font-sans text-lg text-pretty">{post.data.title}</div>

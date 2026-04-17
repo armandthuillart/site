@@ -2,8 +2,6 @@ import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   fmt: {
-    sortImports: true,
-    sortTailwindcss: true,
     sortPackageJson: { sortScripts: true },
   },
   lint: {

@@ -1,6 +1,5 @@
 {
   "assets": { "directory": "./dist" },
   "compatibility_date": "2026-03-12",
-  "name": "personal-website",
-  "observability": { "enabled": true }
+  "name": "personal-website"
 }
