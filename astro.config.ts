@@ -13,11 +13,11 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./public/fonts/die-grotesk-a-regular.woff2"],
+            src: ["./src/assets/fonts/die-grotesk-a-regular.woff2"],
             weight: 400,
           },
           {
-            src: ["./public/fonts/die-grotesk-a-medium.woff2"],
+            src: ["./src/assets/fonts/die-grotesk-a-medium.woff2"],
             weight: 500,
           },
         ],
@@ -30,11 +30,11 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./public/fonts/die-grotesk-b-regular.woff2"],
+            src: ["./src/assets/fonts/die-grotesk-b-regular.woff2"],
             weight: 400,
           },
           {
-            src: ["./public/fonts/die-grotesk-b-medium.woff2"],
+            src: ["./src/assets/fonts/die-grotesk-b-medium.woff2"],
             weight: 500,
           },
         ],
