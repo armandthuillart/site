@@ -4,12 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 
 export default defineConfig({
-  integrations: [mdx(), sitemap()],
   fonts: [
     {
-      provider: fontProviders.local(),
-      name: "Die Grotesk A",
       cssVariable: "--font-die-grotesk-a",
+      name: "Die Grotesk A",
       options: {
         variants: [
           {
@@ -22,11 +20,11 @@ export default defineConfig({
           },
         ],
       },
+      provider: fontProviders.local(),
     },
     {
-      provider: fontProviders.local(),
-      name: "Die Grotesk B",
       cssVariable: "--font-die-grotesk-b",
+      name: "Die Grotesk B",
       options: {
         variants: [
           {
@@ -39,8 +37,10 @@ export default defineConfig({
           },
         ],
       },
+      provider: fontProviders.local(),
     },
   ],
+  integrations: [mdx(), sitemap()],
   site: "https://armandthuillart.com",
   vite: {
     plugins: [tailwindcss()],
