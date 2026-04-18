@@ -1,6 +1,7 @@
 ---
 import "@styles/global.css";
-import ogImage from "@images/opengraph-image.png";
+import { getImage } from "astro:assets";
+import originalImage from "@images/opengraph-image.png";
 import { Font } from "astro:assets";
 
 interface Props {
@@ -13,7 +14,14 @@ if (Astro.url.pathname !== "/") {
   title = title + " · Armand Thuillart";
 }
 
-const ogImageUrl = new URL(ogImage.src, Astro.url);
+const optimizedImage = await getImage({
+  format: "png",
+  height: 630,
+  src: originalImage,
+  width: 1200,
+});
+
+const ogImageUrl = new URL(optimizedImage.src, Astro.url);
 ---
 
 <meta charset="utf-8" />
@@ -39,17 +47,17 @@ const ogImageUrl = new URL(ogImage.src, Astro.url);
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:image" content={ogImageUrl} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content={title} />
 <meta property="og:description" content="Designer and developer." />
 
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:image" content={ogImageUrl} />
-<meta property="twitter:description" content="Designer and developer." />
-
-<meta name="color-scheme" content="light dark" />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFF" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@armandthuillart" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:creator" content="@armandthuillart" />
+<meta name="twitter:description" content="Designer and developer." />
 
 <Font cssVariable="--font-die-grotesk-a" preload />
 <Font cssVariable="--font-die-grotesk-b" preload />
