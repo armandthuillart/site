@@ -1,7 +1,4 @@
-<!-- prettier-ignore -->
 <div align="center">
-
-<img src="./public/apple-touch-icon.png" alt="Armand Thuillart" align="center" height="96" />
 
 # Armand Thuillart
 
