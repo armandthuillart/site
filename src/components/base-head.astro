@@ -48,16 +48,15 @@ const ogImageUrl = new URL(optimizedImage.src, Astro.url);
 <meta property="og:title" content={title} />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content={title} />
+<meta property="og:site_name" content="Armand Thuillart" />
 <meta property="og:description" content="Designer and developer." />
 
-<meta name="twitter:url" content={Astro.url} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@armandthuillart" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:image" content={ogImageUrl} />
 <meta name="twitter:creator" content="@armandthuillart" />
+<meta name="twitter:title" content={title} />
 <meta name="twitter:description" content="Designer and developer." />
+<meta name="twitter:image" content={ogImageUrl} />
 
 <Font cssVariable="--font-die-grotesk-a" preload />
 <Font cssVariable="--font-die-grotesk-b" preload />
