@@ -34,10 +34,10 @@ const ogImageUrl = new URL(optimizedImage.src, Astro.url);
   title="Armand Thuillart"
 />
 
-<link rel="icon" href="/favicon.ico" />
-<link rel="manifest" href="/manifest.json" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 <title>{title}</title>
 <meta name="title" content={title} />

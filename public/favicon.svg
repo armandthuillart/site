@@ -1,0 +1,34 @@
+<svg
+  width="180"
+  height="180"
+  viewBox="0 0 180 180"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    width="180"
+    height="180"
+    rx="90"
+    fill="url(#paint0_linear_9_2)"
+  />
+  <defs>
+    <linearGradient
+      id="paint0_linear_9_2"
+      x1="0"
+      y1="180"
+      x2="180"
+      y2="0"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop
+        stop-color="#FFF176"
+        style="stop-color:#FFF176;stop-color:color(display-p3 1.0000 0.9451 0.4627);stop-opacity:1;"
+      />
+      <stop
+        offset="1"
+        stop-color="#FF7E13"
+        style="stop-color:#FF7E13;stop-color:color(display-p3 1.0000 0.4941 0.0745);stop-opacity:1;"
+      />
+    </linearGradient>
+  </defs>
+</svg>
