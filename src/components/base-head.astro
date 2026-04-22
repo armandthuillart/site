@@ -1,7 +1,6 @@
 ---
 import "@styles/global.css";
-import { getImage } from "astro:assets";
-import originalImage from "@assets/images/opengraph-image.png";
+import ogImage from "@public/og-image.png";
 import { Font } from "astro:assets";
 
 interface Props {
@@ -13,15 +12,6 @@ let { title } = Astro.props;
 if (Astro.url.pathname !== "/") {
   title = title + " · Armand Thuillart";
 }
-
-const optimizedImage = await getImage({
-  format: "png",
-  height: 630,
-  src: originalImage,
-  width: 1200,
-});
-
-const ogImageUrl = new URL(optimizedImage.src, Astro.url);
 ---
 
 <meta charset="utf-8" />
@@ -46,7 +36,7 @@ const ogImageUrl = new URL(optimizedImage.src, Astro.url);
 <meta property="og:url" content={Astro.url} />
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
-<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image" content={ogImage.src} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="Armand Thuillart" />
 <meta property="og:description" content="Designer and developer." />
@@ -56,7 +46,7 @@ const ogImageUrl = new URL(optimizedImage.src, Astro.url);
 <meta name="twitter:creator" content="@armandthuillart" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content="Designer and developer." />
-<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image" content={ogImage.src} />
 
 <Font cssVariable="--font-die-grotesk-a" preload />
 <Font cssVariable="--font-die-grotesk-b" preload />

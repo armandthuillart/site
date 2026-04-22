@@ -2,11 +2,11 @@
 import BaseHead from "@components/base-head.astro";
 
 interface Props {
-  title: string;
   description: string;
+  title: string;
 }
 
-const { title, description } = Astro.props;
+const { description, title } = Astro.props;
 ---
 
 <html lang="en" class="antialiased scheme-light-dark">

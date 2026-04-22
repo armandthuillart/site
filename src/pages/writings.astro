@@ -4,9 +4,9 @@ import BaseLayout from "@layouts/base-layout.astro";
 
 function format(date: Date) {
   const formatter = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
     day: "numeric",
+    year: "numeric",
+    month: "long",
   });
   return formatter.format(date);
 }
