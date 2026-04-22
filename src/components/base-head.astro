@@ -36,7 +36,7 @@ if (Astro.url.pathname !== "/") {
 <meta property="og:url" content={Astro.url} />
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
-<meta property="og:image" content={ogImage.src} />
+<meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="Armand Thuillart" />
 <meta property="og:description" content="Designer and developer." />
@@ -46,7 +46,7 @@ if (Astro.url.pathname !== "/") {
 <meta name="twitter:creator" content="@armandthuillart" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content="Designer and developer." />
-<meta name="twitter:image" content={ogImage.src} />
+<meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
 
 <Font cssVariable="--font-die-grotesk-a" preload />
 <Font cssVariable="--font-die-grotesk-b" preload />
