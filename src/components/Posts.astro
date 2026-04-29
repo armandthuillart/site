@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import { getLocalePostHref } from "@i18n/utils";
+
+interface Props {
+  locale: string;
+  title: string;
+}
+
+let { locale, title } = Astro.props;
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.id.startsWith(`${locale}/`))
+  .filter((post) => !!post.data.date)
+  .sort((a, b) => b.data.date!.valueOf() - a.data.date!.valueOf());
+---
+
+<div class="mt-9 space-y-1.5">
+  <h1 class="text-muted-foreground text-sm font-[460]">{title}</h1>
+
+  <ul class="flex flex-col">
+    {
+      posts.map((post) => (
+        <li>
+          <a
+            class="flex h-9 items-center justify-between gap-4"
+            href={getLocalePostHref(locale, post.id)}
+          >
+            <p class="text-muted-foreground text-sm">2025</p>
+
+            <div class="flex w-full items-center gap-2.5">
+              <div class="border-border flex size-6 shrink-0 items-center justify-center rounded-md border" />
+
+              <div class="flex w-full justify-between">
+                <h1 class="text-primary text-sm font-[460]">
+                  {post.data.title}
+                </h1>
+
+                <p class="text-muted-foreground text-sm max-sm:hidden">
+                  {post.data.description}
+                </p>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

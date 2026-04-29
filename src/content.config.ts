@@ -8,11 +8,10 @@ const blog = defineCollection({
     pattern: "**/*.mdx",
   }),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    topic: z.string().optional(),
     date: z.optional(z.coerce.date()),
-    draft: z.boolean(),
+    description: z.string(),
+    draft: z.optional(z.boolean()),
+    title: z.string(),
   }),
 });
 

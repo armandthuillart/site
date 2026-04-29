@@ -4,39 +4,28 @@
   --color-background: var(--background);
   --color-border: var(--border);
   --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
   --color-selection: var(--selection);
-  --font-sans: var(--font-die-grotesk-a);
-  --font-serif: var(--font-die-grotesk-b);
-  --text-4xl: 2.25rem;
-  --text-4xl--line-height: 2.375rem;
-  --text-5xl: 2.625rem;
-  --text-5xl--line-height: 2.75rem;
-  --text-base: 0.9375rem;
-  --text-base--line-height: 1.375rem;
-  --text-lg: 1.125rem;
-  --text-lg--line-height: 1.5625rem;
-  --text-xl: 1.3125rem;
-  --text-xl--line-height: 1.875rem;
+  --font-sans: var(--font-inter);
 }
 
 :root {
   --background: oklch(100% 0 0);
-  --border: oklch(30% 0 0);
-  --foreground: oklch(30% 0 0);
-  --muted: oklch(97.5% 0 0);
-  --muted-foreground: oklch(50% 0 0);
-  --selection: oklch(94% 0 0);
+  --border: oklch(92.5% 0 0);
+  --foreground: oklch(29.3% 0 0);
+  --muted-foreground: oklch(56.2% 0 0);
+  --primary: oklch(0% 0 0);
+  --selection: oklch(92.5% 0 0);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: oklch(17% 0 0);
-    --border: oklch(32% 0 0);
+    --background: oklch(17.8% 0 0);
+    --border: oklch(29.3% 0 0);
     --foreground: oklch(94.5% 0 0);
-    --muted: oklch(23.5% 0 0);
-    --muted-foreground: oklch(60% 0 0);
-    --selection: oklch(30% 0 0);
+    --muted-foreground: oklch(76.7% 0 0);
+    --primary: oklch(100% 0 0);
+    --selection: oklch(34.1% 0 0);
   }
 }

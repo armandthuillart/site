@@ -1,21 +1,12 @@
 ---
-import BaseLayout from "@layouts/base-layout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="404" description="Page not found">
-  <div class="col-start-1 col-end-9">
-    <p class="font-sans text-lg text-pretty">
-      This page couldn't be found. Please go back
-      <a
-        href="/"
-        class="active:bg-foreground active:text-background decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-        >home</a
-      >
-      or create a corresponding <a
-        href="https://github.com/armandthuillart/site/issues/new/"
-        class="active:bg-foreground active:text-background decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-        >issue</a
-      >.
+<BaseLayout title="Page not found">
+  <article class="space-y-3">
+    <h1 class="text-xl font-medium">Page not found</h1>
+    <p class="text-muted-foreground text-sm">
+      The page you requested does not exist.
     </p>
-  </div>
+  </article>
 </BaseLayout>

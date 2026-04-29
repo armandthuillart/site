@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import Paragraph from "@components/Paragraph.astro";
+import Anchor from "@components/Anchor.astro";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("blog");
+
+  return pages.map((page) => {
+    const [locale, ...slug] = page.id.split("/");
+
+    return {
+      params: {
+        locale: locale ?? "en",
+        slug:
+          locale === "en"
+            ? slug.join("/") || undefined
+            : [locale, ...slug].filter(Boolean).join("/"),
+      },
+      props: {
+        page,
+      },
+    };
+  });
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title}>
+  <article class="space-y-4">
+    <Content components={{ a: Anchor, p: Paragraph }} />
+  </article>
+</BaseLayout>

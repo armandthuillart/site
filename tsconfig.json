@@ -4,6 +4,7 @@
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@layouts/*": ["./src/layouts/*"],
+      "@i18n/*": ["./src/i18n/*"],
       "@public/*": ["./public/*"],
       "@styles/*": ["./src/styles/*"]
     }

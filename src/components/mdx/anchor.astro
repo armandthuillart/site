@@ -1,9 +1,0 @@
----
-const { ...props } = Astro.props;
----
-
-<a
-  aria-label={`Link to ${props.href}`}
-  class="active:bg-foreground active:text-background font-sans text-lg text-pretty decoration-1 underline-offset-4 not-hover:not-focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
-  {...props}><slot /></a
->
