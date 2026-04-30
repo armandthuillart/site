@@ -41,20 +41,14 @@ const { locale = "en" } = Astro.params;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-//
-const posts = await getCollection("blog");
-const alternateLocale = Object.keys(languages).find((value) => value !== lang);
 const [, ...slugParts] = page.id.split("/");
-const alternatePageId = alternateLocale
-  ? [alternateLocale, ...slugParts].join("/")
-  : null;
-const hasAlternatePage = alternatePageId
-  ? posts.some((post) => post.id === alternatePageId)
-  : false;
-const alternateHref =
-  hasAlternatePage && alternateLocale && alternatePageId
-    ? getLocalePostHref(alternateLocale, alternatePageId)
-    : null;
+
+const localeLinks = (
+  Object.keys(languages) as Array<keyof typeof languages>
+).map((localeKey) => ({
+  locale: localeKey,
+  href: getLocalePostHref(localeKey, [localeKey, ...slugParts].join("/")),
+}));
 ---
 
 <BaseLayout title={page.data.title}>
@@ -80,16 +74,27 @@ const alternateHref =
       <div class="flex justify-between">
         <h1 class="text-primary text-sm font-medium">{page.data.title}</h1>
 
-        {
-          alternateHref && alternateLocale && (
-            <a
-              class="text-accent text-xs/5 font-[460] transition-opacity duration-200 hover:opacity-60 dark:hover:opacity-70"
-              href={alternateHref}
-            >
-              {languages[alternateLocale as keyof typeof languages]}
-            </a>
-          )
-        }
+        <div class="text-xs/5">
+          {
+            localeLinks.map((item, index) => (
+              <>
+                {index > 0 && <span class="text-muted-foreground"> / </span>}
+
+                <a
+                  class:list={[
+                    "",
+                    item.locale === lang
+                      ? "text-primary pointer-events-none font-medium"
+                      : "text-muted-foreground transition-opacity duration-200 hover:opacity-60 dark:hover:opacity-70",
+                  ]}
+                  href={item.href}
+                >
+                  {languages[item.locale]}
+                </a>
+              </>
+            ))
+          }
+        </div>
       </div>
 
       <p class="text-muted-foreground text-sm/none font-[460]">
