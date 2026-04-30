@@ -10,7 +10,7 @@ import { getLangFromUrl, getLocalePostHref } from "@i18n/utils";
 import Icon from "@components/Icon.astro";
 import Quotes from "@components/Quotes.astro";
 import Time from "@components/Time.astro";
-import { useTranslations } from "@i18n/utils";
+import { getTranslations } from "@i18n/utils";
 import { defaultLang, languages } from "@i18n/ui";
 
 export async function getStaticPaths() {
@@ -40,7 +40,7 @@ const { locale = "en" } = Astro.params;
 const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "/fr/";
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = getTranslations(lang);
 
 const [, ...slugParts] = page.id.split("/");
 const postPath = slugParts.join("/");

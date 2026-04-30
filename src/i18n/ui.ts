@@ -1,3 +1,5 @@
+export const locales = ["en", "fr"] as const;
+
 export const languages = {
   en: "English",
   fr: "Français",
