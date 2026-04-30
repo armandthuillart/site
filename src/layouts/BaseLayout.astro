@@ -2,19 +2,22 @@
 import "@styles/global.css";
 import { Font } from "astro:assets";
 import ogImage from "@public/og-image.png";
+import { getLangFromUrl } from "@i18n/utils";
 
 interface Props {
   title: string;
 }
 
 let { title } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const ogLocale = lang === "fr" ? "fr_FR" : "en_US";
 
 if (Astro.url.pathname !== "/") {
   title = title + " · Armand Thuillart";
 }
 ---
 
-<html lang="en" class="antialiased scheme-light-dark">
+<html lang={lang} class="antialiased scheme-light-dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -39,7 +42,7 @@ if (Astro.url.pathname !== "/") {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:site_name" content="Armand Thuillart" />
     <meta property="og:description" content="Designer and developer." />
 
@@ -51,6 +54,20 @@ if (Astro.url.pathname !== "/") {
     <meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
 
     <Font cssVariable="--font-inter" preload />
+
+    <script>
+      let style = document.createElement("style");
+      style.textContent = "* { transition: none !important; }";
+
+      let mm = matchMedia("(prefers-color-scheme: dark)");
+
+      mm.addEventListener("change", () => {
+        if (!style.isConnected) document.head.append(style);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => style.remove());
+        });
+      });
+    </script>
   </head>
 
   <body class="bg-background text-foreground selection:bg-selection font-sans">

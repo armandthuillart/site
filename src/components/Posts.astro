@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getLocalePostHref } from "@i18n/utils";
+import Icon from "./Icon.astro";
 
 interface Props {
   locale: string;
@@ -18,32 +19,56 @@ const posts = (await getCollection("blog"))
 <div class="mt-9 space-y-1.5">
   <h1 class="text-muted-foreground text-sm font-[460]">{title}</h1>
 
-  <ul class="flex flex-col">
+  <ul class="group flex flex-col">
     {
-      posts.map((post) => (
-        <li>
-          <a
-            class="flex h-9 items-center justify-between gap-4"
-            href={getLocalePostHref(locale, post.id)}
-          >
-            <p class="text-muted-foreground text-sm">2025</p>
+      posts.map((post, i) => {
+        const currentYear = new Date().getFullYear();
+        const nextPost = posts[i + 1];
+        const nextYear = nextPost
+          ? new Date(nextPost.data.date!).getFullYear()
+          : null;
 
-            <div class="flex w-full items-center gap-2.5">
-              <div class="border-border flex size-6 shrink-0 items-center justify-center rounded-md border" />
+        const showYear = currentYear !== nextYear;
 
-              <div class="flex w-full justify-between">
-                <h1 class="text-primary text-sm font-[460]">
-                  {post.data.title}
-                </h1>
+        return (
+          <li class="transition-opacity duration-200 group-hover:opacity-50 hover:opacity-100">
+            <a
+              class="flex h-9 items-center justify-between gap-4"
+              href={getLocalePostHref(locale, post.id)}
+            >
+              <p
+                class:list={[
+                  "text-muted-foreground text-sm",
+                  showYear && "invisible",
+                ]}
+              >
+                {currentYear}
+              </p>
 
-                <p class="text-muted-foreground text-sm max-sm:hidden">
-                  {post.data.description}
-                </p>
+              <div class="flex w-full items-center gap-2.5">
+                <div class="border-border flex size-6 shrink-0 items-center justify-center rounded-md border">
+                  {post.data.icon && (
+                    <Icon
+                      class="text-accent group-hover:text-muted-foreground size-4 transition-colors duration-200"
+                      name={post.data.icon}
+                    />
+                  )}
+                </div>
+
+                <div class="flex w-full justify-between">
+                  <h1 class="text-primary text-sm font-[460]">
+                    {post.data.title}
+                  </h1>
+
+                  <p class="text-muted-foreground text-sm opacity-80 transition-opacity duration-200 group-hover:opacity-100 max-sm:hidden">
+                    {post.data.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-      ))
+            </a>
+          </li>
+        );
+      })
     }
   </ul>
 </div>

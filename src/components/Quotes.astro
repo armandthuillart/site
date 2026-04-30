@@ -1,0 +1,15 @@
+---
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const quotes = Object.values(t("quotes"));
+const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+---
+
+<p
+  class="text-accent dark:text-muted-foreground/50 inline-flex text-xs font-[460]"
+>
+  {randomQuote}
+</p>

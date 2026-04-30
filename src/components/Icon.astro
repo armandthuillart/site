@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"svg"> {
+  name: string;
+}
+
+const { name, ...props } = Astro.props;
+---
+
+<svg
+  aria-hidden="true"
+  fill="currentColor"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+  {...props}
+>
+  <use href={`/sprites.svg#${name}`}></use>
+</svg>

@@ -1,0 +1,10 @@
+---
+const { ...props } = Astro.props;
+---
+
+<li
+  {...props}
+  class="text-foreground marker:text-primary pl-[.5em] text-sm font-[460] marker:font-medium"
+>
+  <slot />
+</li>
