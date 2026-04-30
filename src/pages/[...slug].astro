@@ -54,7 +54,7 @@ const localeLinks = (
 <BaseLayout title={page.data.title}>
   {
     Astro.url.pathname !== "/" && Astro.url.pathname !== "/fr/" && (
-      <aside class="static top-0 md:fixed md:translate-y-28 md:max-xl:-translate-x-30 xl:-translate-x-60">
+      <aside class="static top-0 w-fit max-md:mb-8 md:fixed md:translate-y-28 md:max-xl:-translate-x-30 xl:-translate-x-60">
         <a
           class="text-muted-foreground relative flex items-center gap-1 text-sm transition-opacity duration-200 before:absolute before:-inset-4 hover:opacity-60 dark:hover:opacity-70"
           href={getLocalePostHref(locale, "/")}
