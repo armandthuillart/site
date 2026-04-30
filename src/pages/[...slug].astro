@@ -11,7 +11,7 @@ import Icon from "@components/Icon.astro";
 import Quotes from "@components/Quotes.astro";
 import Time from "@components/Time.astro";
 import { useTranslations } from "@i18n/utils";
-import { languages } from "@i18n/ui";
+import { defaultLang, languages } from "@i18n/ui";
 
 export async function getStaticPaths() {
   const pages = await getCollection("blog");
@@ -37,27 +37,29 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { Content } = await render(page);
 const { locale = "en" } = Astro.params;
+const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "/fr/";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const [, ...slugParts] = page.id.split("/");
+const postPath = slugParts.join("/");
 
 const localeLinks = (
   Object.keys(languages) as Array<keyof typeof languages>
 ).map((localeKey) => ({
   locale: localeKey,
-  href: getLocalePostHref(localeKey, [localeKey, ...slugParts].join("/")),
+  href: getLocalePostHref(localeKey, `${localeKey}/${postPath}`),
 }));
 ---
 
 <BaseLayout title={page.data.title}>
   {
-    Astro.url.pathname !== "/" && Astro.url.pathname !== "/fr/" && (
+    !isHomePage && (
       <aside class="static top-0 w-fit max-md:mb-8 md:fixed md:translate-y-28 md:max-xl:-translate-x-30 xl:-translate-x-60">
         <a
           class="text-muted-foreground relative flex items-center gap-1 text-sm transition-opacity duration-200 before:absolute before:-inset-4 hover:opacity-60 dark:hover:opacity-70"
-          href={getLocalePostHref(locale, "/")}
+          href={lang === defaultLang ? "/" : `/${lang}/`}
         >
           <Icon class="size-2.5" name="arrow-u-down-left" />
 
@@ -120,7 +122,7 @@ const localeLinks = (
     />
 
     {
-      (Astro.url.pathname === "/" || Astro.url.pathname === "/fr/") && (
+      isHomePage && (
         <div class="mt-11.5 flex flex-col">
           <Quotes />
           <Time />

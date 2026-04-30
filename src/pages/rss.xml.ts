@@ -2,16 +2,18 @@ import rss, { type RSSOptions } from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
+import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
+
 export const GET: APIRoute = async ({ site }) => {
   const posts = await getCollection("blog");
 
   const rssOptions: RSSOptions = {
-    description: "Designer and developer.",
+    description: SITE_DESCRIPTION,
     items: posts.map((post) => ({
       ...post.data,
       link: `${post.id}/`,
     })),
-    title: "Armand Thuillart",
+    title: SITE_NAME,
     site: site!.href,
   };
 

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getLocalePostHref } from "@i18n/utils";
-import Icon from "./Icon.astro";
+import Icon from "@components/Icon.astro";
 
 interface Props {
   locale: string;
@@ -10,9 +10,10 @@ interface Props {
 
 let { locale, title } = Astro.props;
 
+const currentYear = new Date().getFullYear();
+
 const posts = (await getCollection("blog"))
-  .filter((post) => post.id.startsWith(`${locale}/`))
-  .filter((post) => !!post.data.date)
+  .filter((post) => post.id.startsWith(`${locale}/`) && post.data.date)
   .sort((a, b) => b.data.date!.valueOf() - a.data.date!.valueOf());
 ---
 
@@ -22,13 +23,13 @@ const posts = (await getCollection("blog"))
   <ul class="group flex flex-col">
     {
       posts.map((post, i) => {
-        const currentYear = new Date().getFullYear();
         const nextPost = posts[i + 1];
         const nextYear = nextPost
           ? new Date(nextPost.data.date!).getFullYear()
           : null;
 
-        const showYear = currentYear !== nextYear;
+        const hideYear = currentYear !== nextYear;
+        const postYear = post.data.date?.getFullYear();
 
         return (
           <li class="transition-opacity duration-200 group-hover:opacity-50 hover:opacity-100">
@@ -39,10 +40,10 @@ const posts = (await getCollection("blog"))
               <p
                 class:list={[
                   "text-muted-foreground text-sm",
-                  showYear && "invisible",
+                  hideYear && "invisible",
                 ]}
               >
-                {currentYear}
+                {postYear}
               </p>
 
               <div class="flex w-full items-center gap-2.5">

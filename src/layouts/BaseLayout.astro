@@ -3,6 +3,7 @@ import "@styles/global.css";
 import { Font } from "astro:assets";
 import ogImage from "@public/og-image.png";
 import { getLangFromUrl } from "@i18n/utils";
+import { SITE_DESCRIPTION, SITE_NAME } from "@lib/site";
 
 interface Props {
   title: string;
@@ -13,7 +14,7 @@ const lang = getLangFromUrl(Astro.url);
 const ogLocale = lang === "fr" ? "fr_FR" : "en_US";
 
 if (Astro.url.pathname !== "/") {
-  title = title + " · Armand Thuillart";
+  title = `${title} · ${SITE_NAME}`;
 }
 ---
 
@@ -26,7 +27,7 @@ if (Astro.url.pathname !== "/") {
       rel="alternate"
       type="application/rss+xml"
       href={new URL("rss.xml", Astro.site)}
-      title="Armand Thuillart"
+      title={SITE_NAME}
     />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -36,21 +37,21 @@ if (Astro.url.pathname !== "/") {
 
     <title>{title}</title>
     <meta name="title" content={title} />
-    <meta name="description" content="Designer and developer." />
+    <meta name="description" content={SITE_DESCRIPTION} />
 
     <meta property="og:url" content={Astro.url} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
     <meta property="og:locale" content={ogLocale} />
-    <meta property="og:site_name" content="Armand Thuillart" />
-    <meta property="og:description" content="Designer and developer." />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:description" content={SITE_DESCRIPTION} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@armandthuillart" />
     <meta name="twitter:creator" content="@armandthuillart" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content="Designer and developer." />
+    <meta name="twitter:description" content={SITE_DESCRIPTION} />
     <meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
 
     <Font cssVariable="--font-inter" preload />

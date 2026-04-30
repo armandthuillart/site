@@ -1,6 +1,5 @@
+import { ui, defaultLang } from "@i18n/ui";
 import { getRelativeLocaleUrl } from "astro:i18n";
-
-import { ui, defaultLang } from "./ui";
 
 export function getLangFromUrl(url: URL) {
   const [, lang] = url.pathname.split("/");
@@ -10,7 +9,13 @@ export function getLangFromUrl(url: URL) {
 
 export function getLocalePostHref(locale: string, postId: string) {
   const [, ...slug] = postId.split("/");
-  return getRelativeLocaleUrl(locale, slug.join("/"));
+  const path = slug.join("/");
+
+  if (path === "" || path === "index") {
+    return locale === defaultLang ? "/" : `${getRelativeLocaleUrl(locale, "")}/`;
+  }
+
+  return getRelativeLocaleUrl(locale, path);
 }
 
 export function useTranslations(lang: keyof typeof ui) {
