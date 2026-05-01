@@ -1,6 +1,6 @@
-export const locales = ["en", "fr"] as const;
+const locales = ["en", "fr"] as const;
 
-export const languages = {
+export const languages: Record<(typeof locales)[number], string> = {
   en: "English",
   fr: "Français",
 };
