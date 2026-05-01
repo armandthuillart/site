@@ -2,18 +2,17 @@ import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
-import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
-
 export const GET: APIRoute = async ({ site }) => {
-  const posts = await getCollection("blog");
+  if (!site) throw new Error("Astro 'site' must be configured for RSS.");
+  const feed = await getCollection("blog");
 
   return rss({
-    description: SITE_DESCRIPTION,
-    items: posts.map((post) => ({
-      ...post.data,
-      link: `${post.id}/`,
+    description: "Designer and developer.",
+    items: feed.map((item) => ({
+      ...item.data,
+      link: `${item.id}/`,
     })),
-    title: SITE_NAME,
-    site: site!.href,
+    title: "Armand Thuillart",
+    site: site.href,
   });
 };

@@ -3,8 +3,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 
-import { defaultLang, locales } from "./src/i18n/ui";
-
 export default defineConfig({
   fonts: [
     {
@@ -15,11 +13,8 @@ export default defineConfig({
     },
   ],
   i18n: {
-    locales: [...locales],
-    defaultLocale: defaultLang,
-    routing: {
-      prefixDefaultLocale: false,
-    },
+    locales: ["en", "fr"],
+    defaultLocale: "en",
   },
   integrations: [mdx(), sitemap()],
   site: "https://armandthuillart.com",

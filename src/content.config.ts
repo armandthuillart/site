@@ -7,13 +7,14 @@ const blog = defineCollection({
     base: "./src/content/blog",
     pattern: "**/*.mdx",
   }),
-  schema: z.object({
-    date: z.optional(z.coerce.date()),
-    icon: z.optional(z.string()),
-    draft: z.optional(z.boolean()),
-    title: z.string(),
-    description: z.string(),
-  }),
+  schema: () =>
+    z.object({
+      date: z.optional(z.coerce.date()),
+      icon: z.optional(z.string()),
+      draft: z.optional(z.boolean()),
+      title: z.string(),
+      description: z.string(),
+    }),
 });
 
 export const collections = { blog };

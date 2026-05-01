@@ -2,19 +2,20 @@
 import "@styles/global.css";
 import { Font } from "astro:assets";
 import ogImage from "@public/og-image.png";
-import { getLangFromUrl } from "@i18n/utils";
-import { SITE_DESCRIPTION, SITE_NAME } from "@lib/site";
+import { getLangFromURL } from "@i18n/utils";
 
 interface Props {
   title: string;
 }
 
 let { title } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
-const ogLocale = lang === "fr" ? "fr_FR" : "en_US";
 
-if (Astro.url.pathname !== "/") {
-  title = `${title} · ${SITE_NAME}`;
+const lang = getLangFromURL(Astro.url);
+const ogLocale = lang === "fr" ? "fr_FR" : "en_US";
+const isIndexPage = Astro.url.pathname === "/" || Astro.url.pathname === "/fr/";
+
+if (!isIndexPage) {
+  title = `${title} · "Armand Thuillart"`;
 }
 ---
 
@@ -27,31 +28,41 @@ if (Astro.url.pathname !== "/") {
       rel="alternate"
       type="application/rss+xml"
       href={new URL("rss.xml", Astro.site)}
-      title={SITE_NAME}
+      title="Armand Thuillart"
     />
-
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="/favicon-dark.svg"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      href="/favicon-light.svg"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: light)"
+    />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <title>{title}</title>
     <meta name="title" content={title} />
-    <meta name="description" content={SITE_DESCRIPTION} />
+    <meta name="description" content="Designer and developer." />
 
     <meta property="og:url" content={Astro.url} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
     <meta property="og:locale" content={ogLocale} />
-    <meta property="og:site_name" content={SITE_NAME} />
-    <meta property="og:description" content={SITE_DESCRIPTION} />
+    <meta property="og:site_name" content="Armand Thuillart" />
+    <meta property="og:description" content="Designer and developer." />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@armandthuillart" />
     <meta name="twitter:creator" content="@armandthuillart" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={SITE_DESCRIPTION} />
+    <meta name="twitter:description" content="Designer and developer." />
     <meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
 
     <Font cssVariable="--font-inter" preload />

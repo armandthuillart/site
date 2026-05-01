@@ -3,63 +3,76 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
 import Paragraph from "@components/Paragraph.astro";
 import Anchor from "@components/Anchor.astro";
-import Heading2 from "@components/Heading2.astro";
+import HeadingTwo from "@components/HeadingTwo.astro";
 import ListItem from "@components/ListItem.astro";
 import OrderedList from "@components/OrderedList.astro";
-import { getLangFromUrl, getLocalePostHref } from "@i18n/utils";
+import { getLangFromURL, getLocalePostHref, parsePageId } from "@i18n/utils";
 import Icon from "@components/Icon.astro";
-import Quotes from "@components/Quotes.astro";
-import Time from "@components/Time.astro";
+import Footer from "@components/Footer.astro";
 import { getTranslations } from "@i18n/utils";
-import { defaultLang, languages } from "@i18n/ui";
+import { languages } from "@i18n/ui";
+import Navigation from "@components/Navigation.astro";
 
 export async function getStaticPaths() {
   const pages = await getCollection("blog");
 
   return pages.map((page) => {
-    const [locale, ...slug] = page.id.split("/");
+    const { locale, parts } = parsePageId(page.id);
+
+    const slug =
+      locale === "en"
+        ? parts.join("/") || undefined
+        : [locale, ...parts].join("/");
 
     return {
-      params: {
-        locale: locale ?? "en",
-        slug:
-          locale === "en"
-            ? slug.join("/") || undefined
-            : [locale, ...slug].filter(Boolean).join("/"),
-      },
-      props: {
-        page,
-      },
+      params: { slug },
+      props: { page },
     };
   });
 }
 
 const { page } = Astro.props;
 const { Content } = await render(page);
-const { locale = "en" } = Astro.params;
-const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "/fr/";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromURL(Astro.url);
+
+function toMonthYear(date: Date) {
+  const locale = lang === "fr" ? "fr-FR" : "en-US";
+
+  const formatter = new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+  });
+  return formatter.format(date);
+}
+
+const index = Astro.url.pathname === "/" || Astro.url.pathname === "/fr/";
+
 const t = getTranslations(lang);
 
-const [, ...slugParts] = page.id.split("/");
-const postPath = slugParts.join("/");
+const { path } = parsePageId(page.id);
 
-const localeLinks = (
-  Object.keys(languages) as Array<keyof typeof languages>
-).map((localeKey) => ({
-  locale: localeKey,
-  href: getLocalePostHref(localeKey, `${localeKey}/${postPath}`),
+const locales = Object.keys(languages).map((locale) => ({
+  locale,
+  href: getLocalePostHref(locale, `${locale}/${path}`),
 }));
+
+const components = {
+  a: Anchor,
+  h2: HeadingTwo,
+  li: ListItem,
+  ol: OrderedList,
+  p: Paragraph,
+};
 ---
 
 <BaseLayout title={page.data.title}>
   {
-    !isHomePage && (
+    !index && (
       <aside class="static top-0 w-fit max-md:mb-8 md:fixed md:translate-y-28 md:max-xl:-translate-x-30 xl:-translate-x-60">
         <a
           class="text-muted-foreground relative flex items-center gap-1 text-sm transition-opacity duration-200 before:absolute before:-inset-4 hover:opacity-60 dark:hover:opacity-70"
-          href={lang === defaultLang ? "/" : `/${lang}/`}
+          href={lang === "en" ? "/" : `/${lang}/`}
         >
           <Icon class="size-2.5" name="arrow-u-down-left" />
 
@@ -72,13 +85,13 @@ const localeLinks = (
   }
 
   <article class="space-y-4">
-    <div class="mb-6 space-y-1">
+    <div class:list={["space-y-1", index ? "mb-6" : "mb-7"]}>
       <div class="flex justify-between">
         <h1 class="text-primary text-sm font-medium">{page.data.title}</h1>
 
         <div class="text-xs/5">
           {
-            localeLinks.map((item, index) => (
+            locales.map((item, index) => (
               <>
                 {index > 0 && <span class="text-muted-foreground"> / </span>}
 
@@ -91,7 +104,7 @@ const localeLinks = (
                   ]}
                   href={item.href}
                 >
-                  {languages[item.locale]}
+                  {languages[item.locale as keyof typeof languages]}
                 </a>
               </>
             ))
@@ -99,35 +112,13 @@ const localeLinks = (
         </div>
       </div>
 
-      <p class="text-muted-foreground text-sm/none font-[460]">
-        {
-          page.data.date
-            ? new Date(page.data.date).toLocaleString("en-US", {
-                month: "long",
-                year: "numeric",
-              })
-            : "Design Engineer"
-        }
+      <p class="text-muted-foreground text-sm/none font-[460] capitalize">
+        {page.data.date ? toMonthYear(page.data.date) : "Design Engineer"}
       </p>
     </div>
 
-    <Content
-      components={{
-        a: Anchor,
-        h2: Heading2,
-        li: ListItem,
-        ol: OrderedList,
-        p: Paragraph,
-      }}
-    />
+    <Content components={components} />
 
-    {
-      isHomePage && (
-        <div class="mt-11.5 flex flex-col">
-          <Quotes />
-          <Time />
-        </div>
-      )
-    }
+    {index ? <Footer /> : <Navigation />}
   </article>
 </BaseLayout>

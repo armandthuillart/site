@@ -3,7 +3,7 @@
     "build": "astro build",
     "check": "astro check",
     "deploy": "wrangler deploy",
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "preview": "astro preview"
   },
   "dependencies": {
